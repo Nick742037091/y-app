@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "y-app",
   "description": "模仿X",
-  "appid": "touristappid",
+  "appid": "wx09eb7b71813d72ff",
   "setting": {
     "urlCheck": true,
     "es6": false,
