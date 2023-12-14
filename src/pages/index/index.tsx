@@ -6,12 +6,17 @@ definePageConfig({
   navigationStyle: 'custom',
   navigationBarTextStyle: 'black'
 })
-
+const List = () =>
+  Array.from({ length: 100 }).map((_, index) => (
+    <View key={index}>列表项-{index + 1}</View>
+  ))
 export default function Index() {
   return (
     <View>
       <NavigationBar />
-      <View css={{ height: '5000px' }}></View>
+      <View css={{ lineHeight: 2 }}>
+        <List />
+      </View>
     </View>
   )
 }

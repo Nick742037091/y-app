@@ -1,7 +1,9 @@
 import { View } from '@fower/taro'
 import { isH5 } from '@/utils'
-import Taro from '@tarojs/taro'
+import Taro, { usePageScroll } from '@tarojs/taro'
+import { useState } from 'react'
 
+const statusBarHeight = isH5 ? 0 : Taro.getWindowInfo()?.statusBarHeight ?? 0
 /**
  * 沉浸式页面顶部
  * @param props
@@ -10,35 +12,77 @@ import Taro from '@tarojs/taro'
 const ImmersionTop = (props: {
   navigationHeight?: number
   backgroundColor?: string
+  transitionTime?: number
   children: any
 }) => {
-  const statusBarHeight = isH5 ? 0 : Taro.getWindowInfo()?.statusBarHeight ?? 0
   const navigationHeight = props.navigationHeight || 50
-  const backgroundColor = props.backgroundColor || 'white'
-  const height = statusBarHeight + navigationHeight
-  const children = props.children
-  // 沉浸式导航栏高度=状态栏高度+导航栏高度
-  // 设置为fixed布局，padding-top为沉浸式导航栏高度
+  // 导航栏过渡动画时间，默认300ms
+  const transitionTime = props.transitionTime || 300
+  const totalHeight = statusBarHeight + navigationHeight
   // 若状态栏文字颜色为白色，需要设置背景颜色
-  const mainStyles: CSSObject = {
-    height: height + 'px',
-    backgroundColor,
-    paddingTop: statusBarHeight + 'px',
-    boxSizing: 'border-box',
+  const backgroundColor = props.backgroundColor || 'white'
+  const children = props.children
+  // 导航栏垂直位移距离
+  const [navigationTranslateY, setNavigationTranslateY] = useState(0)
+  // 当前页面滚动高度
+  const [scrollTop, setScrollTop] = useState(0)
+  const SHOW_SCROLL_DELTA_Y = 30
+  // 监听页面滚动，根据滚动距离，设置导航栏的transform: translateY()
+  usePageScroll((info) => {
+    const deltaY = info.scrollTop - scrollTop
+    if (deltaY < -SHOW_SCROLL_DELTA_Y) {
+      // 单次向上滚动距离超过30px，就显示导航栏
+      setNavigationTranslateY(0)
+    } else {
+      const newTranTranslateY = navigationTranslateY + deltaY
+      setNavigationTranslateY(newTranTranslateY < 0 ? 0 : newTranTranslateY)
+    }
+    setScrollTop(info.scrollTop)
+  })
+  // 导航栏固定布局
+  const navigationStyles: CSSObject = {
+    position: 'fixed',
     left: '0px',
     right: '0px',
-    zIndex: 1
+    top: statusBarHeight + 'px',
+    zIndex: 1,
+    height: navigationHeight + 'px',
+    // 通过transform: translateY()将导航栏移动到状态栏下方，并设置transform动画
+    transform: `translateY(-${navigationTranslateY}px)`,
+    transition: `transform ${transitionTime}ms ease-out`,
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor,
+    borderBottom: '1px solid #e5e5e5'
   }
   return (
     <>
-      {/* 固定布局吸顶 */}
-      <View fixed flex toCenterY css={mainStyles}>
-        {children}
-      </View>
-      {/* 静态布局，放在文档中撑起沉浸式页面顶部高度 */}
-      <View css={{ height: height + 'px' }}></View>
+      <StatusBarPosition
+        height={statusBarHeight}
+        backgroundColor={backgroundColor}
+      />
+      <View css={navigationStyles}>{children}</View>
+      {/* 导航栏高度占位，置于正常文档流之中 */}
+      <View css={{ height: totalHeight + 'px' }} />
     </>
   )
+}
+
+// 状态栏高度占位，固定布局，层级在导航栏之上，避免导航栏遮挡，不会覆盖系统状态信息
+const StatusBarPosition = (props: {
+  height: number
+  backgroundColor: string
+}) => {
+  const style: CSSObject = {
+    position: 'fixed',
+    left: '0px',
+    right: '0px',
+    top: '0px',
+    zIndex: 2,
+    height: props.height + 'px',
+    backgroundColor: props.backgroundColor
+  }
+  return <View css={style} />
 }
 
 export default ImmersionTop

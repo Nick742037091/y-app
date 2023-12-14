@@ -3,7 +3,15 @@ import { Image, Text, View } from '@fower/taro'
 import SettingIcon from '@/assets/icons/index/setting.png'
 import { isH5 } from '@/utils'
 
-export default function NavigationBar(props: {}) {
+const SettingButton = () => {
+  return (
+    <View mr-10px p-10px flex>
+      <Image src={SettingIcon} circle-20px />
+    </View>
+  )
+}
+
+export default function NavigationBar({}) {
   const profile =
     'https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg'
   return (
@@ -12,11 +20,7 @@ export default function NavigationBar(props: {}) {
       <Text ml-auto mr-auto>
         Y
       </Text>
-      {isH5 ? (
-        <Image src={SettingIcon} circle-30px mr-10px />
-      ) : (
-        <View circle-30px mr-10px />
-      )}
+      {isH5 ? <SettingButton /> : <View circle-30px mr-10px />}
     </ImmersionTop>
   )
 }
