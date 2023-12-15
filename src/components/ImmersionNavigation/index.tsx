@@ -24,6 +24,7 @@ const ImmersionTop = (props: {
   const children = props.children
   // 导航栏垂直位移距离
   const [navigationTranslateY, setNavigationTranslateY] = useState(0)
+  console.log('navigationTranslateY', navigationTranslateY)
   // 当前页面滚动高度
   const [scrollTop, setScrollTop] = useState(0)
   const SHOW_SCROLL_DELTA_Y = 30
@@ -34,8 +35,14 @@ const ImmersionTop = (props: {
       // 单次向上滚动距离超过30px，就显示导航栏
       setNavigationTranslateY(0)
     } else {
-      const newTranTranslateY = navigationTranslateY + deltaY
-      setNavigationTranslateY(newTranTranslateY < 0 ? 0 : newTranTranslateY)
+      // 保证位移距离在0~navigationHeight之间
+      let newTranTranslateY = navigationTranslateY + deltaY
+      if (newTranTranslateY < 0) {
+        newTranTranslateY = 0
+      } else if (newTranTranslateY > navigationHeight) {
+        newTranTranslateY = navigationHeight
+      }
+      setNavigationTranslateY(newTranTranslateY)
     }
     setScrollTop(info.scrollTop)
   })
