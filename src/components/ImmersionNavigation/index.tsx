@@ -24,7 +24,6 @@ const ImmersionTop = (props: {
   const children = props.children
   // 导航栏垂直位移距离
   const [navigationTranslateY, setNavigationTranslateY] = useState(0)
-  console.log('navigationTranslateY', navigationTranslateY)
   // 当前页面滚动高度
   const [scrollTop, setScrollTop] = useState(0)
   const SHOW_SCROLL_DELTA_Y = 30
