@@ -1,7 +1,7 @@
 import { View } from '@fower/taro'
 import { isH5 } from '@/utils'
 import Taro, { usePageScroll } from '@tarojs/taro'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const statusBarHeight = isH5 ? 0 : Taro.getWindowInfo()?.statusBarHeight ?? 0
 /**
@@ -25,25 +25,30 @@ const ImmersionTop = (props: {
   // 导航栏垂直位移距离
   const [navigationTranslateY, setNavigationTranslateY] = useState(0)
   // 当前页面滚动高度
-  const [scrollTop, setScrollTop] = useState(0)
+  const scrollTop = useRef(0)
   const SHOW_SCROLL_DELTA_Y = 30
   // 监听页面滚动，根据滚动距离，设置导航栏的transform: translateY()
   usePageScroll((info) => {
-    const deltaY = info.scrollTop - scrollTop
-    if (deltaY < -SHOW_SCROLL_DELTA_Y) {
-      // 单次向上滚动距离超过30px，就显示导航栏
-      setNavigationTranslateY(0)
+    const deltaY = info.scrollTop - scrollTop.current
+    if (deltaY > 0) {
+      // 向下滚动，逐渐隐藏导航栏，位移距离不能大于导航栏高度
+      setNavigationTranslateY(
+        Math.min(navigationTranslateY + deltaY, navigationHeight)
+      )
     } else {
-      // 保证位移距离在0~navigationHeight之间
-      let newTranTranslateY = navigationTranslateY + deltaY
-      if (newTranTranslateY < 0) {
-        newTranTranslateY = 0
-      } else if (newTranTranslateY > navigationHeight) {
-        newTranTranslateY = navigationHeight
+      // 向上滚动
+      if (scrollTop.current > navigationHeight) {
+        // 当前滚动距离超过导航栏高度，快速滚动才会显示导航栏
+        if (deltaY < -SHOW_SCROLL_DELTA_Y) {
+          // 单次向上滚动距离超过30px，就显示导航栏
+          setNavigationTranslateY(0)
+        }
+      } else {
+        // 滚动到顶部，逐渐显示导航栏，位移距离不能小于0
+        setNavigationTranslateY(Math.min(navigationTranslateY + deltaY, 0))
       }
-      setNavigationTranslateY(newTranTranslateY)
     }
-    setScrollTop(info.scrollTop)
+    scrollTop.current = info.scrollTop
   })
   // 导航栏固定布局
   const navigationStyles: CSSObject = {
