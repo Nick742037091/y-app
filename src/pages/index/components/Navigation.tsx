@@ -2,7 +2,9 @@ import ImmersionTop from '@/components/ImmersionNavigation'
 import { Image, Text, View } from '@fower/taro'
 import SettingIcon from '@/assets/icons/index/setting.png'
 import { isH5 } from '@/utils'
-import { useState } from 'react'
+import { useContext } from 'react'
+
+import { HomeTabContext } from '../context'
 
 const profile =
   'https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg'
@@ -33,45 +35,50 @@ const tabList: {
     key: TAB_FOLLOWING
   }
 ]
-const Footer = (props: { tabKey: TAB_KEY }) => {
-  const dotStyle: CSSObject = {
+const Footer = () => {
+  const [tabKey, setTabKey] = useContext(HomeTabContext)
+
+  const tabIndex = tabList.findIndex((item) => item.key === tabKey)
+  const dotWrapperLeft = (tabIndex / tabList.length) * 100 + '%'
+  const dotWrapperWidth = 100 / tabList.length + '%'
+  const dotWrapperStyle: CSSObject = {
     position: 'absolute',
     bottom: '0px',
-    left: '50%',
-    transform: 'translateX(-50%)',
+    left: dotWrapperLeft,
+    width: dotWrapperWidth,
+    transition: 'left 0.3s ease'
+  }
+  const dotStyle: CSSObject = {
     width: '56px',
     height: '4px',
     borderRadius: '2px',
-    // TODO 主题颜色
-    backgroundColor: 'rgb(29, 155, 240)'
+    backgroundColor: '#1d9bf0'
   }
   return (
-    <View flex toCenterY>
+    <View flex toCenterY relative text-15px>
       {tabList.map((item) => (
         <View
           key={item.key}
           flex-1
           flex
           toCenter
-          relative
-          text-15px
           css={{ height: FOOTER_HEIGHT + 'px' }}
+          onClick={() => setTabKey(item.key)}
         >
           {item.title}
-          {props.tabKey === item.key && <View css={dotStyle} />}
         </View>
       ))}
+      {/* 不要在函数内再创建函数式组件，因为每次都会创建函数，相当于一个新的组件，不会复用元素，因此transition会失效 */}
+      <View css={dotWrapperStyle} flex toCenter>
+        <View css={dotStyle} />
+      </View>
     </View>
   )
 }
 
 export default function NavigationBar() {
-  const [tabKey] = useState<TAB_KEY>(0)
   return (
-    <ImmersionTop
-      footer={<Footer tabKey={tabKey} />}
-      footerHeight={FOOTER_HEIGHT}
-    >
+    <ImmersionTop footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
       <Image src={profile} circle-40px ml-10px />
       <Text ml-auto mr-auto>
         Y

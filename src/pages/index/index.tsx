@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Image, View } from '@fower/taro'
-import NavigationBar from './components/Navigation'
+import NavigationBar, { TAB_RECOMMEND } from './components/Navigation'
+import { HomeTabContext } from './context'
 
 definePageConfig({
   navigationBarTitleText: '首页',
@@ -17,12 +19,15 @@ const List = () =>
     </View>
   ))
 export default function Index() {
+  const [tab, setTab] = useState(TAB_RECOMMEND)
   return (
-    <View>
-      <NavigationBar />
-      <View css={{ lineHeight: 2 }}>
-        <List />
+    <HomeTabContext.Provider value={[tab, setTab]}>
+      <View>
+        <NavigationBar />
+        <View css={{ lineHeight: 2 }}>
+          <List />
+        </View>
       </View>
-    </View>
+    </HomeTabContext.Provider>
   )
 }
