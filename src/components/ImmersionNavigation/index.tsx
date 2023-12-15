@@ -14,19 +14,27 @@ const ImmersionTop = (props: {
   backgroundColor?: string
   transitionTime?: number
   children: any
+  footer?: any
+  footerHeight?: number
 }) => {
   const navigationHeight = props.navigationHeight || 50
+  const footerHeight = props.footerHeight || 0
   // 导航栏过渡动画时间，默认300ms
   const transitionTime = props.transitionTime || 300
-  const totalHeight = statusBarHeight + navigationHeight
-  // 若状态栏文字颜色为白色，需要设置背景颜色
-  const backgroundColor = props.backgroundColor || 'white'
+  const totalHeight = statusBarHeight + navigationHeight + footerHeight
+  // 若状态栏文字颜色为白色，需要设置背景颜色，透明度用于实现玻璃效果，
+  const backgroundColor = props.backgroundColor || 'rgba(255,255,255,0.85)'
   const children = props.children
+  const footer = props.footer
+
   // 导航栏垂直位移距离
   const [navigationTranslateY, setNavigationTranslateY] = useState(0)
   // 当前页面滚动高度
   const [scrollTop, setScrollTop] = useState(0)
   const SHOW_SCROLL_DELTA_Y = 30
+  // 导航栏透明度
+  const navigationOpacity =
+    ((navigationHeight - navigationTranslateY) / navigationHeight) * 100
   // 监听页面滚动，根据滚动距离，设置导航栏的transform: translateY()
   usePageScroll((info) => {
     const deltaY = info.scrollTop - scrollTop
@@ -52,14 +60,15 @@ const ImmersionTop = (props: {
     right: '0px',
     top: statusBarHeight + 'px',
     zIndex: 1,
-    height: navigationHeight + 'px',
+    height: navigationHeight + footerHeight + 'px',
     // 通过transform: translateY()将导航栏移动到状态栏下方，并设置transform动画
     transform: `translateY(-${navigationTranslateY}px)`,
-    transition: `transform ${transitionTime}ms ease-out`,
-    display: 'flex',
-    alignItems: 'center',
+    opacity: navigationOpacity,
+    transition: `all ${transitionTime}ms ease-out`,
     backgroundColor,
-    borderBottom: '1px solid #e5e5e5'
+    borderBottom: '1px solid #e5e5e5',
+    // 玻璃效果
+    backdropFilter: 'blur(12px)'
   }
   return (
     <>
@@ -67,7 +76,12 @@ const ImmersionTop = (props: {
         height={statusBarHeight}
         backgroundColor={backgroundColor}
       />
-      <View css={navigationStyles}>{children}</View>
+      <View css={navigationStyles}>
+        <View flex toCenterY css={{ height: navigationHeight + 'px' }}>
+          {children}
+        </View>
+        {footer}
+      </View>
       {/* 导航栏高度占位，置于正常文档流之中 */}
       <View css={{ height: totalHeight + 'px' }} />
     </>

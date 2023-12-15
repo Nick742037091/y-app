@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
 import { setConfig } from '@fower/core'
 
-setConfig({ unit: 'px' })
+setConfig({ unit: 'px', fontSize: '14px' })
 
 function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {

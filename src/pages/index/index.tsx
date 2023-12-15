@@ -1,4 +1,4 @@
-import { View } from '@fower/taro'
+import { Image, View } from '@fower/taro'
 import NavigationBar from './components/Navigation'
 
 definePageConfig({
@@ -8,7 +8,13 @@ definePageConfig({
 })
 const List = () =>
   Array.from({ length: 100 }).map((_, index) => (
-    <View key={index}>列表项-{index + 1}</View>
+    <View key={index}>
+      列表项-{index + 1}{' '}
+      <Image
+        circle-40px
+        src="https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg"
+      />
+    </View>
   ))
 export default function Index() {
   return (
