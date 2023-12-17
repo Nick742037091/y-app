@@ -4,7 +4,7 @@
   "description": "模仿X",
   "appid": "wx09eb7b71813d72ff",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": false,
     "enhance": false,
     "compileHotReLoad": false,
