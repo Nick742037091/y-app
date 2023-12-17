@@ -1,9 +1,9 @@
 import ImmersionTop from '@/components/ImmersionNavigation'
+import Icon from '@/components/Icon/index'
 import { Image, Text, View } from '@fower/taro'
-import SettingIcon from '@/assets/icons/index/setting.png'
-import { isH5 } from '@/utils'
 import { useContext } from 'react'
-
+import { isH5 } from '@/utils'
+import { colorBlue } from '@/styles/variables'
 import { HomeTabContext } from '../context'
 
 const profile =
@@ -11,8 +11,8 @@ const profile =
 
 const SettingButton = () => {
   return (
-    <View mr-10px p-10px flex>
-      <Image src={SettingIcon} circle-20px />
+    <View w-40px h-40px flex toCenter mr-10px p-10px>
+      <Icon name="home-setting" size={20} />
     </View>
   )
 }
@@ -52,7 +52,7 @@ const Footer = () => {
     width: '56px',
     height: '4px',
     borderRadius: '2px',
-    backgroundColor: '#1d9bf0'
+    backgroundColor: colorBlue
   }
   return (
     <View flex toCenterY relative text-15px>

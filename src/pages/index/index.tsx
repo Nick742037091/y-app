@@ -1,31 +1,43 @@
 import { useState } from 'react'
-import { Image, View } from '@fower/taro'
+import { View } from '@fower/taro'
+import { PostItem } from '@/apis/post/types'
 import NavigationBar, { TAB_RECOMMEND } from './components/Navigation'
 import { HomeTabContext } from './context'
+import { PostList } from './components/PostList'
 
 definePageConfig({
   navigationBarTitleText: '首页',
   navigationStyle: 'custom',
   navigationBarTextStyle: 'black'
 })
-const List = () =>
-  Array.from({ length: 100 }).map((_, index) => (
-    <View key={index}>
-      列表项-{index + 1}{' '}
-      <Image
-        circle-40px
-        src="https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg"
-      />
-    </View>
-  ))
+
 export default function Index() {
   const [tab, setTab] = useState(TAB_RECOMMEND)
+  const [postList, setPostList] = useState<PostItem[]>([])
+  const getPostList = async () => {
+    setTimeout(() => {
+      const list = Array.from({ length: 20 }).map((_) => ({
+        id: Math.random().toString(16).slice(2),
+        nickName: 'xxxx',
+        fullname: 'xxxx',
+        avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        createtime: new Date().toISOString(),
+        content: 'hello world',
+        commentNum: 122,
+        shareNum: 12,
+        likeNum: 12,
+        viewNum: 100
+      }))
+      setPostList(list)
+    }, 1000)
+  }
+  getPostList()
   return (
     <HomeTabContext.Provider value={[tab, setTab]}>
       <View>
         <NavigationBar />
         <View css={{ lineHeight: 2 }}>
-          <List />
+          <PostList postList={postList} />
         </View>
       </View>
     </HomeTabContext.Provider>

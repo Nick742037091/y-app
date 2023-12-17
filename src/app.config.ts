@@ -1,3 +1,5 @@
+import { useGlobalIconFont } from './components/Iconfont/helper'
+
 export default defineAppConfig({
   pages: [
     'pages/index/index',
@@ -12,7 +14,8 @@ export default defineAppConfig({
     navigationBarTitleText: 'Y',
     navigationBarTextStyle: 'white'
   },
-  usingComponents: {},
+  /* eslint-disable */
+  usingComponents: { ...useGlobalIconFont() },
   tabBar: {
     color: '#000000',
     selectedColor: '#000',
