@@ -1,10 +1,9 @@
 import ImmersionTop from '@/components/ImmersionNavigation'
 import Icon from '@/components/Icon/index'
 import { Image, Text, View } from '@fower/taro'
-import { useContext } from 'react'
 import { isH5 } from '@/utils'
 import { colorBlue } from '@/styles/variables'
-import { HomeTabContext } from '../context'
+import { useTabStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 
 const profile =
   'https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg'
@@ -19,12 +18,9 @@ const SettingButton = () => {
 
 const FOOTER_HEIGHT = 40
 
-export type TAB_KEY = 0 | 1
-export const TAB_RECOMMEND: TAB_KEY = 0
-export const TAB_FOLLOWING: TAB_KEY = 1
 const tabList: {
   title: string
-  key: TAB_KEY
+  key: TAB
 }[] = [
   {
     title: '为你推荐',
@@ -36,9 +32,8 @@ const tabList: {
   }
 ]
 const Footer = () => {
-  const [tabKey, setTabKey] = useContext(HomeTabContext)
-
-  const tabIndex = tabList.findIndex((item) => item.key === tabKey)
+  const [tab, setTab] = useTabStore((state) => [state.tab, state.setTab])
+  const tabIndex = tabList.findIndex((item) => item.key === tab)
   const dotWrapperLeft = (tabIndex / tabList.length) * 100 + '%'
   const dotWrapperWidth = 100 / tabList.length + '%'
   const dotWrapperStyle: CSSObject = {
@@ -63,7 +58,7 @@ const Footer = () => {
           flex
           toCenter
           css={{ height: FOOTER_HEIGHT + 'px' }}
-          onClick={() => setTabKey(item.key)}
+          onClick={() => setTab(item.key)}
         >
           {item.title}
         </View>
