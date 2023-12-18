@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { View } from '@fower/taro'
 import { PostItem } from '@/apis/post/types'
-import NavigationBar, { TAB_RECOMMEND } from './components/Navigation'
-import { HomeTabContext } from './context'
+import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
 
 definePageConfig({
@@ -12,7 +11,6 @@ definePageConfig({
 })
 
 export default function Index() {
-  const [tab, setTab] = useState(TAB_RECOMMEND)
   const [postList, setPostList] = useState<PostItem[]>([])
   const getPostList = async () => {
     setTimeout(() => {
@@ -33,13 +31,11 @@ export default function Index() {
   }
   getPostList()
   return (
-    <HomeTabContext.Provider value={[tab, setTab]}>
-      <View>
-        <NavigationBar />
-        <View css={{ lineHeight: 2 }}>
-          <PostList postList={postList} />
-        </View>
+    <View>
+      <NavigationBar />
+      <View css={{ lineHeight: 2 }}>
+        <PostList postList={postList} />
       </View>
-    </HomeTabContext.Provider>
+    </View>
   )
 }
