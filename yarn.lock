@@ -2076,6 +2076,42 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
+"@taro-hooks/ahooks@2.0.8", "@taro-hooks/ahooks@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/@taro-hooks/ahooks/-/ahooks-2.0.8.tgz#0325940360e09f3f3727d00891ac0b36bbc99f60"
+  integrity sha512-uIT3fyCETwT57r4h/NuMHeMEfn0QnnWHB8YvexCzA5hNZtvuXUBx4qmVSyidGc7aPMCvKS98ffaJCXn8aYRTog==
+  dependencies:
+    "@taro-hooks/shared" "2.0.8"
+    lodash-wechat "^1.0.0"
+
+"@taro-hooks/blueimp-canvas-to-blob@2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/@taro-hooks/blueimp-canvas-to-blob/-/blueimp-canvas-to-blob-2.0.8.tgz#786f72eacc47e33df0f4edd18f95e91c61e92636"
+  integrity sha512-pfFWkVeE6fzBo5uv7i6n+0E4EuwHv6a1XFC054rS+jJcWTSq1NXyDZhPgdEw6W8Am5LvZnRRuwWA+oyDgj2L4A==
+
+"@taro-hooks/compressorjs@2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/@taro-hooks/compressorjs/-/compressorjs-2.0.8.tgz#70e55f63d94032ba908b1640d27e47d1e45338f5"
+  integrity sha512-K9qGRv+NZtWMKmbucf9oS7IxknHfu0olGpG12XQ5Yoj9xWlWz12HYXffx5X46wCBWDp1dfw9WUmmyhBMhyrLxA==
+  dependencies:
+    "@taro-hooks/blueimp-canvas-to-blob" "2.0.8"
+    is-blob "^2.1.0"
+
+"@taro-hooks/shared@2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/@taro-hooks/shared/-/shared-2.0.8.tgz#051e53b8a9b25cf8765d97e0e8a33e7d7b9e426a"
+  integrity sha512-JRd+eVyRUJDrATDwIgeZt7wHgFclQygtMJFNH4qDoBjqFm2tFJ2MK1TFTgU1M2IIV/9nApPLdkNesnqlT0zEPQ==
+
+"@taro-hooks/use-request@2.0.8", "@taro-hooks/use-request@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/@taro-hooks/use-request/-/use-request-2.0.8.tgz#6b22f955139dd3bfa2186d33d6e95d00037e0218"
+  integrity sha512-CRyD1I80PV0riFkvBl2XZ/1yAWl74WMniwgUS69RHiD5RXn+fGI63MaB3pe97lBLpoHVSoTWCaxLLHADcWeV5Q==
+  dependencies:
+    "@taro-hooks/ahooks" "2.0.8"
+    "@taro-hooks/shared" "2.0.8"
+    lodash-wechat "^1.0.0"
+    taro-hooks "2.0.8"
+
 "@tarojs/api@3.6.17":
   version "3.6.17"
   resolved "https://registry.npmmirror.com/@tarojs/api/-/api-3.6.17.tgz#4f0d738b2aa0a9a36d58fa7837e1b19af84a7a4f"
@@ -7936,6 +7972,11 @@ is-binary-path@~2.1.0:
   dependencies:
     binary-extensions "^2.0.0"
 
+is-blob@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmmirror.com/is-blob/-/is-blob-2.1.0.tgz#e36cd82c90653f1e1b930f11baf9c64216a05385"
+  integrity sha512-SZ/fTft5eUhQM6oF/ZaASFDEdbFVe89Imltn9uZr03wdKMcWNVYSMjQPFtg05QuNkt5l5c135ElvXEQG0rk4tw==
+
 is-boolean-object@^1.1.0:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/is-boolean-object/-/is-boolean-object-1.1.2.tgz#5c6dc200246dd9321ae4b885a114bb1f75f63719"
@@ -9234,6 +9275,11 @@ lodash-es@4.17.21:
   version "4.17.21"
   resolved "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
+lodash-wechat@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/lodash-wechat/-/lodash-wechat-1.0.0.tgz#d273d6654a85063cd4af13189987885b8cc44764"
+  integrity sha512-QoUc/QbEXNu1PsoWXRehZnfSZf5VznHRth5iUteq4qdM9myuKlhGIxSrFl9vhtDfqyUVuprPxXFbUGZ3oGM0JQ==
 
 lodash.camelcase@^4.3.0:
   version "4.3.0"
@@ -10985,6 +11031,11 @@ query-string@^7.1.1:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
+querystring@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.npmmirror.com/querystring/-/querystring-0.2.1.tgz#40d77615bb09d16902a85c3e38aa8b5ed761c2dd"
+  integrity sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==
+
 querystringify@^2.1.1:
   version "2.2.0"
   resolved "https://registry.npmmirror.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
@@ -12505,6 +12556,18 @@ tar-stream@^1.5.2:
     readable-stream "^2.3.0"
     to-buffer "^1.1.1"
     xtend "^4.0.0"
+
+taro-hooks@2.0.8:
+  version "2.0.8"
+  resolved "https://registry.npmmirror.com/taro-hooks/-/taro-hooks-2.0.8.tgz#acec225fa41fe175059cca30c9547496f20a3ac2"
+  integrity sha512-kdJ4+mcEV575/FURabdUaxYDhN1exYKFiwRh+oDCdphufEwNDyne0OCbcxn3rK3IFl6wWp2ByoCKdVWqZcIxmA==
+  dependencies:
+    "@taro-hooks/ahooks" "^2.0.8"
+    "@taro-hooks/compressorjs" "2.0.8"
+    "@taro-hooks/shared" "2.0.8"
+    "@taro-hooks/use-request" "2.0.8"
+    lodash-wechat "^1.0.0"
+    querystring "^0.2.1"
 
 taro-iconfont-cli@^3.3.0:
   version "3.3.0"

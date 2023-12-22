@@ -38,6 +38,7 @@
   "dependencies": {
     "@babel/runtime": "^7.21.5",
     "@fower/taro": "^2.0.0",
+    "@taro-hooks/use-request": "^2.0.8",
     "@tarojs/components": "3.6.17",
     "@tarojs/helper": "3.6.17",
     "@tarojs/plugin-framework-react": "3.6.17",
