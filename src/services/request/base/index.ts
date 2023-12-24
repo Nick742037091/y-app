@@ -31,7 +31,7 @@ export const createInstance = (instanceOption: {
       ...requestOptions
     }
     return new Promise((resolve, reject) => {
-      Taro.request<Response<T>>({
+      Taro.request({
         url: baseUrl + url,
         ...restOptions,
         success: (result) => {
@@ -39,7 +39,7 @@ export const createInstance = (instanceOption: {
             return instanceSuccess(result)
           }
           if (result.statusCode === 200) {
-            resolve(result.data.data)
+            resolve(result.data)
           } else {
             reject(result)
           }
@@ -56,7 +56,7 @@ export const createInstance = (instanceOption: {
           }
         }
       })
-    }) as Promise<T>
+    }) as Promise<Response<T>>
   }
   const createMethod = (method: Methods) => {
     return function <T>(

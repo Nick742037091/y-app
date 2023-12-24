@@ -1,8 +1,7 @@
-import { useEffect } from 'react'
 import { View } from '@fower/taro'
 import { getPostList } from '@/services/post'
 import { useTabStore } from '@/stores/home'
-import { useInfiniteScroll } from '@/services/requests'
+import { useInfiniteScroll } from '@/services/request/hooks'
 import { Cell, Skeleton } from '@nutui/nutui-react-taro'
 
 import NavigationBar from './components/Navigation'
@@ -15,24 +14,33 @@ definePageConfig({
 })
 
 const PostListSkeleton = () => {
-  return Array.from({ length: 10 }).map((_, index) => {
-    return (
-      <Cell key={index}>
-        <Skeleton rows={3} animated avatar avatarSize="40px" />
-      </Cell>
-    )
-  })
+  return (
+    <>
+      {Array.from({ length: 10 }).map((_, index) => {
+        return (
+          <Cell key={index}>
+            <Skeleton rows={3} animated avatar avatarSize="40px" />
+          </Cell>
+        )
+      })}
+    </>
+  )
 }
 
 // 首页
 // TODO 下拉刷新
 export default function Index() {
-  const tab = useTabStore((state) => state.tab)
-  const { list, pageNum, loading } = useInfiniteScroll(
-    (nextPageNum) => {
-      return getPostList({ pageNum: nextPageNum, pageSzie: 10, type: tab })
+  const tab = useTabStore().tab
+  const { data, pageNum, loading } = useInfiniteScroll(
+    async (nextPageNum) => {
+      const result = await getPostList({
+        pageNum: nextPageNum,
+        pageSzie: 10,
+        type: tab
+      })
+      return result.data
     },
-    { refreshDeps: [tab] }
+    { reloadDeps: [tab] }
   )
   return (
     <View>
@@ -41,7 +49,7 @@ export default function Index() {
         pageNum={pageNum}
         loading={loading}
         skeleton={<PostListSkeleton />}
-        list={<PostList postList={list ?? []} />}
+        list={<PostList postList={data?.list || []} />}
       />
     </View>
   )

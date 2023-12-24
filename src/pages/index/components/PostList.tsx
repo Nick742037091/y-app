@@ -1,4 +1,4 @@
-import { PostItem } from '@/apis/post/types'
+import { PostItem } from '@/services/post/types'
 import Icon from '@/components/Icon'
 import { Image, Text, View } from '@fower/taro'
 
@@ -40,17 +40,22 @@ export function PostList(props: { postList: PostItem[] }) {
       borderBottom: '1px solid #eee'
     }
   }
-  return props.postList.map((item, index) => (
-    <View key={index} css={postItemStyle} flex text-15px>
-      <Image src={item.avatar} circle-40px mr-12px />
-      <View flex column flex-1>
-        <View>
-          <Text fontBold>{item.nickName}</Text>
-          <Text ml-4px>@{item.fullname}</Text>
+  if (!props.postList) return null
+  return (
+    <>
+      {props.postList.map((item, index) => (
+        <View key={index} css={postItemStyle} flex text-15px>
+          <Image src={item.avatar} circle-40px mr-12px />
+          <View flex column flex-1>
+            <View>
+              <Text fontBold>{item.nickName}</Text>
+              <Text ml-4px>@{item.fullname}</Text>
+            </View>
+            <Text>{item.content}</Text>
+            <PostBottomButtons post={item} />
+          </View>
         </View>
-        <Text>{item.content}</Text>
-        <PostBottomButtons post={item} />
-      </View>
-    </View>
-  ))
+      ))}
+    </>
+  )
 }

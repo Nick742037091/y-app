@@ -1,3 +1,4 @@
+import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
 
 export type TAB = 0 | 1
@@ -13,3 +14,6 @@ export const useTabStore = create<TabState>((set) => ({
   tab: TAB_RECOMMEND,
   setTab: (val) => set({ tab: val })
 }))
+if (process.env.NODE_ENV === 'development') {
+  mountStoreDevtool('Home', useTabStore)
+}

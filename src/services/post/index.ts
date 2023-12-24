@@ -1,5 +1,5 @@
-import { ListData } from '@/services/requests/types'
-import { yApi } from '@/services/requests/y'
+import { ListData } from '@/services/request/base/types'
+import { yApi } from '@/services/request/instances/y'
 import { PostItem } from './types'
 
 export const getPostList = (data: {

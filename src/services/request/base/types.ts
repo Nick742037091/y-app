@@ -10,6 +10,6 @@ export interface Response<T> {
 }
 // 分页请求响应数据
 export interface ListData<T> {
-  list: T[]
+  list: T[] | null
   total: number
 }

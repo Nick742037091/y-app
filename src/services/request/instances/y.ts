@@ -1,4 +1,4 @@
-import { createInstance } from './base'
+import { createInstance } from '../base/index'
 
 export const yApi = createInstance({
   baseUrl: 'http://127.0.0.1:4523/m1/3795937-0-default',
