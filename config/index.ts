@@ -8,26 +8,29 @@ export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport = {
     projectName: 'y-app',
     date: '2023-12-12',
-    designWidth: 750,
+    designWidth: 375,
     deviceRatio: {
       640: 2.34 / 2,
       750: 1,
-      375: 2,
-      828: 1.81 / 2
+      828: 1.81 / 2,
+      375: 2 / 1
     },
     sourceRoot: 'src',
     outputRoot:
       process.env.NODE_ENV === 'development'
         ? `dist/dev/${process.env.TARO_ENV}`
         : `dist/build/${process.env.TARO_ENV}`,
-    plugins: [],
+    plugins: ['@tarojs/plugin-html', '@taro-hooks/plugin-react'],
     defineConstants: {},
     copy: {
       patterns: [],
       options: {}
     },
     framework: 'react',
-    compiler: 'webpack5',
+    compiler: {
+      type: 'webpack5',
+      prebundle: { enable: false }
+    },
     cache: {
       enable: false // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
     },

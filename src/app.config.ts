@@ -12,7 +12,7 @@ export default defineAppConfig({
     backgroundTextStyle: 'dark',
     navigationBarBackgroundColor: '#fff',
     navigationBarTitleText: 'Y',
-    navigationBarTextStyle: 'white'
+    navigationBarTextStyle: 'black'
   },
   /* eslint-disable */
   usingComponents: { ...useGlobalIconFont() },

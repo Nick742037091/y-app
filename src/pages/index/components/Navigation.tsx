@@ -4,9 +4,7 @@ import { Image, Text, View } from '@fower/taro'
 import { isH5 } from '@/utils'
 import { colorBlue } from '@/styles/variables'
 import { useTabStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
-
-const profile =
-  'https://pubfile.bluemoon.com.cn/group1/new/scrm/961483605c85131353b062f1c8f60104.jpeg'
+import { useUserInfoStore } from '@/stores/app'
 
 const SettingButton = () => {
   return (
@@ -72,9 +70,10 @@ const Footer = () => {
 }
 
 export default function NavigationBar() {
+  const avatar = useUserInfoStore().userInfo.avatar
   return (
     <ImmersionTop footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
-      <Image src={profile} circle-40px ml-10px />
+      <Image src={avatar} circle-40px ml-10px />
       <Text ml-auto mr-auto>
         Y
       </Text>
