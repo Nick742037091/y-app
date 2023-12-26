@@ -37,7 +37,6 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.21.5",
-    "@fower/taro": "^2.0.0",
     "@nutui/icons-react-taro": "^1.0.0",
     "@nutui/nutui-react-taro": "2.0.15",
     "@taro-hooks/plugin-react": "^2.0.8",
@@ -92,7 +91,6 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^5.1.0",
-    "typescript-plugin-css-modules": "^5.0.2",
     "webpack": "5.78.0"
   }
 }

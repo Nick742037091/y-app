@@ -1,4 +1,4 @@
-import { View } from '@fower/taro'
+import { View } from '@tarojs/components'
 import { getPostList } from '@/services/post'
 import { useTabStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
@@ -6,7 +6,7 @@ import { Cell, Skeleton } from '@nutui/nutui-react-taro'
 
 import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
-import PageList from './components/PageList'
+import PageList from '../../components/PageList'
 
 definePageConfig({
   navigationBarTitleText: '首页',

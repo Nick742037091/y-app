@@ -1,3 +1,4 @@
+import '@/styles/main.scss'
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
 import { useUserInfoStore } from './stores/app'

@@ -1,0 +1,26 @@
+.post_item {
+  @include flex;
+  font-size: 15px;
+  padding: 12px 16px;
+  border-top: 1px solid #eee;
+  &:last-child {
+    border-bottom: 1px solid #eee;
+  }
+  .avatar {
+    @include circle(40px);
+    margin-right: 12px;
+  }
+}
+
+.post_bottom {
+  @include flex;
+  .post_bottom_btn {
+    @include flex-1;
+    @include flex;
+    @include ai-center;
+    padding: 8px 0;
+  }
+  .text {
+    margin-left: 4px;
+  }
+}

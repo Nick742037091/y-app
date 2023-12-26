@@ -1,7 +1,7 @@
 import { colorBlue } from '@/styles/variables'
-import { View } from '@fower/taro'
+import { View } from '@tarojs/components'
 import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
-
+import styles from './index.module.scss'
 // TODO 下拉刷新实现
 // 1. PullToRefresh需要外部包裹ScrollView，由于沉浸式页面监听的是页面滚动，会影响沉浸式效果。
 // 考虑在沉浸式页面监听顶部滚动，自定义下拉刷新组件样式。
@@ -22,7 +22,7 @@ export default (props: {
     <>
       {showSkeleton ? props.skeleton : props.list}
       {showLoading && (
-        <View flex toCenter p-15px>
+        <View className={styles.loading_more}>
           <ConfigProvider
             theme={{
               nutuiLoadingIconSize: '30px',

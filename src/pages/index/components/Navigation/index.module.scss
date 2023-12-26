@@ -1,0 +1,38 @@
+.setting_btn {
+  @include flex;
+  @include flex-center;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  padding: 10px;
+}
+
+.footer {
+  @include flex;
+  @include flex-center;
+  position: relative;
+  font-size: 15px;
+  .tab {
+    @include flex-1;
+    @include flex;
+    @include flex-center;
+  }
+  .dot_wrapper {
+    @include flex;
+    @include flex-center;
+    position: absolute;
+    bottom: 0;
+    transition: left 0.3s ease;
+    .dot {
+      width: 56px;
+      height: 4px;
+      border-radius: 2px;
+      background-color: $color-blue;
+    }
+  }
+}
+
+.avatar_icon {
+  @include circle(40px);
+  margin-left: 10px;
+}

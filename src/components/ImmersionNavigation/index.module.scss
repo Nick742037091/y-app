@@ -1,0 +1,17 @@
+.navigation {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  border-bottom: 1px solid #e5e5e5;
+  // 玻璃效果
+  backdrop-filter: blur(12px);
+}
+
+.status_position {
+  position: fixed;
+  left: '0px';
+  right: '0px';
+  top: '0px';
+  z-index: 2;
+}
