@@ -5,11 +5,11 @@ import IconFont from '@/components/Iconfont'
 import { isH5 } from '@/utils'
 import { useTabStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 import { useUserInfoStore } from '@/stores/app'
-import styles from './index.module.scss'
 
+const SettingBtnClassName = 'flex-center size-50 ml-10 p-10'
 const SettingButton = () => {
   return (
-    <View className={styles.setting_btn}>
+    <View className={SettingBtnClassName}>
       <IconFont name="home-setting" size={20} />
     </View>
   )
@@ -39,11 +39,11 @@ const Footer = () => {
     width: dotWrapperWidth
   }
   return (
-    <View className={styles.footer}>
+    <View className="flex-center relative text-[15px]">
       {tabList.map((item) => (
         <View
           key={item.key}
-          className={styles.tab}
+          className="flex-1 flex-center"
           style={{ height: FOOTER_HEIGHT + 'px' }}
           onClick={() => setTab(item.key)}
         >
@@ -51,8 +51,11 @@ const Footer = () => {
         </View>
       ))}
       {/* 不要在函数内再创建函数式组件，因为每次都会创建函数，相当于一个新的组件，不会复用元素，因此transition会失效 */}
-      <View className={styles.dot_wrapper} style={dotWrapperStyle}>
-        <View className={styles.dot} />
+      <View
+        className="flex-center absolute bottom-0 transition-[left_0.3s_ease]"
+        style={dotWrapperStyle}
+      >
+        <View className="w-56 h-4 rounded-[2px] bg-primary" />
       </View>
     </View>
   )
@@ -62,9 +65,9 @@ export default function NavigationBar() {
   const avatar = useUserInfoStore().userInfo.avatar
   return (
     <ImmersionTop footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
-      <Image src={avatar} className={styles.avatar_icon} />
-      <Text style={{ margin: '0 auto' }}>Y</Text>
-      {isH5 ? <SettingButton /> : <View className={styles.setting} />}
+      <Image src={avatar} className="size-40 rounded-full ml-10" />
+      <Text className="mx-auto">Y</Text>
+      {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
     </ImmersionTop>
   )
 }

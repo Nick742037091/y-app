@@ -9,11 +9,11 @@ export function PostList(props: { postList: PostItem[] }) {
     <>
       {props.postList.map((item, index) => (
         <View key={index} className={styles.post_item}>
-          <Image src={item.avatar} className={styles.avatar} />
+          <Image src={item.avatar} className="size-40 rounded-full mr-12" />
           <View className="flex-1 flex flex-col">
             <View>
-              <Text style={{ fontWeight: 'bold' }}>{item.nickName}</Text>
-              <Text style={{ marginLeft: '4px' }}>@{item.fullname}</Text>
+              <Text className="font-bold">{item.nickName}</Text>
+              <Text className="ml-4">@{item.fullname}</Text>
             </View>
             <Text>{item.content}</Text>
             <PostBottomButtons post={item} />
@@ -27,22 +27,22 @@ export function PostList(props: { postList: PostItem[] }) {
 const PostBottomButtons = (props: { post: PostItem }) => {
   const { post } = props
   return (
-    <View className={styles.post_bottom}>
+    <View className="flex">
       <View className={styles.post_bottom_btn}>
         <IconFont name="post-comment" />
-        <Text className={styles.text}>{post.commentNum}</Text>
+        <Text className="ml-4">{post.commentNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
         <IconFont name="post-share" />
-        <Text className={styles.text}>{post.shareNum}</Text>
+        <Text className="ml-4">{post.shareNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
         <IconFont name="post-like" />
-        <Text className={styles.text}>{post.likeNum}</Text>
+        <Text className="ml-4">{post.likeNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
         <IconFont name="post-view" />
-        <Text className={styles.text}>{post.viewNum}</Text>
+        <Text className="ml-4">{post.viewNum}</Text>
       </View>
     </View>
   )

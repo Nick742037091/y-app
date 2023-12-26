@@ -1,23 +1,11 @@
 .post_item {
-  @apply flex;
-  font-size: 15px;
-  padding: 12px 16px;
+  @apply flex text-[15px] py-12 px-16;
   border-top: 1px solid #eee;
   &:last-child {
     border-bottom: 1px solid #eee;
   }
-  .avatar {
-    @include circle(40px);
-    margin-right: 12px;
-  }
 }
 
-.post_bottom {
-  @apply flex;
-  .post_bottom_btn {
-    @apply flex-1 flex items-center py-8;
-  }
-  .text {
-    margin-left: 4px;
-  }
+.post_bottom_btn {
+  @apply flex-1 flex items-center py-8;
 }
