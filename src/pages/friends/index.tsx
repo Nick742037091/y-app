@@ -1,4 +1,4 @@
-import { View, Text } from '@fower/taro'
+import { View, Text } from '@tarojs/components'
 
 definePageConfig({
   navigationBarTitleText: '朋友页'

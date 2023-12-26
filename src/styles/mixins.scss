@@ -1,0 +1,7 @@
+@import './flex.scss';
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: $size;
+}

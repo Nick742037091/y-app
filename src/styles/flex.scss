@@ -1,0 +1,81 @@
+// flex 相关
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-1 {
+  flex: 1;
+}
+
+@mixin flex-no-shrink {
+  flex-shrink: 0;
+}
+
+@mixin flex-row {
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  flex-direction: column;
+}
+
+@mixin flex-wrap {
+  flex-wrap: wrap;
+}
+
+@mixin jc-start {
+  justify-content: flex-start;
+}
+
+@mixin jc-end {
+  justify-content: flex-end;
+}
+
+@mixin jc-center {
+  justify-content: center;
+}
+
+@mixin jc-between {
+  justify-content: space-between;
+}
+
+@mixin jc-around {
+  justify-content: space-around;
+}
+
+@mixin ai-start {
+  align-items: flex-start;
+}
+
+@mixin ai-end {
+  align-items: flex-end;
+}
+
+@mixin ai-center {
+  align-items: center;
+}
+
+@mixin ai-stretch {
+  align-items: stretch;
+}
+
+@mixin as-start {
+  align-self: flex-start;
+}
+
+@mixin as-end {
+  align-self: flex-end;
+}
+
+@mixin as-center {
+  align-self: center;
+}
+
+@mixin as-stretch {
+  align-self: stretch;
+}
+
+@mixin flex-center {
+  @include ai-center;
+  @include jc-center;
+}

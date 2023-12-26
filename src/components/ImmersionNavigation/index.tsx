@@ -1,7 +1,8 @@
-import { View } from '@fower/taro'
+import { View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import Taro, { usePageScroll } from '@tarojs/taro'
-import { useRef, useState } from 'react'
+import { CSSProperties, useRef, useState } from 'react'
+import styles from './index.module.scss'
 
 const statusBarHeight = isH5 ? 0 : Taro.getWindowInfo()?.statusBarHeight ?? 0
 /**
@@ -34,7 +35,7 @@ const ImmersionTop = (props: {
   const SHOW_SCROLL_DELTA_Y = 30
   // 导航栏透明度
   const navigationOpacity =
-    ((navigationHeight - navigationTranslateY) / navigationHeight) * 100
+    (navigationHeight - navigationTranslateY) / navigationHeight
   // 监听页面滚动，根据滚动距离，设置导航栏的transform: translateY()
   usePageScroll((info) => {
     const deltaY = info.scrollTop - scrollTop.current
@@ -59,21 +60,14 @@ const ImmersionTop = (props: {
     scrollTop.current = info.scrollTop
   })
   // 导航栏固定布局
-  const navigationStyles: CSSObject = {
-    position: 'fixed',
-    left: '0px',
-    right: '0px',
+  const navigationStyles: CSSProperties = {
     top: statusBarHeight + 'px',
-    zIndex: 1,
     height: navigationHeight + footerHeight + 'px',
     // 通过transform: translateY()将导航栏移动到状态栏下方，并设置transform动画
     transform: `translateY(-${navigationTranslateY}px)`,
     opacity: navigationOpacity,
     transition: `all ${transitionTime}ms ease-out`,
-    backgroundColor,
-    borderBottom: '1px solid #e5e5e5',
-    // 玻璃效果
-    backdropFilter: 'blur(12px)'
+    backgroundColor
   }
   return (
     <>
@@ -81,14 +75,17 @@ const ImmersionTop = (props: {
         height={statusBarHeight}
         backgroundColor={backgroundColor}
       />
-      <View css={navigationStyles}>
-        <View flex toCenterY css={{ height: navigationHeight + 'px' }}>
+      <View className={styles.navigation} style={navigationStyles}>
+        <View
+          className="flex flex-center"
+          style={{ height: navigationHeight + 'px' }}
+        >
           {children}
         </View>
         {footer}
       </View>
       {/* 导航栏高度占位，置于正常文档流之中 */}
-      <View css={{ height: totalHeight + 'px' }} />
+      <View style={{ height: totalHeight + 'px' }} />
     </>
   )
 }
@@ -98,16 +95,11 @@ const StatusBarPosition = (props: {
   height: number
   backgroundColor: string
 }) => {
-  const style: CSSObject = {
-    position: 'fixed',
-    left: '0px',
-    right: '0px',
-    top: '0px',
-    zIndex: 2,
+  const style: CSSProperties = {
     height: props.height + 'px',
     backgroundColor: props.backgroundColor
   }
-  return <View css={style} />
+  return <View className={styles.status_position} style={style} />
 }
 
 export default ImmersionTop
