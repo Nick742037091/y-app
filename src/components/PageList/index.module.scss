@@ -1,5 +1,3 @@
 .loading_more {
-  @include flex;
-  @include flex-center;
-  padding: 15px;
+  @apply flex items-center justify-center p-15;
 }

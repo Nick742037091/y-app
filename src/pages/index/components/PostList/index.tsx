@@ -10,7 +10,7 @@ export function PostList(props: { postList: PostItem[] }) {
       {props.postList.map((item, index) => (
         <View key={index} className={styles.post_item}>
           <Image src={item.avatar} className={styles.avatar} />
-          <View className="flex-1 flex flex-column">
+          <View className="flex-1 flex flex-col">
             <View>
               <Text style={{ fontWeight: 'bold' }}>{item.nickName}</Text>
               <Text style={{ marginLeft: '4px' }}>@{item.fullname}</Text>
