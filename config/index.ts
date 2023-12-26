@@ -64,7 +64,9 @@ export default defineConfig(async (merge, { command, mode }) => {
               plugin: UnifiedWebpackPluginV5,
               args: [
                 {
-                  appType: 'taro'
+                  appType: 'taro',
+                  // 和NutUI
+                  injectAdditionalCssVarScope: true
                 }
               ]
             }
@@ -113,10 +115,7 @@ export default defineConfig(async (merge, { command, mode }) => {
       }
     },
     sass: {
-      resource: [
-        path.resolve(__dirname, '..', 'src/styles/mixins.scss'),
-        path.resolve(__dirname, '..', 'src/styles/variables.scss')
-      ]
+      resource: [path.resolve(__dirname, '..', 'src/styles/mixins.scss')]
     }
   }
   if (process.env.NODE_ENV === 'development') {

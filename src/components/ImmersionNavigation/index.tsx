@@ -77,7 +77,7 @@ const ImmersionTop = (props: {
       />
       <View className={styles.navigation} style={navigationStyles}>
         <View
-          className="flex items-center justify-center"
+          className="flex-center"
           style={{ height: navigationHeight + 'px' }}
         >
           {children}
@@ -99,7 +99,7 @@ const StatusBarPosition = (props: {
     height: props.height + 'px',
     backgroundColor: props.backgroundColor
   }
-  return <View className={styles.status_position} style={style} />
+  return <View className="fixed left-0 right-0 top-0 z-[2]" style={style} />
 }
 
 export default ImmersionTop
