@@ -1,5 +1,6 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import { UnifiedWebpackPluginV5 } from 'weapp-tailwindcss/webpack'
 import path from 'path'
 import devConfig from './dev'
 import prodConfig from './prod'
@@ -57,6 +58,18 @@ export default defineConfig(async (merge, { command, mode }) => {
       },
       webpackChain(chain) {
         chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+        chain.merge({
+          plugin: {
+            install: {
+              plugin: UnifiedWebpackPluginV5,
+              args: [
+                {
+                  appType: 'taro'
+                }
+              ]
+            }
+          }
+        })
       }
     },
     h5: {

@@ -77,7 +77,7 @@ const ImmersionTop = (props: {
       />
       <View className={styles.navigation} style={navigationStyles}>
         <View
-          className="flex flex-center"
+          className="flex items-center justify-center"
           style={{ height: navigationHeight + 'px' }}
         >
           {children}

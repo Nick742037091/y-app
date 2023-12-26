@@ -1,5 +1,5 @@
 .post_item {
-  @include flex;
+  @apply flex;
   font-size: 15px;
   padding: 12px 16px;
   border-top: 1px solid #eee;
@@ -13,12 +13,9 @@
 }
 
 .post_bottom {
-  @include flex;
+  @apply flex;
   .post_bottom_btn {
-    @include flex-1;
-    @include flex;
-    @include ai-center;
-    padding: 8px 0;
+    @apply flex-1 flex items-center py-8;
   }
   .text {
     margin-left: 4px;
