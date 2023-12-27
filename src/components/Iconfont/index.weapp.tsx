@@ -4,7 +4,7 @@
 import React, { FunctionComponent } from 'react';
 
 
-export type IconNames = 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
 
 interface Props {
   name: IconNames;

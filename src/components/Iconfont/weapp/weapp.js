@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // post-share | post-view | post-comment | post-like | home-setting
+    // arrow-down | post-share | post-view | post-comment | post-like | home-setting
     name: {
       type: String,
     },

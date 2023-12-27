@@ -2,11 +2,12 @@ import { View } from '@tarojs/components'
 import { getPostList } from '@/services/post'
 import { useTabStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
-import { Cell, Skeleton } from '@nutui/nutui-react-taro'
+import { Skeleton } from '@nutui/nutui-react-taro'
 
 import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
-import PageList from '../../components/PageList'
+import PageList from '../../components/PageInfiniteScroll'
+import postListStyles from './components/PostList/index.module.scss'
 
 definePageConfig({
   navigationBarTitleText: '首页',
@@ -18,9 +19,9 @@ const PostListSkeleton = () => {
     <>
       {Array.from({ length: 10 }).map((_, index) => {
         return (
-          <Cell key={index}>
+          <View key={index} className={postListStyles.post_item}>
             <Skeleton rows={3} animated avatar avatarSize="40px" />
-          </Cell>
+          </View>
         )
       })}
     </>
@@ -28,10 +29,9 @@ const PostListSkeleton = () => {
 }
 
 // 首页
-// TODO 下拉刷新
 export default function Index() {
   const tab = useTabStore().tab
-  const { data, pageNum, loading } = useInfiniteScroll(
+  const { data, pageNum, loading, reload } = useInfiniteScroll(
     async (nextPageNum) => {
       const result = await getPostList({
         pageNum: nextPageNum,
@@ -50,6 +50,7 @@ export default function Index() {
         loading={loading}
         skeleton={<PostListSkeleton />}
         list={<PostList postList={data?.list || []} />}
+        onRefresh={reload}
       />
     </View>
   )
