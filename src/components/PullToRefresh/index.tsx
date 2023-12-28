@@ -1,7 +1,8 @@
 import { View, CommonEventFunction } from '@tarojs/components'
-import { CSSProperties, useRef, useState } from 'react'
+import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
 import { colorPrimary } from '@/styles/variables'
+import { isH5 } from '@/utils'
 import { throttle } from 'lodash'
 import IconFont from '../Iconfont'
 
@@ -11,7 +12,6 @@ const DEFAULT_REFRESH_TIMEOUT = 1000
 const DEFAULT_REFRESHING_HEIGHT = 50
 
 // 页面下拉刷新组件，无需包裹Scroll-View
-// FIXME 页面中间会误触发下拉刷新
 export default function PullToRefresh(props: {
   children: any
   onRefresh?: () => Promise<any>
@@ -43,17 +43,30 @@ export default function PullToRefresh(props: {
       clientY: number
       pageY: number
     }
+    const deltaY = touch.pageY - touchPageY.current
+    // 往上滚动重置下拉状态，避免触发刷新
+    if (deltaY <= 0) {
+      isTop.current = false
+      setIsPulling(false)
+      return
+    }
     if (isTop.current) {
       // 滚动到顶之后，继续下拉触发刷新
-      const deltaY = touch.pageY - touchPageY.current
-      if (deltaY > 0) {
-        setTranslateY(deltaY)
-        setIsPulling(true)
-      }
+      setTranslateY(deltaY)
+      setIsPulling(true)
     } else {
-      if (touch.pageY === touch.clientY) {
-        debugger
-        isTop.current = true
+      if (isH5) {
+        // H5中页面实际上是放在滚动布局中，所以pageY和clientY一直是相等的
+        // 用布局元素的top属性判断是否滚动到顶
+        const rect = (wrapperRef.current as any).getClientRects()[0]
+        if (rect.top === wrapperTop.current) {
+          isTop.current = true
+        }
+      } else {
+        // 小程序用距离页面顶部和距离视口顶部相等，说明滚动到顶部
+        if (touch.pageY === touch.clientY) {
+          isTop.current = true
+        }
       }
     }
   }, 30)
@@ -81,9 +94,25 @@ export default function PullToRefresh(props: {
     transition: isPulling ? 'none' : 'transform 0.3s ease',
     transform: `translateY(${translateY}px)`
   }
+  const wrapperRef = useRef()
+  const wrapperTop = useRef(0)
+  const QUERY_WRAPPER_HEIGHT_DELAY = 30
+  useEffect(() => {
+    // H5缓存布局元素挂载之后距离页面顶部的距离，用于判断是否滚动到顶
+    if (isH5 && wrapperRef.current) {
+      // 延迟之后再查询，否则获取top可能为空
+      // TODO 为何需要延迟
+      setTimeout(() => {
+        const rect = (wrapperRef.current as any).getClientRects()[0]
+        wrapperTop.current = rect.top
+      }, QUERY_WRAPPER_HEIGHT_DELAY)
+    }
+  }, [])
 
   return (
     <View
+      ref={wrapperRef}
+      id="refresh"
       className="relative"
       style={wrapperStyle}
       onTouchStart={handleTouchStart}
@@ -109,6 +138,7 @@ function RefreshingWrapper(props: { height: number; children: any }) {
   )
 }
 
+// 下拉刷新loading
 function Refreshing(props: { height: number }) {
   return (
     <RefreshingWrapper height={props.height}>
@@ -125,6 +155,7 @@ function Refreshing(props: { height: number }) {
   )
 }
 
+// 下拉箭头
 function PullDown(props: { height: number }) {
   return (
     <RefreshingWrapper height={props.height}>

@@ -25,6 +25,7 @@ export default (props: {
   )
 }
 
+// TODO 上拉加载loading需要第二次拖动才能展示
 function LoadMoreLoading() {
   return (
     <View className="flex-center p-15">

@@ -11,7 +11,8 @@ import postListStyles from './components/PostList/index.module.scss'
 
 definePageConfig({
   navigationBarTitleText: '首页',
-  navigationStyle: 'custom'
+  navigationStyle: 'custom',
+  onReachBottomDistance: 50
 })
 
 const PostListSkeleton = () => {
