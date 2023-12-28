@@ -78,7 +78,6 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
   }, [loadMore])
   // 依赖刷新需要调用refresh，挂载之前才生效
   const isMounted = useRef(false)
-  // TODO 可使用ahooks的useUpdateEffect
   useEffect(
     () => {
       if (isMounted.current) {
@@ -92,6 +91,7 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
   )
   // TODO 兼容局部容器翻页
   useReachBottom(() => {
+    if (loading) return
     loadMore(pageNum + 1)
   })
 

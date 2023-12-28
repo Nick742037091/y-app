@@ -3,7 +3,7 @@
 
 import React, { FunctionComponent } from 'react';
 
-export type IconNames = 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
 
 export interface IconProps {
   name: IconNames;
