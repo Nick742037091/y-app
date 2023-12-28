@@ -10,15 +10,19 @@ import IconFont from '../Iconfont'
 const DEFAULT_REFRESH_TIMEOUT = 1000
 // 默认下拉刷新高度
 const DEFAULT_REFRESHING_HEIGHT = 50
+// 默认触发下拉刷新距离
+const DEFAULT_REFRESH_DISTANCE = 75
 
 // 页面下拉刷新组件，无需包裹Scroll-View
 export default function PullToRefresh(props: {
   children: any
   onRefresh?: () => Promise<any>
   refreshTimeout?: number
+  refreshDistance?: number
   refreshingHeight?: number
 }) {
   const refreshTimeout = props.refreshTimeout ?? DEFAULT_REFRESH_TIMEOUT
+  const refreshDistance = props.refreshDistance ?? DEFAULT_REFRESH_DISTANCE
   const refreshingHeight = props.refreshingHeight ?? DEFAULT_REFRESHING_HEIGHT
   const [translateY, setTranslateY] = useState(0)
   // 是否滚动到页面顶部
@@ -76,10 +80,12 @@ export default function PullToRefresh(props: {
     if (!isPulling) return
     setIsPulling(false)
     setIsRefreshing(true)
-    // 重置为Refreshing组件高度
-    setTranslateY(refreshingHeight)
     if (props.onRefresh) {
-      await props.onRefresh()
+      if (translateY >= refreshDistance) {
+        // 重置为Refreshing组件高度
+        setTranslateY(refreshingHeight)
+        await props.onRefresh()
+      }
     } else {
       // 没回刷新回调时定时刷新
       await new Promise((resolve) => setTimeout(resolve, refreshTimeout))

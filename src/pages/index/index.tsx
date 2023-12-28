@@ -6,7 +6,7 @@ import { Skeleton } from '@nutui/nutui-react-taro'
 
 import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
-import PageList from '../../components/PageInfiniteScroll'
+import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
 
 definePageConfig({
@@ -32,7 +32,7 @@ const PostListSkeleton = () => {
 // 首页
 export default function Index() {
   const tab = useTabStore().tab
-  const { data, pageNum, loading, reload } = useInfiniteScroll(
+  const { data, pageNum, isNoMore, loading, reload } = useInfiniteScroll(
     async (nextPageNum) => {
       const result = await getPostList({
         pageNum: nextPageNum,
@@ -46,9 +46,10 @@ export default function Index() {
   return (
     <View>
       <NavigationBar />
-      <PageList
+      <PageInfiniteScroll
         pageNum={pageNum}
         loading={loading}
+        isNoMore={isNoMore}
         skeleton={<PostListSkeleton />}
         list={<PostList postList={data?.list || []} />}
         onRefresh={reload}
