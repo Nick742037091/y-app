@@ -1,5 +1,12 @@
 import plugin from 'tailwindcss/plugin'
-import { colorPrimary } from './src/styles/variables'
+import {
+  colorPrimary,
+  colorSuccess,
+  colorWarning,
+  colorDanger,
+  colorInfo,
+  colorPlaceholer
+} from './src/styles/variables'
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line import/no-commonjs
 module.exports = {
@@ -13,7 +20,12 @@ module.exports = {
     }, {}),
     colors: {
       // 主题颜色
-      primary: colorPrimary
+      primary: colorPrimary,
+      success: colorSuccess,
+      warning: colorWarning,
+      danger: colorDanger,
+      info: colorInfo,
+      placeholder: colorPlaceholer
     }
   },
   plugins: [
