@@ -3,7 +3,7 @@ import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
 import { colorPrimary } from '@/styles/variables'
 import { isH5 } from '@/utils'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 import IconFont from '../Iconfont'
 
 // 默认下拉刷新超时时间
@@ -12,7 +12,10 @@ const DEFAULT_REFRESH_TIMEOUT = 1000
 const DEFAULT_REFRESHING_HEIGHT = 50
 // 默认触发下拉刷新距离
 const DEFAULT_REFRESH_DISTANCE = 75
+// 触摸移动间隔时长
+const TOUCH_MOVE_WAIT = 16
 
+// TODO 不够完善，暂时使用nutUI下拉刷新组件
 // 页面下拉刷新组件，无需包裹Scroll-View
 export default function PullToRefresh(props: {
   children: any
@@ -34,16 +37,19 @@ export default function PullToRefresh(props: {
   // 上一次下拉触摸点在页面的y坐标
   const touchPageY = useRef(0)
 
-  const handleTouchStart: CommonEventFunction = (options) => {
-    const touch = (options as any).touches[0] as {
+  const handleTouchStart: CommonEventFunction = (event) => {
+    // 刷新中不触发
+    if (isRefreshing) return
+    const touch = (event as any).touches[0] as {
       clientY: number
       pageY: number
     }
     touchPageY.current = touch.pageY
   }
 
-  const handleTouchMove: CommonEventFunction = throttle((options) => {
-    const touch = (options as any).touches[0] as {
+  const handleTouchMove = throttle<CommonEventFunction>((event) => {
+    if (isRefreshing) return
+    const touch = (event as any).touches[0] as {
       clientY: number
       pageY: number
     }
@@ -73,11 +79,13 @@ export default function PullToRefresh(props: {
         }
       }
     }
-  }, 30)
+  }, TOUCH_MOVE_WAIT)
 
   const handleTouchEnd = async () => {
+    if (isRefreshing) return
     // 非下拉刷新操作，不触发
     if (!isPulling) return
+    // FIXME PullDown和Refreshing组件有时候会同时显示
     setIsPulling(false)
     setIsRefreshing(true)
     if (props.onRefresh) {
