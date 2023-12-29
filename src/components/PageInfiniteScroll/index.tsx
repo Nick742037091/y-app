@@ -1,7 +1,8 @@
-import { colorPrimary } from '@/styles/variables'
+import { colorPlaceholer, colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
-import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
-import PullToRefresh from '../PullToRefresh'
+import { Loading, ConfigProvider, PullToRefresh } from '@nutui/nutui-react-taro'
+import IconFont from '../Iconfont'
+// import PullToRefresh from '../PullToRefresh'
 
 /**
  * 页面无效循环组件，与useInfiniteScroll搭配使用
@@ -17,12 +18,74 @@ export default (props: {
   // 第一页加载时显示骨架图
   const showSkeleton = props.pageNum === 1 && props.loading
   const isNoMore = props.isNoMore
-
+  const refreshingHeight = DEFAULT_REFRESHING_HEIGHT
+  // FIXME PullToRefresh组件安卓小程序由于touchmove回调少导致拖动卡顿
   return (
-    <PullToRefresh onRefresh={props.onRefresh}>
+    <PullToRefresh
+      onRefresh={props.onRefresh}
+      headHeight={refreshingHeight}
+      renderText={(status) => {
+        switch (status) {
+          case 'pulling':
+            return <PullDown height={refreshingHeight} />
+          case 'canRelease':
+            return <PushUp height={refreshingHeight} />
+          case 'refreshing':
+            return <Refreshing height={refreshingHeight} />
+          case 'complete':
+            return <RefresFinished height={refreshingHeight} />
+        }
+      }}
+    >
       {showSkeleton ? props.skeleton : props.list}
       {isNoMore || <LoadMoreLoading />}
     </PullToRefresh>
+  )
+}
+
+// 默认下拉刷新高度
+const DEFAULT_REFRESHING_HEIGHT = 50
+
+// 下拉箭头
+function PullDown(props: { height: number }) {
+  return (
+    <View className="flex-center" style={{ height: props.height }}>
+      <IconFont name="arrow-down" size={30} color={colorPrimary} />
+    </View>
+  )
+}
+
+// 下拉返回箭头
+function PushUp(props: { height: number }) {
+  return (
+    <View className="flex-center" style={{ height: props.height }}>
+      <IconFont name="arrow-up" size={30} color={colorPrimary} />
+    </View>
+  )
+}
+
+// 下拉刷新loading
+function Refreshing(props: { height: number }) {
+  return (
+    <View className="flex-center" style={{ height: props.height }}>
+      <ConfigProvider
+        className="flex-center"
+        theme={{
+          nutuiLoadingIconSize: '30px',
+          nutuiLoadingIconColor: colorPrimary
+        }}
+      >
+        <Loading type="circular" />
+      </ConfigProvider>
+    </View>
+  )
+}
+
+function RefresFinished(props: { height: number }) {
+  return (
+    <View className="flex-center" style={{ height: props.height }}>
+      <IconFont name="check" size={30} color={colorPrimary} />
+    </View>
   )
 }
 

@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // arrow-down | post-share | post-view | post-comment | post-like | home-setting
+    // check | arrow-up | nullicesilhouetteicons64px0001s0023youku | arrow-down | post-share | post-view | post-comment | post-like | home-setting
     name: {
       type: String,
     },
