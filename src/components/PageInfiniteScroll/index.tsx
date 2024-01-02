@@ -1,8 +1,7 @@
-import { colorPlaceholer, colorPrimary } from '@/styles/variables'
+import { colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
 import { Loading, ConfigProvider, PullToRefresh } from '@nutui/nutui-react-taro'
 import IconFont from '../Iconfont'
-// import PullToRefresh from '../PullToRefresh'
 
 /**
  * 页面无效循环组件，与useInfiniteScroll搭配使用

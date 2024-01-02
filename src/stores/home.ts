@@ -8,12 +8,16 @@ export const TAB_FOLLOWING: TAB = 1
 interface TabState {
   tab: TAB
   setTab: (val: TAB) => void
+  showMine: boolean
+  setShowMine: (val: boolean) => void
 }
 
-export const useTabStore = create<TabState>((set) => ({
+export const useHomeStore = create<TabState>((set) => ({
   tab: TAB_RECOMMEND,
-  setTab: (val) => set({ tab: val })
+  setTab: (val) => set({ tab: val }),
+  showMine: false,
+  setShowMine: (val) => set({ showMine: val })
 }))
 if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Home', useTabStore)
+  mountStoreDevtool('Home', useHomeStore)
 }

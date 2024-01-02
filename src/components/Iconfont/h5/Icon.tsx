@@ -13,7 +13,7 @@ const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
 };
 
-const Nullicesilhouetteicons64Px0001S0023Youku: FunctionComponent<Props> = ({ size, color, style: _style, ...rest }) => {
+const Icon: FunctionComponent<Props> = ({ size, color, style: _style, ...rest }) => {
   const style = _style ? { ...DEFAULT_STYLE, ..._style } : DEFAULT_STYLE;
 
   return (
@@ -26,8 +26,8 @@ const Nullicesilhouetteicons64Px0001S0023Youku: FunctionComponent<Props> = ({ si
   );
 };
 
-Nullicesilhouetteicons64Px0001S0023Youku.defaultProps = {
+Icon.defaultProps = {
   size: 18,
 };
 
-export default Nullicesilhouetteicons64Px0001S0023Youku;
+export default Icon;

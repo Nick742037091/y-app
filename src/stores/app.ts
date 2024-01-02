@@ -11,7 +11,10 @@ interface UserInfoState {
 export const useUserInfoStore = create<UserInfoState>((set) => ({
   userInfo: {
     avatar: '',
-    userName: ''
+    userName: '',
+    fullName: '',
+    followerNum: 0,
+    followingNum: 0
   },
   queryUserInfo: async () => {
     const { code, data } = await getUserInfo()

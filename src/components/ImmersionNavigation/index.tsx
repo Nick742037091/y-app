@@ -1,10 +1,9 @@
 import { View } from '@tarojs/components'
-import { isH5 } from '@/utils'
-import Taro, { usePageScroll } from '@tarojs/taro'
+import { useStatusBarHeight } from '@/utils/hooks/page'
+import { usePageScroll } from '@tarojs/taro'
 import { CSSProperties, useRef, useState } from 'react'
 import styles from './index.module.scss'
 
-const statusBarHeight = isH5 ? 0 : Taro.getWindowInfo()?.statusBarHeight ?? 0
 /**
  * 沉浸式页面顶部
  * @param props
@@ -18,13 +17,18 @@ const ImmersionTop = (props: {
   footer?: any
   footerHeight?: number
 }) => {
+  // 若状态栏文字颜色为白色，需要设置背景颜色，透明度用于实现玻璃效果，
+  const backgroundColor = props.backgroundColor || 'rgba(255,255,255,0.85)'
+  const { statusBarHeight, statusBarPosition } = useStatusBarHeight({
+    backgroundColor
+  })
+
   const navigationHeight = props.navigationHeight || 50
   const footerHeight = props.footerHeight || 0
   // 导航栏过渡动画时间，默认300ms
   const transitionTime = props.transitionTime || 300
   const totalHeight = statusBarHeight + navigationHeight + footerHeight
-  // 若状态栏文字颜色为白色，需要设置背景颜色，透明度用于实现玻璃效果，
-  const backgroundColor = props.backgroundColor || 'rgba(255,255,255,0.85)'
+
   const children = props.children
   const footer = props.footer
 
@@ -71,10 +75,7 @@ const ImmersionTop = (props: {
   }
   return (
     <>
-      <StatusBarPosition
-        height={statusBarHeight}
-        backgroundColor={backgroundColor}
-      />
+      {statusBarPosition}
       <View className={styles.navigation} style={navigationStyles}>
         <View
           className="flex-center"
