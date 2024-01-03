@@ -5,3 +5,6 @@ export const colorDanger = '#F56C6C'
 export const colorInfo = '#909399'
 
 export const colorPlaceholer = '#C0C4CC'
+
+export const colorBlack = '#000000'
+export const colorWhite = '#FFFFFF'

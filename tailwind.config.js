@@ -5,7 +5,9 @@ import {
   colorWarning,
   colorDanger,
   colorInfo,
-  colorPlaceholer
+  colorPlaceholer,
+  colorWhite,
+  colorBlack
 } from './src/styles/variables'
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line import/no-commonjs
@@ -13,8 +15,8 @@ module.exports = {
   content: ['./src/**/*.{html,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
-    // 100以内的单位都转成px，不要设置太多，避免Tailwind CSS IntelliSense提示缓慢，较大的值可以使用[-px]
-    spacing: Array.from({ length: 101 }).reduce((map, _, index) => {
+    // 1000以内的单位都转成px，不要设置太多，避免Tailwind CSS IntelliSense提示缓慢，较大的值可以使用[-px]
+    spacing: Array.from({ length: 1000 }).reduce((map, _, index) => {
       map[index] = `${index}px`
       return map
     }, {}),
@@ -25,7 +27,9 @@ module.exports = {
       warning: colorWarning,
       danger: colorDanger,
       info: colorInfo,
-      placeholder: colorPlaceholer
+      placeholder: colorPlaceholer,
+      black: colorBlack,
+      white: colorWhite
     }
   },
   plugins: [

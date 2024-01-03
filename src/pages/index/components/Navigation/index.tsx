@@ -3,7 +3,7 @@ import ImmersionTop from '@/components/ImmersionNavigation'
 import { Image, Text, View } from '@tarojs/components'
 import IconFont from '@/components/Iconfont'
 import { isH5 } from '@/utils'
-import { useTabStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
+import { useHomeStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 import { useUserInfoStore } from '@/stores/app'
 
 const SettingBtnClassName = 'flex-center size-50 ml-10 p-10'
@@ -30,7 +30,7 @@ const tabList: {
 
 const FOOTER_HEIGHT = 40
 const Footer = () => {
-  const [tab, setTab] = useTabStore((state) => [state.tab, state.setTab])
+  const [tab, setTab] = useHomeStore((state) => [state.tab, state.setTab])
   const tabIndex = tabList.findIndex((item) => item.key === tab)
   const dotWrapperLeft = (tabIndex / tabList.length) * 100 + '%'
   const dotWrapperWidth = 100 / tabList.length + '%'
@@ -62,10 +62,15 @@ const Footer = () => {
 }
 
 export default function NavigationBar() {
-  const avatar = useUserInfoStore().userInfo.avatar
+  const avatar = useUserInfoStore((state) => state.userInfo.avatar)
+  const setShowMine = useHomeStore((state) => state.setShowMine)
   return (
     <ImmersionTop footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
-      <Image src={avatar} className="size-40 rounded-full ml-10" />
+      <Image
+        src={avatar}
+        className="size-40 rounded-full ml-10"
+        onClick={() => setShowMine(true)}
+      />
       <Text className="mx-auto">Y</Text>
       {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
     </ImmersionTop>

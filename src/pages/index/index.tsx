@@ -1,8 +1,9 @@
 import { View } from '@tarojs/components'
 import { getPostList } from '@/services/post'
-import { useTabStore } from '@/stores/home'
+import { useHomeStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
+import Mine from '@/components/Mine'
 
 import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
@@ -31,7 +32,11 @@ const PostListSkeleton = () => {
 
 // 首页
 export default function Index() {
-  const tab = useTabStore().tab
+  const { tab, showMine, setShowMine } = useHomeStore((state) => ({
+    tab: state.tab,
+    showMine: state.showMine,
+    setShowMine: state.setShowMine
+  }))
   const { data, pageNum, isNoMore, loading, reload } = useInfiniteScroll(
     async (nextPageNum) => {
       const result = await getPostList({
@@ -54,6 +59,7 @@ export default function Index() {
         list={<PostList postList={data?.list || []} />}
         onRefresh={reload}
       />
+      <Mine visible={showMine} onClose={() => setShowMine(false)} />
     </View>
   )
 }
