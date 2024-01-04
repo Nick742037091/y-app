@@ -23,7 +23,7 @@ export default (props: {
     <PullToRefresh
       onRefresh={props.onRefresh}
       headHeight={refreshingHeight}
-      renderText={(status) => {
+      renderIcon={(status) => {
         switch (status) {
           case 'pulling':
             return <PullDown height={refreshingHeight} />
@@ -35,6 +35,7 @@ export default (props: {
             return <RefresFinished height={refreshingHeight} />
         }
       }}
+      renderText={() => null}
     >
       {showSkeleton ? props.skeleton : props.list}
       {isNoMore || <LoadMoreLoading />}
