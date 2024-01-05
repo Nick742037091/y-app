@@ -1,4 +1,8 @@
 import type { UserConfigExport } from '@tarojs/cli'
+/**
+ * @typedef { import("@tarojs/plugin-mini-ci").CIOptions } CIOptions
+ * @type {CIOptions}
+ */
 
 export default {
   mini: {},

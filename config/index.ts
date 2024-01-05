@@ -4,6 +4,22 @@ import { UnifiedWebpackPluginV5 } from 'weapp-tailwindcss/webpack'
 import path from 'path'
 import devConfig from './dev'
 import prodConfig from './prod'
+import pkg from '../package.json'
+
+const CIPluginFn = () => {
+  /**
+   * @typedef { import("@tarojs/plugin-mini-ci").CIOptions } CIOptions
+   * @type {CIOptions}
+   */
+  return {
+    weapp: {
+      appid: 'wx495a79914b9a6ed6',
+      privateKeyPath: 'key/private.wx495a79914b9a6ed6.key'
+    },
+    version: pkg.version,
+    desc: pkg.versionDesc
+  }
+}
 
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig(async (merge, { command, mode }) => {
@@ -22,7 +38,11 @@ export default defineConfig(async (merge, { command, mode }) => {
       process.env.NODE_ENV === 'development'
         ? `dist/dev/${process.env.TARO_ENV}`
         : `dist/build/${process.env.TARO_ENV}`,
-    plugins: ['@tarojs/plugin-html', '@taro-hooks/plugin-react'],
+    plugins: [
+      '@tarojs/plugin-html',
+      '@taro-hooks/plugin-react',
+      ['@tarojs/plugin-mini-ci', CIPluginFn]
+    ],
     defineConstants: {},
     copy: {
       patterns: [],

@@ -1,6 +1,7 @@
 {
   "name": "y-app",
-  "version": "1.0.0",
+  "version": "0.0.2",
+  "versionDesc": "添加微信小程序上传工具",
   "private": true,
   "description": "模仿X",
   "templateInfo": {
@@ -28,6 +29,7 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
+    "build:weapp:upload": "taro build --type weapp --upload --projectPath dist/build/weapp",
     "test": "jest"
   },
   "browserslist": [
@@ -70,6 +72,7 @@
     "@babel/core": "^7.8.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@tarojs/cli": "3.6.21",
+    "@tarojs/plugin-mini-ci": "^3.6.22",
     "@tarojs/plugin-react-devtools": "3.6.21",
     "@tarojs/taro-loader": "3.6.21",
     "@tarojs/test-utils-react": "^0.1.1",
