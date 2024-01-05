@@ -8,8 +8,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.0.0
   '@nutui/nutui-react-taro':
-    specifier: 2.3.4
-    version: 2.3.4(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^2.3.5
+    version: 2.3.5(react-dom@18.2.0)(react@18.2.0)
   '@taro-hooks/plugin-react':
     specifier: ^2.0.8
     version: 2.0.8(@tarojs/helper@3.6.21)(@tarojs/runtime@3.6.21)(@tarojs/service@3.6.22)(@tarojs/shared@3.6.21)(@tarojs/taro@3.6.21)(react@18.2.0)
@@ -3421,13 +3421,17 @@ packages:
     resolution: {integrity: sha512-GlRqrRrhiRe6zZCzpc+nHzg9gjwM4uKWaXl8lde0ctVY6pYG1OMzyyb1sNgRZY3gRZj0bzY1cVXBXWkit/CVHQ==}
     dev: false
 
-  /@nutui/nutui-react-taro@2.3.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-qoUQlHCNtZVFlVY1Q7KuvjPejm2dvitinZfwW7jRMdG7awhDkgY/iQDLhbPFTG/qeNdC91Woxysl1ED61nFvLw==}
+  /@nutui/icons-react-taro@1.0.1:
+    resolution: {integrity: sha512-9eJqzv/a4JjyEm5Q64k4FAG9B4UmvQ9DGwtcC2apKTrJDCDJ+3XzEvTKIwYjCyatgW7FRwYwOA0wTmHhXxSzYw==}
+    dev: false
+
+  /@nutui/nutui-react-taro@2.3.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-0qpkmCJwsxZ5/+RTQFbp85op6sBneMrZfFRwHEyFPYlA1xtHFULbFK0Nb5vsCtQ3HP+Tnq8VMmTAcLDzV15z4A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@babel/runtime': 7.21.5
-      '@nutui/icons-react-taro': 1.0.0
+      '@nutui/icons-react-taro': 1.0.1
       '@nutui/touch-emulator': 1.0.0
       '@react-spring/web': 9.6.1(react-dom@18.2.0)(react@18.2.0)
       '@use-gesture/react': 10.2.20(react@18.2.0)
@@ -3670,11 +3674,10 @@ packages:
     engines: {node: '>=18'}
     dev: true
 
-  /@react-native/babel-plugin-codegen@0.74.0(@babel/preset-env@7.23.7):
-    resolution: {integrity: sha512-xAM/eVSb5LBkKue3bDZgt76bdsGGzKeF/iEzUNbDTwRQrB3Q5GoceGNM/zVlF+z1xGAkr3jhL+ZyITZGSoIlgw==}
-    engines: {node: '>=18'}
+  /@react-native/babel-plugin-codegen@0.71.3(@babel/preset-env@7.23.7):
+    resolution: {integrity: sha512-udPH9oWVTO0q7OJL672k7pmBzMA7Ei83hQwk/dxUlveTwjHz1ChHwMXhDJBhG/dNFijl9wcHrD1aXrI8WchZQg==}
     dependencies:
-      '@react-native/codegen': 0.73.2(@babel/preset-env@7.23.7)
+      react-native-codegen: 0.71.6(@babel/preset-env@7.23.7)
     transitivePeerDependencies:
       - '@babel/preset-env'
       - supports-color
@@ -3725,7 +3728,7 @@ packages:
       '@babel/plugin-transform-typescript': 7.23.6(@babel/core@7.8.0)
       '@babel/plugin-transform-unicode-regex': 7.23.3(@babel/core@7.8.0)
       '@babel/template': 7.22.15
-      '@react-native/babel-plugin-codegen': 0.74.0(@babel/preset-env@7.23.7)
+      '@react-native/babel-plugin-codegen': 0.71.3(@babel/preset-env@7.23.7)
       babel-plugin-transform-flow-enums: 0.0.2(@babel/core@7.8.0)
       react-refresh: 0.14.0
     transitivePeerDependencies:
@@ -9780,6 +9783,11 @@ packages:
     resolution: {integrity: sha512-3PYnM29RFXwvAN6Pc/scUfkI7RwhQ/xqyLUyPNlXUp9S40zI8nup9tUSrTLSVnWGBN38FNiGWbwZOB6uR4OGdw==}
     dev: true
 
+  /flow-parser@0.185.2:
+    resolution: {integrity: sha512-2hJ5ACYeJCzNtiVULov6pljKOLygy0zddoqSI1fFetM+XRPpRshFdGEijtqlamA1XwyZ+7rhryI6FQFzvtLWUQ==}
+    engines: {node: '>=0.4.0'}
+    dev: true
+
   /flow-parser@0.206.0:
     resolution: {integrity: sha512-HVzoK3r6Vsg+lKvlIZzaWNBVai+FXTX1wdYhz/wVlH13tb/gOdLXmlTqy6odmTBhT5UoWUbq0k8263Qhr9d88w==}
     engines: {node: '>=0.4.0'}
@@ -14616,6 +14624,18 @@ packages:
 
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
+    dev: true
+
+  /react-native-codegen@0.71.6(@babel/preset-env@7.23.7):
+    resolution: {integrity: sha512-e5pR4VldIhEaFctfSAEgxbng0uG4gjBQxAHes3EKLdosH/Av90pQfSe9IDVdFIngvNPzt8Y14pNjrtqov/yNIg==}
+    dependencies:
+      '@babel/parser': 7.23.6
+      flow-parser: 0.185.2
+      jscodeshift: 0.14.0(@babel/preset-env@7.23.7)
+      nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - '@babel/preset-env'
+      - supports-color
     dev: true
 
   /react-native-iconfont-cli@2.2.4(react-native-svg@14.1.0)(react-native@0.73.1)(react@18.2.0):
