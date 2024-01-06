@@ -4,11 +4,14 @@ import { useHomeStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
+import { useTabItemTap } from '@tarojs/taro'
 
 import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
+
+const PAGE_PATH = '/pages/index/index'
 
 definePageConfig({
   navigationBarTitleText: '首页',
@@ -48,6 +51,11 @@ export default function Index() {
     },
     { reloadDeps: [tab] }
   )
+  useTabItemTap((item) => {
+    if (item.pagePath === PAGE_PATH) {
+      reload()
+    }
+  })
   return (
     <View>
       <NavigationBar />

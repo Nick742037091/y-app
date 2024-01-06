@@ -71,7 +71,7 @@ export default function NavigationBar() {
         className="size-40 rounded-full ml-10"
         onClick={() => setShowMine(true)}
       />
-      <Text className="mx-auto">Y</Text>
+      <Text className="mx-auto text-[22px]">Y</Text>
       {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
     </ImmersionTop>
   )
