@@ -5,7 +5,6 @@ import { useUserInfoStore } from './stores/app'
 
 function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
-    console.log('App launched.')
     useUserInfoStore.getState().queryUserInfo()
   })
 

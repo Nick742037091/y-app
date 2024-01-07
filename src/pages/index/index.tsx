@@ -11,7 +11,7 @@ import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
 
-const PAGE_PATH = '/pages/index/index'
+const PAGE_PATH = 'pages/index/index'
 
 definePageConfig({
   navigationBarTitleText: '首页',
@@ -52,7 +52,7 @@ export default function Index() {
     { reloadDeps: [tab] }
   )
   useTabItemTap((item) => {
-    if (item.pagePath === PAGE_PATH) {
+    if (item.pagePath.includes(PAGE_PATH)) {
       reload()
     }
   })
