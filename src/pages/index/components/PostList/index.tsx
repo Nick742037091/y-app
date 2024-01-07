@@ -2,6 +2,7 @@ import { PostItem } from '@/services/post/types'
 import IconFont from '@/components/Iconfont'
 import { Image, Text, View } from '@tarojs/components'
 import styles from './index.module.scss'
+import ImgList from '../PostImgList'
 
 export function PostList(props: { postList: PostItem[] }) {
   if (!props.postList) return null
@@ -21,6 +22,7 @@ export function PostList(props: { postList: PostItem[] }) {
               <Text className="ml-4">@{item.fullname}</Text>
             </View>
             <Text>{item.content}</Text>
+            <ImgList list={item.imgList} />
             <PostBottomButtons post={item} />
           </View>
         </View>

@@ -9,4 +9,7 @@ export type PostItem = {
   shareNum: number
   likeNum: number
   viewNum: number
+  imgList: string[]
+  video: string
+  gif: string
 }
