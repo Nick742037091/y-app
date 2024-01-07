@@ -1,0 +1,51 @@
+/** 图片区域 **/
+$imgMargin: 2px;
+$imgBorderRadius: 10px;
+@mixin imgBorderRaduisFull {
+  border-radius: $imgBorderRadius;
+}
+// 圆角通过img_row实现
+// 因此只有一张图片也需要通过img_row元素嵌套
+.img_row {
+  @apply flex-1 flex flex-row relative overflow-hidden;
+  & + & {
+    margin-top: $imgMargin;
+  }
+
+  &:first-child {
+    border-top-left-radius: $imgBorderRadius;
+    border-top-right-radius: $imgBorderRadius;
+  }
+  &:last-child {
+    border-bottom-left-radius: $imgBorderRadius;
+    border-bottom-right-radius: $imgBorderRadius;
+  }
+  // 直接下层图片才生效
+  > .img + .img {
+    margin-left: $imgMargin;
+  }
+}
+
+.img_col {
+  @apply flex-1 flex flex-col;
+  margin-left: $imgMargin;
+  // 直接下层图片才生效
+  > .img + .img {
+    margin-top: $imgMargin;
+  }
+}
+
+.img {
+  @apply flex-1 h-full relative;
+  // 用图片短边撑满
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  // 缺省背景图
+  &::after {
+    @apply absolute-full bg-placeholder;
+    display: block;
+    z-index: -1; //放在最底层
+    content: '';
+  }
+}
