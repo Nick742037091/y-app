@@ -1,7 +1,7 @@
 import { colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
 import { Loading, ConfigProvider, PullToRefresh } from '@nutui/nutui-react-taro'
-import IconFont from '../Iconfont'
+import IconFont from '../IconFont'
 
 /**
  * 页面无效循环组件，与useInfiniteScroll搭配使用

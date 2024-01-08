@@ -4,7 +4,7 @@ import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
 import { colorPrimary } from '@/styles/variables'
 import { isH5 } from '@/utils'
 import throttle from 'lodash/throttle'
-import IconFont from '../Iconfont'
+import IconFont from '../IconFont'
 
 // 默认下拉刷新超时时间
 const DEFAULT_REFRESH_TIMEOUT = 1000

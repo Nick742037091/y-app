@@ -2,7 +2,7 @@ import { useUserInfoStore } from '@/stores/app'
 import { Popup } from '@nutui/nutui-react-taro'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
 import { useStatusBarHeight } from '@/utils/hooks/page'
-import IconFont, { IconNames } from '@/components/Iconfont'
+import IconFont, { IconNames } from '@/components/IconFont'
 import styles from './index.module.scss'
 
 const Actions = () => {

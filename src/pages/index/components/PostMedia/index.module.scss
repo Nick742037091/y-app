@@ -49,3 +49,9 @@ $imgBorderRadius: 10px;
     content: '';
   }
 }
+
+.play_btn {
+  @apply absolute left-[50%] top-[50%] rounded-full size-50 flex flex-center;
+  transform: translate(-50%, -50%);
+  background-color: rgba(#000, 0.3);
+}
