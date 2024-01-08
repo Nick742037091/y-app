@@ -1,5 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import { PostItem } from '@/services/post/types'
+import IconFont from '@/components/IconFont/index'
 import styles from './index.module.scss'
 
 const createImage = (
@@ -68,4 +70,32 @@ const ImgList = (props: { list: string[] }) => {
   )
 }
 
-export default ImgList
+export const VideoPoster = (props: { video: string; poster: string }) => {
+  // TODO播放视频
+  const playButton = (
+    <View className={styles.play_btn}>
+      <IconFont name="play-fill" size={30} color="white" />
+    </View>
+  )
+  return (
+    // padding-bottom控制整体宽高比
+    <View className="pb-[56.25%] relative mt-5">
+      <View className="absolute-full">
+        <View className={styles.img_row + ' h-full'}>
+          {createImage(styles.img, props.poster)}
+          {playButton}
+        </View>
+      </View>
+    </View>
+  )
+}
+
+const Media = (props: { post: PostItem }) => {
+  const { post } = props
+  if (post.video) {
+    return <VideoPoster video={post.video} poster={post.videoPoster} />
+  }
+  return <ImgList list={post.imgList} />
+}
+
+export default Media

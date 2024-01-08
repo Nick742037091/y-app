@@ -11,5 +11,6 @@ export type PostItem = {
   viewNum: number
   imgList: string[]
   video: string
+  videoPoster: string
   gif: string
 }

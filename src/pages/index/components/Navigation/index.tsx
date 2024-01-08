@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react'
 import ImmersionTop from '@/components/ImmersionNavigation'
 import { Image, Text, View } from '@tarojs/components'
-import IconFont from '@/components/Iconfont'
+import IconFont from '@/components/IconFont'
 import { isH5 } from '@/utils'
 import { useHomeStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 import { useUserInfoStore } from '@/stores/app'
