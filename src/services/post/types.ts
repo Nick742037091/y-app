@@ -12,5 +12,6 @@ export type PostItem = {
   imgList: string[]
   video: string
   videoPoster: string
-  gif: string
+  gifVideo: string
+  gifPoster: string
 }

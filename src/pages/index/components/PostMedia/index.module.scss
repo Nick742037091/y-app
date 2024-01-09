@@ -50,8 +50,34 @@ $imgBorderRadius: 10px;
   }
 }
 
-.play_btn {
+.play_btn,
+.gif_play_btn {
   @apply absolute left-[50%] top-[50%] rounded-full size-50 flex flex-center;
   transform: translate(-50%, -50%);
   background-color: rgba(#000, 0.3);
+}
+
+.gif_video {
+  // :global包裹的类名不会转换为module css类，可以实现样式覆盖
+  :global(.taro-video-bar) {
+    // 隐藏web video控件
+    display: none;
+  }
+}
+
+.gif_bottom_bar {
+  @apply absolute left-10 bottom-10 flex flex-center;
+  .gif_bottom_play_button {
+    @apply w-24 h-24 flex flex-center;
+    background-color: rgba(#000, 0.8);
+    border-radius: 4px 0 0 4px;
+  }
+  .gif_tag {
+    @apply ml-2 w-30 h-24 flex flex-center;
+    background-color: rgba(#000, 0.3);
+    border-radius: 2px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+  }
 }

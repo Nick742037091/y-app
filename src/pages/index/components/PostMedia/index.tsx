@@ -1,9 +1,10 @@
 import Taro from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { Video, View } from '@tarojs/components'
 import { PostItem } from '@/services/post/types'
 import { playVideo } from '@/utils'
 import IconFont from '@/components/IconFont/index'
 import styles from './index.module.scss'
+import { useState } from 'react'
 
 const createImage = (
   className: string,
@@ -76,7 +77,7 @@ const ImgList = (props: { list: string[] }) => {
 export const VideoPoster = (props: { video: string; poster: string }) => {
   const playButton = (
     <View className={styles.play_btn} onClick={() => playVideo(props.video)}>
-      <IconFont name="play-fill" size={30} color="white" />
+      <IconFont name="play" size={30} color="white" />
     </View>
   )
   return (
@@ -92,10 +93,59 @@ export const VideoPoster = (props: { video: string; poster: string }) => {
   )
 }
 
+export const GifPoster = (props: { gifVideo: string; poster: string }) => {
+  const [isToggled, setToggled] = useState(false)
+  const handleToggle = () => {
+    setToggled(true)
+    setIsPlaying(true)
+  }
+  const centerPlayButton = (
+    <View className={styles.gif_play_btn} onClick={handleToggle}>
+      <IconFont name="play" size={30} color="white" />
+    </View>
+  )
+  const [isPlaying, setIsPlaying] = useState(false)
+  const bottomPlayButton = (
+    <View className={styles.gif_bottom_bar}>
+      <View
+        className={styles.gif_bottom_play_button}
+        onClick={() => setIsPlaying(!isPlaying)}
+      >
+        <IconFont name={isPlaying ? 'pause' : 'play'} size={16} color="white" />
+      </View>
+      <View className={styles.gif_tag}>GIF</View>
+    </View>
+  )
+  return (
+    // padding-bottom控制整体宽高比
+    <View className="pb-[50%] relative mt-5">
+      <View className="absolute-full">
+        <View className={styles.img_row + ' h-full'}>
+          <Video
+            src={props.gifVideo}
+            className={styles.gif_video + ' w-full h-full bg-placeholder'}
+            controls={false}
+            showProgress={false}
+            showPlayBtn={false}
+            showCenterPlayBtn={false}
+            showMuteBtn={false}
+            showFullscreenBtn={false}
+            showBottomProgress={false}
+          />
+          {isToggled ? bottomPlayButton : centerPlayButton}
+        </View>
+      </View>
+    </View>
+  )
+}
+
 const Media = (props: { post: PostItem }) => {
   const { post } = props
   if (post.video) {
     return <VideoPoster video={post.video} poster={post.videoPoster} />
+  }
+  if (post.gifVideo) {
+    return <GifPoster gifVideo={post.gifVideo} poster={post.gifPoster} />
   }
   return <ImgList list={post.imgList} />
 }

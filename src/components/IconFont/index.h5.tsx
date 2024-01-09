@@ -3,8 +3,9 @@
 
 import React, { FunctionComponent } from 'react';
 
+import Icon from './h5';
 
-export type IconNames = 'play-fill' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
 
 interface Props {
   name: IconNames;
@@ -16,8 +17,7 @@ interface Props {
 const IconFont: FunctionComponent<Props> = (props) => {
   const { name, size, color, style } = props;
 
-  // @ts-ignore
-  return <iconfont name={name} size={size} color={color} style={style} />;
+  return <Icon name={name} size={size} color={color} style={style} />;
 };
 
 IconFont.defaultProps = {

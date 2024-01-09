@@ -2,7 +2,8 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
-import PlayFill from './PlayFill';
+import Pause from './Pause';
+import Play from './Play';
 import User from './User';
 import Team from './Team';
 import List from './List';
@@ -17,7 +18,8 @@ import PostView from './PostView';
 import PostComment from './PostComment';
 import PostLike from './PostLike';
 import HomeSetting from './HomeSetting';
-export { default as PlayFill } from './PlayFill';
+export { default as Pause } from './Pause';
+export { default as Play } from './Play';
 export { default as User } from './User';
 export { default as Team } from './Team';
 export { default as List } from './List';
@@ -33,7 +35,7 @@ export { default as PostComment } from './PostComment';
 export { default as PostLike } from './PostLike';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'play-fill' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -43,8 +45,10 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
-    case 'play-fill':
-      return <PlayFill {...rest} />;
+    case 'pause':
+      return <Pause {...rest} />;
+    case 'play':
+      return <Play {...rest} />;
     case 'user':
       return <User {...rest} />;
     case 'team':
