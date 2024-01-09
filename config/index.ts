@@ -91,6 +91,10 @@ export default defineConfig(async (merge, { command, mode }) => {
             }
           }
         })
+      },
+      miniCssExtractPluginOption: {
+        //忽略css文件引入顺序,避免分包使用nut-ui报错
+        ignoreOrder: true
       }
     },
     h5: {

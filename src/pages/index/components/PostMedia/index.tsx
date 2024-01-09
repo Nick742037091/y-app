@@ -1,10 +1,9 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { PostItem } from '@/services/post/types'
-import { useStorage } from 'taro-hooks'
+import { playVideo } from '@/utils'
 import IconFont from '@/components/IconFont/index'
 import styles from './index.module.scss'
-import { playVideo } from '@/utils'
 
 const createImage = (
   className: string,
