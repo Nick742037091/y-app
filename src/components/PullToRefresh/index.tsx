@@ -1,10 +1,10 @@
 import { View, CommonEventFunction } from '@tarojs/components'
 import { CSSProperties, useEffect, useRef, useState } from 'react'
-import { Loading, ConfigProvider } from '@nutui/nutui-react-taro'
 import { colorPrimary } from '@/styles/variables'
 import { isH5 } from '@/utils'
 import throttle from 'lodash/throttle'
 import IconFont from '../IconFont'
+import Loading from '../Loading'
 
 // 默认下拉刷新超时时间
 const DEFAULT_REFRESH_TIMEOUT = 1000
@@ -156,15 +156,7 @@ function RefreshingWrapper(props: { height: number; children: any }) {
 function Refreshing(props: { height: number }) {
   return (
     <RefreshingWrapper height={props.height}>
-      <ConfigProvider
-        className="flex-center"
-        theme={{
-          nutuiLoadingIconSize: '30px',
-          nutuiLoadingIconColor: colorPrimary
-        }}
-      >
-        <Loading type="circular" />
-      </ConfigProvider>
+      <Loading size={30} />
     </RefreshingWrapper>
   )
 }

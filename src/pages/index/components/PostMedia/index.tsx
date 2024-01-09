@@ -1,15 +1,19 @@
 import Taro from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { PostItem } from '@/services/post/types'
+import { useStorage } from 'taro-hooks'
 import IconFont from '@/components/IconFont/index'
 import styles from './index.module.scss'
+import { playVideo } from '@/utils'
 
 const createImage = (
   className: string,
   url = '',
-  key: string | number = ''
+  key: string | number = '',
+  previewable: boolean = true
 ) => {
   const hanclePreview = () =>
+    previewable &&
     Taro.previewImage({
       urls: [url]
     })
@@ -71,9 +75,8 @@ const ImgList = (props: { list: string[] }) => {
 }
 
 export const VideoPoster = (props: { video: string; poster: string }) => {
-  // TODO播放视频
   const playButton = (
-    <View className={styles.play_btn}>
+    <View className={styles.play_btn} onClick={() => playVideo(props.video)}>
       <IconFont name="play-fill" size={30} color="white" />
     </View>
   )
@@ -82,7 +85,7 @@ export const VideoPoster = (props: { video: string; poster: string }) => {
     <View className="pb-[56.25%] relative mt-5">
       <View className="absolute-full">
         <View className={styles.img_row + ' h-full'}>
-          {createImage(styles.img, props.poster)}
+          {createImage(styles.img, props.poster, '', false)}
           {playButton}
         </View>
       </View>

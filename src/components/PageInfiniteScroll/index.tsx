@@ -1,7 +1,8 @@
 import { colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
-import { Loading, ConfigProvider, PullToRefresh } from '@nutui/nutui-react-taro'
+import { PullToRefresh } from '@nutui/nutui-react-taro'
 import IconFont from '../IconFont'
+import Loading from '../Loading'
 
 /**
  * 页面无效循环组件，与useInfiniteScroll搭配使用
@@ -68,15 +69,7 @@ function PushUp(props: { height: number }) {
 function Refreshing(props: { height: number }) {
   return (
     <View className="flex-center" style={{ height: props.height }}>
-      <ConfigProvider
-        className="flex-center"
-        theme={{
-          nutuiLoadingIconSize: '30px',
-          nutuiLoadingIconColor: colorPrimary
-        }}
-      >
-        <Loading type="circular" />
-      </ConfigProvider>
+      <Loading size={30} />
     </View>
   )
 }
@@ -92,14 +85,7 @@ function RefresFinished(props: { height: number }) {
 function LoadMoreLoading() {
   return (
     <View className="flex-center p-15">
-      <ConfigProvider
-        theme={{
-          nutuiLoadingIconSize: '30px',
-          nutuiLoadingIconColor: colorPrimary
-        }}
-      >
-        <Loading type="circular" />
-      </ConfigProvider>
+      <Loading size={30} />
     </View>
   )
 }

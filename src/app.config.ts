@@ -8,6 +8,12 @@ export default defineAppConfig({
     'pages/notifications/index',
     'pages/messages/index'
   ],
+  subPackages: [
+    {
+      root: 'media',
+      pages: ['pages/video-play/index']
+    }
+  ],
   window: {
     backgroundTextStyle: 'dark',
     navigationBarBackgroundColor: '#fff',
