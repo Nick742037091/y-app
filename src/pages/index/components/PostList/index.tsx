@@ -1,6 +1,6 @@
 import { PostItem } from '@/services/post/types'
 import IconFont from '@/components/IconFont'
-import { Image, Text, Video, View } from '@tarojs/components'
+import { Image, Text, View } from '@tarojs/components'
 import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
 
@@ -22,7 +22,7 @@ export function PostList(props: { postList: PostItem[] }) {
               <Text className="ml-4">@{item.fullname}</Text>
             </View>
             <Text>{item.content}</Text>
-            <PostMedia post={item} />
+            <PostMedia post={item} index={index} />
             <PostBottomButtons post={item} />
           </View>
         </View>

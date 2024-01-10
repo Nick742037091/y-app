@@ -52,7 +52,7 @@ $imgBorderRadius: 10px;
 
 .play_btn,
 .gif_play_btn {
-  @apply absolute left-[50%] top-[50%] rounded-full size-50 flex flex-center;
+  @apply absolute left-[50%] top-[50%] rounded-full size-50 flex flex-center z-[2];
   transform: translate(-50%, -50%);
   background-color: rgba(#000, 0.3);
 }
@@ -66,7 +66,7 @@ $imgBorderRadius: 10px;
 }
 
 .gif_bottom_bar {
-  @apply absolute left-10 bottom-10 flex flex-center;
+  @apply absolute left-10 bottom-10 flex flex-center z-[2];
   .gif_bottom_play_button {
     @apply w-24 h-24 flex flex-center;
     background-color: rgba(#000, 0.8);
