@@ -94,7 +94,12 @@ export const VideoPoster = (props: { video: string; poster: string }) => {
   )
 }
 
-export const GifPoster = (props: { gifVideo: string; poster: string }) => {
+export const GifPoster = (props: {
+  gifVideo: string
+  poster: string
+  width: number
+  height: number
+}) => {
   /** 中间按钮 **/
   const [isToggled, setToggled] = useState(false)
   const centerPlayButton = (
@@ -128,12 +133,12 @@ export const GifPoster = (props: { gifVideo: string; poster: string }) => {
   const handleLoadedMetaData = () => {
     videoContext.current = Taro.createVideoContext(videoId.current, this)
     setIsVideoLoaded(true)
-    // 因autoplay需要更新播放状态
-    setIsPlaying(true)
   }
+  // 预先获取图片宽高，动态设置展示比例
+  const paddingBottom = (props.height / props.width) * 100 + '%'
   return (
     // padding-bottom控制整体宽高比
-    <View className="pb-[50%] relative mt-5">
+    <View className={`pb-[${paddingBottom}] relative mt-5`}>
       <View className="absolute-full">
         <View className={styles.img_row + ' h-full'}>
           {/* 点击之后才加载视频，避免页面渲染时批量预加载视频 */}
@@ -147,10 +152,12 @@ export const GifPoster = (props: { gifVideo: string; poster: string }) => {
               controls={false}
               showCenterPlayBtn={false}
               onLoadedMetaData={handleLoadedMetaData}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onStop={() => setIsPlaying(false)}
             />
           )}
           {/* 默认展示封面，视频加载之后隐藏封面 */}
-          {/* TODO 可增加视频加载时的loading */}
           {isVideoLoaded || (
             <Image
               src={props.poster}
@@ -170,7 +177,14 @@ const Media = (props: { post: PostItem; index: number }) => {
     return <VideoPoster video={post.video} poster={post.videoPoster} />
   }
   if (post.gifVideo) {
-    return <GifPoster gifVideo={post.gifVideo} poster={post.gifPoster} />
+    return (
+      <GifPoster
+        gifVideo={post.gifVideo}
+        poster={post.gifPoster}
+        width={post.gitWidth}
+        height={post.gitHeight}
+      />
+    )
   }
   return <ImgList list={post.imgList} />
 }
