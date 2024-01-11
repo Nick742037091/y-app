@@ -42,7 +42,7 @@ export default function Mine(props: { visible: boolean; onClose: () => void }) {
       lockScroll
       visible={props.visible}
       position="left"
-      className="h-screen w-280 flex flex-col overflow-hidden"
+      className="h-screen w-250 flex flex-col overflow-hidden"
       style={{ paddingTop: statusBarHeight }}
       onClose={props.onClose}
     >

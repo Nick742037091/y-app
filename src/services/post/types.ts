@@ -14,6 +14,6 @@ export type PostItem = {
   videoPoster: string
   gifVideo: string
   gifPoster: string
-  gitWidth: number
-  gitHeight: number
+  gifWidth: number
+  gifHeight: number
 }

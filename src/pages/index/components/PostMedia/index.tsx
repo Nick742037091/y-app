@@ -138,7 +138,7 @@ export const GifPoster = (props: {
   const paddingBottom = (props.height / props.width) * 100 + '%'
   return (
     // padding-bottom控制整体宽高比
-    <View className={`pb-[${paddingBottom}] relative mt-5`}>
+    <View className="relative mt-5" style={{ paddingBottom }}>
       <View className="absolute-full">
         <View className={styles.img_row + ' h-full'}>
           {/* 点击之后才加载视频，避免页面渲染时批量预加载视频 */}
@@ -181,8 +181,8 @@ const Media = (props: { post: PostItem; index: number }) => {
       <GifPoster
         gifVideo={post.gifVideo}
         poster={post.gifPoster}
-        width={post.gitWidth}
-        height={post.gitHeight}
+        width={post.gifWidth}
+        height={post.gifHeight}
       />
     )
   }
