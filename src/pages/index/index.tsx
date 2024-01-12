@@ -58,7 +58,7 @@ export default function Index() {
   })
   return (
     <View>
-      <NavigationBar />
+      <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
         loading={loading}

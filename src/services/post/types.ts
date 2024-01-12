@@ -17,3 +17,7 @@ export type PostItem = {
   gifWidth: number
   gifHeight: number
 }
+
+export type Publisher = {
+  avatar: string
+}

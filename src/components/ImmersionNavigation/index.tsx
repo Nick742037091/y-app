@@ -71,8 +71,10 @@ const ImmersionTop = (props: {
     height: navigationHeight + footerHeight + 'px',
     // 通过transform: translateY()将导航栏移动到状态栏下方，并设置transform动画
     transform: `translateY(-${navigationTranslateY}px)`,
+    // TODO 由于需要展示最近发布组件，不能设置透明，后续看一下是否能分别控制透明度
     // 最小透明度不为零，避免滚动过快，瞬间透明不可见
-    opacity: Math.min(navigationOpacity + 0.2, 1),
+    // opacity: Math.min(navigationOpacity + 0.2, 1),
+
     transition: `all ${transitionTime}ms ease-out`,
     backgroundColor
   }

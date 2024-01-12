@@ -1,0 +1,13 @@
+.recent_publish {
+  @apply absolute bottom-[-48px] left-[50%] translate-x-[-50%];
+  @apply h-40 px-10 rounded-[20px];
+  @apply flex items-center;
+  @apply bg-primary text-white shadow-md;
+  .publish_avatar {
+    @apply rounded-full size-30 flex-shrink-0 box-content;
+    border: 1px solid white;
+  }
+  .publish_avatar + .publish_avatar {
+    margin-left: -6px;
+  }
+}

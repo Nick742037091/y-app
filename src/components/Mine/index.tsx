@@ -7,10 +7,9 @@ import styles from './index.module.scss'
 
 const Actions = () => {
   const list = [
-    { key: 'user', label: 'Profile', iconName: 'user' as IconNames },
-    { key: 'list', label: 'Lists', iconName: 'list' as IconNames },
-    { key: 'bookmark', label: 'BookMarks', iconName: 'bookmark' as IconNames },
-    { key: 'communities', label: 'Communities', iconName: 'team' as IconNames }
+    { key: 'user', label: '个人资料', iconName: 'user' as IconNames },
+    { key: 'bookmark', label: '书签', iconName: 'bookmark' as IconNames },
+    { key: 'list', label: '列表', iconName: 'list' as IconNames }
   ]
 
   return (
@@ -64,11 +63,11 @@ export default function Mine(props: { visible: boolean; onClose: () => void }) {
           <View className="mt-12  text-info flex items-center">
             <View>
               <Text className="text-black mr-5">{userInfo.followingNum}</Text>
-              Following
+              正在关注
             </View>
             <View className="ml-20">
               <Text className="text-black mr-5">{userInfo.followerNum}</Text>
-              Followers
+              关注者
             </View>
           </View>
         </View>
