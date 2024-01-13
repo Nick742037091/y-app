@@ -1,20 +1,20 @@
 import { CSSProperties, useState } from 'react'
 import ImmersionTop from '@/components/ImmersionNavigation'
 import { Image, Text, View } from '@tarojs/components'
-import IconFont from '@/components/IconFont'
 import { isH5 } from '@/utils'
 import { useHomeStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 import { useUserInfoStore } from '@/stores/app'
-import { getRecentPublisherList } from '@/services/post'
+import { getNewPosterList } from '@/services/post'
 import { useRequest } from 'taro-hooks'
-import { usePageScroll } from '@tarojs/taro'
+import Taro, { usePageScroll } from '@tarojs/taro'
+import Icon from '@/components/Icon'
 import styles from './index.module.scss'
 
 const SettingBtnClassName = 'flex-center size-50 ml-10 p-10'
 const SettingButton = () => {
   return (
     <View className={SettingBtnClassName}>
-      <IconFont name="home-setting" size={20} />
+      <Icon name="home-setting" size={20} />
     </View>
   )
 }
@@ -29,7 +29,7 @@ const ScrollToTop = (props: { onClick: () => void }) => {
   })
   const { data } = useRequest(
     async () => {
-      const result = await getRecentPublisherList()
+      const result = await getNewPosterList()
       return result.code === 0 ? result.data : []
     },
     // 5秒刷新一次
@@ -37,11 +37,25 @@ const ScrollToTop = (props: { onClick: () => void }) => {
   )
   // 滚动到顶不显示
   if (scrollTop === 0 || !data || data?.length === 0) return null
+  let wrapperHeight = 32
+  let wrapperBottom = 40
+  if (!isH5) {
+    const menuButtonRect = Taro.getMenuButtonBoundingClientRect()
+    const statusBarHeight = Taro.getWindowInfo()?.statusBarHeight ?? 0
+    wrapperHeight = menuButtonRect.height
+    wrapperBottom = menuButtonRect.bottom - statusBarHeight
+  }
   return (
-    <View className={styles.recent_publish} onClick={props.onClick}>
-      <View className="mr-4">
-        <IconFont name="arrow-up" color="white" size={20} />
-      </View>
+    <View
+      className={styles.recent_publish}
+      style={{
+        left: isH5 ? '50%' : '30%',
+        height: wrapperHeight,
+        bottom: -wrapperBottom
+      }}
+      onClick={props.onClick}
+    >
+      <Icon className="mr-4" name="arrow-up" color="white" size={20} />
       {data?.map((item, index) => {
         return (
           // 动态z-index控制前面头像覆盖后面

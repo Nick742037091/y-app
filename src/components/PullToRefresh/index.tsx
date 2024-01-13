@@ -3,8 +3,8 @@ import { CSSProperties, useEffect, useRef, useState } from 'react'
 import { colorPrimary } from '@/styles/variables'
 import { isH5 } from '@/utils'
 import throttle from 'lodash/throttle'
-import IconFont from '../IconFont'
 import Loading from '../Loading'
+import Icon from '../Icon'
 
 // 默认下拉刷新超时时间
 const DEFAULT_REFRESH_TIMEOUT = 1000
@@ -165,7 +165,7 @@ function Refreshing(props: { height: number }) {
 function PullDown(props: { height: number }) {
   return (
     <RefreshingWrapper height={props.height}>
-      <IconFont name="arrow-down" size={30} color={colorPrimary} />
+      <Icon name="arrow-down" size={30} color={colorPrimary} />
     </RefreshingWrapper>
   )
 }

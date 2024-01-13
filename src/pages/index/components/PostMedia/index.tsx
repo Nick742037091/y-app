@@ -2,8 +2,8 @@ import Taro, { VideoContext } from '@tarojs/taro'
 import { Image, Video, View } from '@tarojs/components'
 import { PostItem } from '@/services/post/types'
 import { playVideo } from '@/utils'
-import IconFont from '@/components/IconFont/index'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import Icon from '@/components/Icon'
+import { useRef, useState } from 'react'
 import { uniqueId } from 'lodash'
 import styles from './index.module.scss'
 
@@ -28,7 +28,6 @@ const createImage = (
   )
 }
 
-// TODO 用backgroundImage如何实现懒加载
 // 图片列表，支持1~4张图片展示
 const ImgList = (props: { list: string[] }) => {
   if (props.list.length === 0) return null
@@ -77,9 +76,13 @@ const ImgList = (props: { list: string[] }) => {
 
 export const VideoPoster = (props: { video: string; poster: string }) => {
   const playButton = (
-    <View className={styles.play_btn} onClick={() => playVideo(props.video)}>
-      <IconFont name="play" size={30} color="white" />
-    </View>
+    <Icon
+      name="play"
+      size={30}
+      color="white"
+      className={styles.play_btn}
+      onClick={() => playVideo(props.video)}
+    />
   )
   return (
     // padding-bottom控制整体宽高比
@@ -103,9 +106,13 @@ export const GifPoster = (props: {
   /** 中间按钮 **/
   const [isToggled, setToggled] = useState(false)
   const centerPlayButton = (
-    <View className={styles.gif_play_btn} onClick={() => setToggled(true)}>
-      <IconFont name="play" size={30} color="white" />
-    </View>
+    <Icon
+      name="play"
+      size={30}
+      color="white"
+      className={styles.gif_play_btn}
+      onClick={() => setToggled(true)}
+    />
   )
   /** 播放状态 **/
   const [isPlaying, setIsPlaying] = useState(false)
@@ -117,9 +124,13 @@ export const GifPoster = (props: {
   /** 底部播放按钮 **/
   const bottomPlayButton = (
     <View className={styles.gif_bottom_bar}>
-      <View className={styles.gif_bottom_play_button} onClick={togglePlay}>
-        <IconFont name={isPlaying ? 'pause' : 'play'} size={16} color="white" />
-      </View>
+      <Icon
+        name={isPlaying ? 'pause' : 'play'}
+        size={16}
+        color="white"
+        className={styles.gif_bottom_play_button}
+        onClick={togglePlay}
+      />
       <View className={styles.gif_tag}>GIF</View>
     </View>
   )

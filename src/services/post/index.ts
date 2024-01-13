@@ -10,6 +10,6 @@ export const getPostList = (data: {
   return yApi.get<ListData<PostItem>>('/post/list', data)
 }
 
-export const getRecentPublisherList = () => {
-  return yApi.get<Publisher[]>('/post/recentPublisherList')
+export const getNewPosterList = () => {
+  return yApi.get<Publisher[]>('/post/getNewPosterList')
 }

@@ -2,8 +2,8 @@ import { useUserInfoStore } from '@/stores/app'
 import { Popup } from '@nutui/nutui-react-taro'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
 import { useStatusBarHeight } from '@/utils/hooks/page'
-import IconFont, { IconNames } from '@/components/IconFont'
 import styles from './index.module.scss'
+import Icon, { IconNames } from '../Icon'
 
 const Actions = () => {
   const list = [
@@ -18,7 +18,7 @@ const Actions = () => {
         return (
           <View key={item.key}>
             <View className="flex items-center p-16">
-              <IconFont name={item.iconName} size={24} />
+              <Icon name={item.iconName} size={24} />
               <View className="ml-24 text-[20px] color-black font-bold">
                 {item.label}
               </View>
@@ -54,9 +54,7 @@ export default function Mine(props: { visible: boolean; onClose: () => void }) {
         <View className="p-16 text-[15px]">
           <View className="flex items-center">
             <Image src={userInfo.avatar} className="size-40 rounded-full" />
-            <View className={styles.icon_add}>
-              <IconFont name="plus" />
-            </View>
+            <Icon className={styles.icon_add} name="plus" />
           </View>
           <View className="font-bold text-black">{userInfo.userName}</View>
           <View className=" text-info">@{userInfo.fullName}</View>

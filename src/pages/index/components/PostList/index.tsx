@@ -1,5 +1,5 @@
 import { PostItem } from '@/services/post/types'
-import IconFont from '@/components/IconFont'
+import Icon from '@/components/Icon'
 import { Image, Text, View } from '@tarojs/components'
 import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
@@ -36,19 +36,19 @@ const PostBottomButtons = (props: { post: PostItem }) => {
   return (
     <View className="flex">
       <View className={styles.post_bottom_btn}>
-        <IconFont name="post-comment" />
+        <Icon name="post-comment" />
         <Text className="ml-4">{post.commentNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
-        <IconFont name="post-share" />
+        <Icon name="post-share" />
         <Text className="ml-4">{post.shareNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
-        <IconFont name="post-like" />
+        <Icon name="post-like" />
         <Text className="ml-4">{post.likeNum}</Text>
       </View>
       <View className={styles.post_bottom_btn}>
-        <IconFont name="post-view" />
+        <Icon name="post-view" />
         <Text className="ml-4">{post.viewNum}</Text>
       </View>
     </View>

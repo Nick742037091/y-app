@@ -1,8 +1,8 @@
 import { colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
 import { PullToRefresh } from '@nutui/nutui-react-taro'
-import IconFont from '../IconFont'
 import Loading from '../Loading'
+import Icon from '../Icon'
 
 /**
  * 页面无效循环组件，与useInfiniteScroll搭配使用
@@ -50,9 +50,13 @@ const DEFAULT_REFRESHING_HEIGHT = 50
 // 下拉箭头
 function PullDown(props: { height: number }) {
   return (
-    <View className="flex-center" style={{ height: props.height }}>
-      <IconFont name="arrow-down" size={30} color={colorPrimary} />
-    </View>
+    <Icon
+      name="arrow-down"
+      size={30}
+      color={colorPrimary}
+      className="flex-center"
+      style={{ height: props.height }}
+    />
   )
 }
 
@@ -60,7 +64,13 @@ function PullDown(props: { height: number }) {
 function PushUp(props: { height: number }) {
   return (
     <View className="flex-center" style={{ height: props.height }}>
-      <IconFont name="arrow-up" size={30} color={colorPrimary} />
+      <Icon
+        name="arrow-up"
+        size={30}
+        color={colorPrimary}
+        className="flex-center"
+        style={{ height: props.height }}
+      />
     </View>
   )
 }
@@ -76,9 +86,13 @@ function Refreshing(props: { height: number }) {
 
 function RefresFinished(props: { height: number }) {
   return (
-    <View className="flex-center" style={{ height: props.height }}>
-      <IconFont name="check" size={30} color={colorPrimary} />
-    </View>
+    <Icon
+      name="check"
+      size={30}
+      color={colorPrimary}
+      className="flex-center"
+      style={{ height: props.height }}
+    />
   )
 }
 
