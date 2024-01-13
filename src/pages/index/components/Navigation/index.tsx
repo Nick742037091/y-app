@@ -39,8 +39,8 @@ const ScrollToTop = (props: { onClick: () => void }) => {
   if (scrollTop === 0 || !data || data?.length === 0) return null
   return (
     <View className={styles.recent_publish} onClick={props.onClick}>
-      <View className="mr-6">
-        <IconFont name="arrow-up" color="white" size={24} />
+      <View className="mr-4">
+        <IconFont name="arrow-up" color="white" size={20} />
       </View>
       {data?.map((item, index) => {
         return (
@@ -53,7 +53,7 @@ const ScrollToTop = (props: { onClick: () => void }) => {
           />
         )
       })}
-      <View className="ml-8 flex-shrink-0 flex w-45">已发布</View>
+      <View className="ml-6 flex-shrink-0 flex w-45">已发布</View>
     </View>
   )
 }

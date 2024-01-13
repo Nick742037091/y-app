@@ -38,7 +38,7 @@ const ImmersionTop = (props: {
   const scrollTop = useRef(0)
   const SHOW_SCROLL_DELTA_Y = 30
   // 导航栏透明度
-  const navigationOpacity = (totalHeight - navigationTranslateY) / totalHeight
+  // const navigationOpacity = (totalHeight - navigationTranslateY) / totalHeight
   // 监听页面滚动，根据滚动距离，设置导航栏的transform: translateY()
   usePageScroll((info) => {
     const deltaY = info.scrollTop - scrollTop.current
@@ -46,7 +46,7 @@ const ImmersionTop = (props: {
       // 向下滚动，逐渐隐藏导航栏，位移距离不能大于导航栏高度，避免回显动效过快
       // 可能在页面中间显示导航栏，所以不能设置为scrollTop
       setNavigationTranslateY(
-        Math.min(navigationTranslateY + deltaY, totalHeight)
+        Math.min(navigationTranslateY + deltaY, navigationHeight + footerHeight)
       )
     } else {
       // 向上滚动

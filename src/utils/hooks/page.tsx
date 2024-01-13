@@ -14,7 +14,7 @@ export const useStatusBarHeight = (props?: {
       className="fixed top-0 left-0"
       style={{
         width: props?.width ?? '100vw',
-        zIndex: props?.zIndex ?? 10,
+        zIndex: props?.zIndex ?? 200,
         height: statusBarHeight,
         backgroundColor: props?.backgroundColor ?? colorWhite
       }}
