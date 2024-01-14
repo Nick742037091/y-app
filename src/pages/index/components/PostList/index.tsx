@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { PostItem } from '@/services/post/types'
 import Icon from '@/components/Icon'
 import { Image, Text, View } from '@tarojs/components'
@@ -16,10 +17,12 @@ export function PostList(props: { postList: PostItem[] }) {
             preview="true"
             lazyLoad
           />
-          <View className="flex-1 flex flex-col">
+          <View className="flex-1 flex flex-col ">
             <View>
-              <Text className="font-bold">{item.nickName}</Text>
-              <Text className="ml-4">@{item.fullname}</Text>
+              <Text className="font-bold ">{item.nickName}</Text>
+              <Text className="ml-4 text-info">@{item.fullname}</Text>
+              <Text className="mx-5">·</Text>
+              <Text>{dayjs(item.createTime).fromNow()}</Text>
             </View>
             <Text>{item.content}</Text>
             <PostMedia post={item} index={index} />

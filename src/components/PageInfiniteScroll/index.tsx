@@ -19,7 +19,6 @@ export default (props: {
   const showSkeleton = props.pageNum === 1 && props.loading
   const isNoMore = props.isNoMore
   const refreshingHeight = DEFAULT_REFRESHING_HEIGHT
-  // FIXME PullToRefresh组件安卓小程序由于touchmove回调少导致拖动卡顿
   return (
     <PullToRefresh
       onRefresh={props.onRefresh}

@@ -3,7 +3,7 @@ export type PostItem = {
   nickName: string
   fullname: string
   avatar: string
-  createtime: string
+  createTime: string
   content: string
   commentNum: number
   shareNum: number
