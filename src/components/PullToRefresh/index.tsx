@@ -1,10 +1,10 @@
 import { View, CommonEventFunction } from '@tarojs/components'
 import { CSSProperties, useEffect, useRef, useState } from 'react'
-import { colorPrimary } from '@/styles/variables'
 import { isH5 } from '@/utils'
 import throttle from 'lodash/throttle'
 import Loading from '../Loading'
 import Icon from '../Icon'
+import { useColorPrimary, useThemeStore } from '../ThemeProvider'
 
 // 默认下拉刷新超时时间
 const DEFAULT_REFRESH_TIMEOUT = 1000
@@ -163,6 +163,7 @@ function Refreshing(props: { height: number }) {
 
 // 下拉箭头
 function PullDown(props: { height: number }) {
+  const colorPrimary = useColorPrimary()
   return (
     <RefreshingWrapper height={props.height}>
       <Icon name="arrow-down" size={30} color={colorPrimary} />

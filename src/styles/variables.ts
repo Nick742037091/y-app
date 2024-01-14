@@ -1,4 +1,5 @@
-export const colorPrimary = '#409EFF'
+// 使用css变量，使tailwindcss也能生效
+export const colorPrimary = 'var(--color-primary)'
 export const colorSuccess = '#67C23A'
 export const colorWarning = '#E6A23C'
 export const colorDanger = '#F56C6C'

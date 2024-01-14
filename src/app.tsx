@@ -1,10 +1,11 @@
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import '@/styles/main.scss'
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
+import { View } from '@tarojs/components'
 import { useUserInfoStore } from './stores/app'
+import './app.scss'
 
 // 中文化
 dayjs.locale('zh-cn')
@@ -17,7 +18,7 @@ function App({ children }: PropsWithChildren<any>) {
   })
 
   // children 是将要会渲染的页面
-  return children
+  return <View>{children}</View>
 }
 
 export default App

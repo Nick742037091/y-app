@@ -10,6 +10,7 @@ import NavigationBar from './components/Navigation'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
+import ThemeProvider from '@/components/ThemeProvider'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -57,7 +58,7 @@ export default function Index() {
     }
   })
   return (
-    <View>
+    <ThemeProvider>
       <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
@@ -68,6 +69,6 @@ export default function Index() {
         onRefresh={reload}
       />
       <Mine visible={showMine} onClose={() => setShowMine(false)} />
-    </View>
+    </ThemeProvider>
   )
 }

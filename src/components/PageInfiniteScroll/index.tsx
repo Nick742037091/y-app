@@ -1,11 +1,10 @@
-import { colorPrimary } from '@/styles/variables'
-import { View } from '@tarojs/components'
 import { PullToRefresh } from '@nutui/nutui-react-taro'
 import Loading from '../Loading'
 import Icon from '../Icon'
+import { useColorPrimary, useThemeStore } from '../ThemeProvider'
 
 /**
- * 页面无效循环组件，与useInfiniteScroll搭配使用
+ * 页面无限循环组件，与useInfiniteScroll搭配使用
  */
 export default (props: {
   skeleton: any
@@ -48,6 +47,7 @@ const DEFAULT_REFRESHING_HEIGHT = 50
 
 // 下拉箭头
 function PullDown(props: { height: number }) {
+  const colorPrimary = useColorPrimary()
   return (
     <Icon
       name="arrow-down"
@@ -61,29 +61,31 @@ function PullDown(props: { height: number }) {
 
 // 下拉返回箭头
 function PushUp(props: { height: number }) {
+  const colorPrimary = useColorPrimary()
   return (
-    <View className="flex-center" style={{ height: props.height }}>
-      <Icon
-        name="arrow-up"
-        size={30}
-        color={colorPrimary}
-        className="flex-center"
-        style={{ height: props.height }}
-      />
-    </View>
+    <Icon
+      name="arrow-up"
+      size={30}
+      color={colorPrimary}
+      className="flex-center"
+      style={{ height: props.height }}
+    />
   )
 }
 
 // 下拉刷新loading
 function Refreshing(props: { height: number }) {
   return (
-    <View className="flex-center" style={{ height: props.height }}>
-      <Loading size={30} />
-    </View>
+    <Loading
+      size={30}
+      className="flex-center"
+      style={{ height: props.height }}
+    />
   )
 }
 
 function RefresFinished(props: { height: number }) {
+  const colorPrimary = useColorPrimary()
   return (
     <Icon
       name="check"
@@ -96,9 +98,5 @@ function RefresFinished(props: { height: number }) {
 }
 
 function LoadMoreLoading() {
-  return (
-    <View className="flex-center p-15">
-      <Loading size={30} />
-    </View>
-  )
+  return <Loading size={30} className="flex-center p-15" />
 }
