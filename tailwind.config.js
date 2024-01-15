@@ -16,7 +16,7 @@ module.exports = {
   theme: {
     extend: {},
     // 1000以内的单位都转成px，不要设置太多，避免Tailwind CSS IntelliSense提示缓慢，较大的值可以使用[-px]
-    spacing: Array.from({ length: 1000 }).reduce((map, _, index) => {
+    spacing: Array.from({ length: 100 }).reduce((map, _, index) => {
       map[index] = `${index}px`
       return map
     }, {}),

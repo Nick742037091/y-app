@@ -1,17 +1,9 @@
 import { create } from 'zustand'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { persist } from 'zustand/middleware'
-import { getStorageSync, setStorageSync, removeStorageSync } from '@tarojs/taro'
 
 import { View } from '@tarojs/components'
 import { createPersistOptions } from '@/utils/storage'
-
-// 定义storage操作
-const asyncLocalStorage = {
-  getItem: getStorageSync,
-  setItem: setStorageSync,
-  removeItem: removeStorageSync
-}
 
 export default function ThemeProvider(props: { children }) {
   const colorPrimary = useColorPrimary()
@@ -19,7 +11,7 @@ export default function ThemeProvider(props: { children }) {
   return <View style={style}>{props.children}</View>
 }
 
-const primaryColorMap = {
+export const primaryColorMap = {
   blue: '#409eff',
   green: '#67C23A',
   red: '#F56C6C',

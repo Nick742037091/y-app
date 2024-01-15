@@ -6,7 +6,7 @@ import { useStatusBarHeight } from '@/utils/hooks/page'
 import { useHomeStore } from '@/stores/home'
 import styles from './index.module.scss'
 import Icon, { IconNames } from '../Icon'
-import { useThemeStore } from '../ThemeProvider'
+import { primaryColorMap, useThemeStore } from '../ThemeProvider'
 
 const Actions = (props: { changeTheme: () => void }) => {
   const list = [
@@ -58,23 +58,35 @@ const Actions = (props: { changeTheme: () => void }) => {
 const SelectTheme = (props: { visible: boolean; close: () => void }) => {
   // 设置主题
   const setTheme = useThemeStore((state) => state.setTheme)
-  const handleSelectTheme = (item: any) => {
-    setTheme(item.key)
+  const handleSelectTheme = (key: string) => {
+    setTheme(key)
     props?.close()
   }
+  const options = [
+    { name: '蓝色', key: 'blue' },
+    { name: '绿色', key: 'green' },
+    { name: '红色', key: 'red' },
+    { name: '橙色', key: 'orange' }
+  ]
   return (
     <ActionSheet
       title="选择主题颜色"
       visible={props.visible}
-      options={[
-        { name: '蓝色', key: 'blue' },
-        { name: '绿色', key: 'green' },
-        { name: '红色', key: 'red' },
-        { name: '橙色', key: 'orange' }
-      ]}
-      onSelect={handleSelectTheme}
       onCancel={() => props?.close()}
-    />
+    >
+      {options.map((item, index) => {
+        return (
+          <View
+            key={index}
+            className="text-white h-50 flex-center"
+            style={{ backgroundColor: primaryColorMap[item.key] }}
+            onClick={() => handleSelectTheme(item.key)}
+          >
+            {item.name}
+          </View>
+        )
+      })}
+    </ActionSheet>
   )
 }
 
