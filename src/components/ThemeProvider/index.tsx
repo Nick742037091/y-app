@@ -1,6 +1,17 @@
-import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
+import { mountStoreDevtool } from 'simple-zustand-devtools'
+import { persist } from 'zustand/middleware'
+import { getStorageSync, setStorageSync, removeStorageSync } from '@tarojs/taro'
+
 import { View } from '@tarojs/components'
+import { createPersistOptions } from '@/utils/storage'
+
+// 定义storage操作
+const asyncLocalStorage = {
+  getItem: getStorageSync,
+  setItem: setStorageSync,
+  removeItem: removeStorageSync
+}
 
 export default function ThemeProvider(props: { children }) {
   const colorPrimary = useColorPrimary()
@@ -15,15 +26,19 @@ const primaryColorMap = {
   orange: '#E6A23C'
 }
 
-// TODO 持久化
 interface ThemeState {
   theme: string
   setTheme: (val: string) => void
 }
-export const useThemeStore = create<ThemeState>((set, get) => ({
-  theme: 'blue',
-  setTheme: (val) => set({ theme: val })
-}))
+export const useThemeStore = create(
+  persist<ThemeState>(
+    (set) => ({
+      theme: 'blue',
+      setTheme: (val) => set({ theme: val })
+    }),
+    createPersistOptions('theme')
+  )
+)
 if (process.env.NODE_ENV === 'development') {
   mountStoreDevtool('theme', useThemeStore)
 }
