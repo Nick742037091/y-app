@@ -1,13 +1,13 @@
 import { PullToRefresh } from '@nutui/nutui-react-taro'
 import Loading from '../Loading'
 import Icon from '../Icon'
-import { useColorPrimary, useThemeStore } from '../ThemeProvider'
+import { useColorPrimary } from '../ThemeProvider'
 
 /**
  * 页面无限循环组件，与useInfiniteScroll搭配使用
  */
 export default (props: {
-  skeleton: any
+  skeleton?: any
   list: any
   pageNum: number
   loading: boolean
@@ -36,8 +36,9 @@ export default (props: {
       }}
       renderText={() => null}
     >
-      {showSkeleton ? props.skeleton : props.list}
-      {isNoMore || <LoadMoreLoading />}
+      {showSkeleton ? props?.skeleton : props.list}
+      {/* LoadMoreLoading可以拖动展示 */}
+      {!isNoMore && <LoadMoreLoading />}
     </PullToRefresh>
   )
 }
@@ -46,7 +47,7 @@ export default (props: {
 const DEFAULT_REFRESHING_HEIGHT = 50
 
 // 下拉箭头
-function PullDown(props: { height: number }) {
+export function PullDown(props: { height: number }) {
   const colorPrimary = useColorPrimary()
   return (
     <Icon
@@ -60,7 +61,7 @@ function PullDown(props: { height: number }) {
 }
 
 // 下拉返回箭头
-function PushUp(props: { height: number }) {
+export function PushUp(props: { height: number }) {
   const colorPrimary = useColorPrimary()
   return (
     <Icon
@@ -74,7 +75,7 @@ function PushUp(props: { height: number }) {
 }
 
 // 下拉刷新loading
-function Refreshing(props: { height: number }) {
+export function Refreshing(props: { height: number }) {
   return (
     <Loading
       size={30}
@@ -84,7 +85,7 @@ function Refreshing(props: { height: number }) {
   )
 }
 
-function RefresFinished(props: { height: number }) {
+export function RefresFinished(props: { height: number }) {
   const colorPrimary = useColorPrimary()
   return (
     <Icon
@@ -97,6 +98,6 @@ function RefresFinished(props: { height: number }) {
   )
 }
 
-function LoadMoreLoading() {
+export function LoadMoreLoading() {
   return <Loading size={30} className="flex-center p-15" />
 }

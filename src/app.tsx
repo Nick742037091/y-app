@@ -18,7 +18,8 @@ function App({ children }: PropsWithChildren<any>) {
   })
 
   // children 是将要会渲染的页面
-  return <View>{children}</View>
+  // 需要设置高度100%，否则首页会被tabbar覆盖
+  return <View className="h-full">{children}</View>
 }
 
 export default App

@@ -41,7 +41,7 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/friends/index',
-        text: '朋友',
+        text: '社群',
         iconPath: 'assets/icons/tabbar/friends.png',
         selectedIconPath: 'assets/icons/tabbar/friendsActive.png'
       },
@@ -53,7 +53,7 @@ export default defineAppConfig({
       },
       {
         pagePath: 'pages/messages/index',
-        text: '消息',
+        text: '私信',
         iconPath: 'assets/icons/tabbar/messages.png',
         selectedIconPath: 'assets/icons/tabbar/messagesActive.png'
       }

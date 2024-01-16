@@ -10,7 +10,7 @@ import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon from '@/components/Icon'
 import styles from './index.module.scss'
 
-const SettingBtnClassName = 'flex-center size-50 ml-10 p-10'
+const SettingBtnClassName = 'flex-center size-50 p-10'
 const SettingButton = () => {
   return (
     <View className={SettingBtnClassName}>
@@ -126,10 +126,11 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
     >
       <Image
         src={avatar}
-        className="size-40 rounded-full ml-10"
+        className="size-40 rounded-full m-10"
         onClick={() => setShowMine(true)}
       />
       <Text className="mx-auto text-[22px]">Y</Text>
+      {/* 占位元素 */}
       {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
     </ImmersionTop>
   )

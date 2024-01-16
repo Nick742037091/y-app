@@ -1,0 +1,6 @@
+// 隐藏滚动轴
+@mixin no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

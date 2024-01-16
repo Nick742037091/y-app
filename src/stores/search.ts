@@ -1,23 +1,19 @@
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
 
-export type TAB = 0 | 1
-export const TAB_RECOMMEND: TAB = 0
-export const TAB_FOLLOWING: TAB = 1
-
-interface HomeState {
-  tab: TAB
-  setTab: (val: TAB) => void
+interface SearchState {
+  tab: number
+  setTab: (val: number) => void
   showMine: boolean
   setShowMine: (val: boolean) => void
 }
 
-export const useHomeStore = create<HomeState>((set) => ({
-  tab: TAB_RECOMMEND,
+export const useSearchStore = create<SearchState>((set) => ({
+  tab: 0,
   setTab: (val) => set({ tab: val }),
   showMine: false,
   setShowMine: (val) => set({ showMine: val })
 }))
 if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('Home', useHomeStore)
+  mountStoreDevtool('Search', useSearchStore)
 }

@@ -5,12 +5,12 @@ import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
+import ThemeProvider from '@/components/ThemeProvider'
 
-import NavigationBar from './components/Navigation'
+import Navigation from './components/Navigation'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
-import ThemeProvider from '@/components/ThemeProvider'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -20,7 +20,7 @@ definePageConfig({
   onReachBottomDistance: 50
 })
 
-const PostListSkeleton = () => {
+const SkeletonList = () => {
   return (
     <>
       {Array.from({ length: 10 }).map((_, index) => {
@@ -59,12 +59,12 @@ export default function Index() {
   })
   return (
     <ThemeProvider>
-      <NavigationBar onRefresh={reload} />
+      <Navigation onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
         loading={loading}
         isNoMore={isNoMore}
-        skeleton={<PostListSkeleton />}
+        skeleton={<SkeletonList />}
         list={<PostList postList={data?.list || []} />}
         onRefresh={reload}
       />

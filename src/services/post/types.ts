@@ -21,3 +21,18 @@ export type PostItem = {
 export type Publisher = {
   avatar: string
 }
+
+export interface Trending {
+  /**
+   * 关键字
+   */
+  keyword: string
+  /**
+   * 帖子数量
+   */
+  postNums: number
+  /**
+   * 来源
+   */
+  source: string
+}
