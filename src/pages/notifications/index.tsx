@@ -1,13 +1,95 @@
-import { View, Text } from '@tarojs/components'
+import { Image, View } from '@tarojs/components'
+import { useHomeStore } from '@/stores/home'
+import { useInfiniteScroll } from '@/services/request/hooks'
+import { Skeleton } from '@nutui/nutui-react-taro'
+import Mine from '@/components/Mine'
+import { useTabItemTap } from '@tarojs/taro'
+import ThemeProvider from '@/components/ThemeProvider'
+import { getNotificationList } from '@/services/notification/index'
+import type { Notification } from '@/services/notification/types'
+import { useNotificationStore } from '@/stores/notification'
+
+import NavigationBar from './components/NavigationBar'
+import PageInfiniteScroll from '../../components/PageInfiniteScroll'
+import notificationStyles from './index.module.scss'
+import dayjs from 'dayjs'
+
+const PAGE_PATH = 'pages/index/index'
 
 definePageConfig({
-  navigationBarTitleText: '通知页'
+  navigationBarTitleText: '首页',
+  navigationStyle: 'custom',
+  onReachBottomDistance: 50
 })
 
-export default function Index() {
+const SkeletonList = () => {
   return (
-    <View>
-      <Text>通知页</Text>
-    </View>
+    <>
+      {Array.from({ length: 10 }).map((_, index) => {
+        return (
+          <View key={index} className={notificationStyles.notification}>
+            <Skeleton rows={2} animated avatar avatarSize="40px" />
+          </View>
+        )
+      })}
+    </>
+  )
+}
+
+const NotificationList = (props: { list: Notification[] }) => {
+  return (
+    <>
+      {props.list.map((item, index) => {
+        return (
+          <View key={index} className={notificationStyles.notification}>
+            <Image src={item.avatar} className="size-40 rounded-full" />
+            <View className="ml-10">
+              <View>{dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}</View>
+              <View className="mt-4">{item.content}</View>
+            </View>
+          </View>
+        )
+      })}
+    </>
+  )
+}
+
+export default function Index() {
+  const { showMine, setShowMine } = useHomeStore((state) => ({
+    showMine: state.showMine,
+    setShowMine: state.setShowMine
+  }))
+  const { tab } = useNotificationStore((state) => ({
+    tab: state.tab
+  }))
+  const { data, pageNum, isNoMore, loading, reload } = useInfiniteScroll(
+    async (nextPageNum) => {
+      const result = await getNotificationList({
+        pageNum: nextPageNum,
+        pageSzie: 10,
+        type: tab
+      })
+      return result.data
+    },
+    { reloadDeps: [tab] }
+  )
+  useTabItemTap((item) => {
+    if (item.pagePath.includes(PAGE_PATH)) {
+      reload()
+    }
+  })
+  return (
+    <ThemeProvider>
+      <NavigationBar onRefresh={reload} />
+      <PageInfiniteScroll
+        pageNum={pageNum}
+        loading={loading}
+        isNoMore={isNoMore}
+        skeleton={<SkeletonList />}
+        list={<NotificationList list={data?.list || []} />}
+        onRefresh={reload}
+      />
+      <Mine visible={showMine} onClose={() => setShowMine(false)} />
+    </ThemeProvider>
   )
 }

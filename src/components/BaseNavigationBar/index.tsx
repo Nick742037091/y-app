@@ -32,7 +32,7 @@ export default function (props: {
         {/* 标题绝对布局居中，兼容小程序 */}
         <Text
           className="absolute-center"
-          style={{ fontSize: props.titleSize || 20 }}
+          style={{ fontSize: props.titleSize || 18 }}
         >
           {props.title}
         </Text>

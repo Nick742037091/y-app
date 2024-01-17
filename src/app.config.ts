@@ -4,7 +4,7 @@ export default defineAppConfig({
   pages: [
     'pages/index/index',
     'pages/search/index',
-    'pages/friends/index',
+    'pages/groups/index',
     'pages/notifications/index',
     'pages/messages/index'
   ],
@@ -40,10 +40,10 @@ export default defineAppConfig({
         selectedIconPath: 'assets/icons/tabbar/searchActive.png'
       },
       {
-        pagePath: 'pages/friends/index',
+        pagePath: 'pages/groups/index',
         text: '社群',
-        iconPath: 'assets/icons/tabbar/friends.png',
-        selectedIconPath: 'assets/icons/tabbar/friendsActive.png'
+        iconPath: 'assets/icons/tabbar/groups.png',
+        selectedIconPath: 'assets/icons/tabbar/groupsActive.png'
       },
       {
         pagePath: 'pages/notifications/index',
