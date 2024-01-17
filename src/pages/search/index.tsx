@@ -10,6 +10,7 @@ import { Skeleton } from '@nutui/nutui-react-taro'
 import NavigationBar from './components/NavigationBar'
 import TrendingList from './components/TrendingList'
 import tendingListStyles from './components/TrendingList/index.module.scss'
+import { useHomeStore } from '@/stores/home'
 
 definePageConfig({
   navigationBarTitleText: '搜索',
@@ -33,7 +34,10 @@ const SkeletonList = () => {
 
 // 搜索页
 export default function Index() {
-  const { tab, showMine, setShowMine } = useSearchStore((state) => ({
+  const { tab } = useSearchStore((state) => ({
+    tab: state.tab
+  }))
+  const { showMine, setShowMine } = useHomeStore((state) => ({
     tab: state.tab,
     showMine: state.showMine,
     setShowMine: state.setShowMine

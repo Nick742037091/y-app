@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react'
 import { Image, Input, ScrollView, View } from '@tarojs/components'
 import { isH5 } from '@/utils'
+import { useHomeStore } from '@/stores/home'
 import { useSearchStore } from '@/stores/search'
 import { useUserInfoStore } from '@/stores/app'
 import Icon from '@/components/Icon'
@@ -98,7 +99,7 @@ const SearchBar = () => {
 
 export default function NavigationBar() {
   const avatar = useUserInfoStore((state) => state.userInfo.avatar)
-  const setShowMine = useSearchStore((state) => state.setShowMine)
+  const setShowMine = useHomeStore((state) => state.setShowMine)
   return (
     <BaseNavigationBar footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
       <View
@@ -112,6 +113,7 @@ export default function NavigationBar() {
           onClick={() => setShowMine(true)}
         />
         <SearchBar />
+        {/* TODO H5设置按钮放在其他地方 */}
         {isH5 ? <SettingButton /> : null}
       </View>
     </BaseNavigationBar>

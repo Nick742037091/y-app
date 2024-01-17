@@ -136,6 +136,7 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
           style={{ width: avatarSize, height: avatarSize }}
           onClick={() => setShowMine(true)}
         />
+        {/* TODO H5设置按钮放在其他地方 */}
         {isH5 ? <SettingButton /> : null}
       </View>
     </BaseNavigationBar>

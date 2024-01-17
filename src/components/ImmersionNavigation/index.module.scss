@@ -1,6 +1,6 @@
 // TODO 全局z-index管理
 .navigation {
-  @apply fixed left-0 right-0 z-[100];
+  @apply fixed left-0 right-0 z-[100] shadow-sm;
   border-bottom: 1px solid #e5e5e5;
   // 玻璃效果
   backdrop-filter: blur(12px);

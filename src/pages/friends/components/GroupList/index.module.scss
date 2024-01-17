@@ -1,0 +1,11 @@
+.group_item {
+  @apply flex py-10;
+}
+
+.member_avatar {
+  @apply rounded-full size-32 flex-shrink-0 box-content;
+  border: 1px solid white;
+  & + & {
+    margin-left: -6px;
+  }
+}

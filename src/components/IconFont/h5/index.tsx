@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import GroupAdd from './GroupAdd';
 import Search from './Search';
 import Theme from './Theme';
 import Pause from './Pause';
@@ -20,6 +21,7 @@ import PostView from './PostView';
 import PostComment from './PostComment';
 import PostLike from './PostLike';
 import HomeSetting from './HomeSetting';
+export { default as GroupAdd } from './GroupAdd';
 export { default as Search } from './Search';
 export { default as Theme } from './Theme';
 export { default as Pause } from './Pause';
@@ -39,7 +41,7 @@ export { default as PostComment } from './PostComment';
 export { default as PostLike } from './PostLike';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -49,6 +51,8 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'group-add':
+      return <GroupAdd {...rest} />;
     case 'search':
       return <Search {...rest} />;
     case 'theme':
