@@ -7,7 +7,7 @@ import ThemeProvider from '@/components/ThemeProvider'
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
 import { Skeleton } from '@nutui/nutui-react-taro'
-import Navigation from './components/Navigation'
+import NavigationBar from './components/NavigationBar'
 import TrendingList from './components/TrendingList'
 import tendingListStyles from './components/TrendingList/index.module.scss'
 
@@ -47,7 +47,7 @@ export default function Index() {
   )
   return (
     <ThemeProvider>
-      <Navigation />
+      <NavigationBar />
       <PagePullToRefresh
         loading={loading}
         skeleton={<SkeletonList />}

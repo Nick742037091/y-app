@@ -1,16 +1,16 @@
 import { CSSProperties } from 'react'
-import ImmersionTop from '@/components/ImmersionNavigation'
 import { Image, Input, ScrollView, View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import { useSearchStore } from '@/stores/search'
 import { useUserInfoStore } from '@/stores/app'
 import Icon from '@/components/Icon'
+import BaseNavigationBar from '@/components/BaseNavigationBar'
 
-const SettingBtnClassName = 'flex-center size-50  p-10'
+const avatarSize = 36
 const SettingButton = () => {
   return (
-    <View className={SettingBtnClassName}>
-      <Icon name="home-setting" size={20} />
+    <View className={`flex-center size-${avatarSize}`}>
+      <Icon name="home-setting" size={24} />
     </View>
   )
 }
@@ -52,6 +52,7 @@ const Footer = () => {
     <ScrollView
       className="text-[15px]"
       scrollX
+      enhanced
       showScrollbar={false}
       scrollLeft={dotWrapperLeft}
     >
@@ -81,8 +82,10 @@ const Footer = () => {
 const SearchBar = () => {
   return (
     <View
-      className="bg-[#eff3f4] rounded-full flex-1 flex flex-center"
-      style={{ margin: isH5 ? '0 20px' : '0 50px' }}
+      className="bg-[#eff3f4] rounded-full flex-1 flex items-center"
+      style={{
+        margin: `0 20px`
+      }}
     >
       <Icon name="search" className="ml-10" size={22} />
       <Input placeholder="搜索Y" className="px-12 py-4" />
@@ -94,14 +97,19 @@ export default function NavigationBar() {
   const avatar = useUserInfoStore((state) => state.userInfo.avatar)
   const setShowMine = useSearchStore((state) => state.setShowMine)
   return (
-    <ImmersionTop footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
-      <Image
-        src={avatar}
-        className="size-40 rounded-full m-10"
-        onClick={() => setShowMine(true)}
-      />
-      <SearchBar />
-      {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
-    </ImmersionTop>
+    <BaseNavigationBar footer={<Footer />} footerHeight={FOOTER_HEIGHT}>
+      <View
+        className="h-full flex items-center px-10"
+        style={{ paddingRight: isH5 ? 10 : 0 }}
+      >
+        <Image
+          src={avatar}
+          className={`size-${avatarSize} rounded-full`}
+          onClick={() => setShowMine(true)}
+        />
+        <SearchBar />
+        {isH5 ? <SettingButton /> : null}
+      </View>
+    </BaseNavigationBar>
   )
 }

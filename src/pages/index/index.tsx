@@ -7,7 +7,7 @@ import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
 import ThemeProvider from '@/components/ThemeProvider'
 
-import Navigation from './components/Navigation'
+import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
@@ -59,7 +59,7 @@ export default function Index() {
   })
   return (
     <ThemeProvider>
-      <Navigation onRefresh={reload} />
+      <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
         loading={loading}

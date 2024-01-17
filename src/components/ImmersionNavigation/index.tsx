@@ -82,12 +82,7 @@ const ImmersionTop = (props: {
     <>
       {statusBarPosition}
       <View className={styles.navigation} style={navigationStyles}>
-        <View
-          className="flex-center"
-          style={{ height: navigationHeight + 'px' }}
-        >
-          {children}
-        </View>
+        <View style={{ height: navigationHeight + 'px' }}>{children}</View>
         {footer}
       </View>
       {/* 导航栏高度占位，置于正常文档流之中 */}

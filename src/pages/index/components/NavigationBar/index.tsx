@@ -1,6 +1,6 @@
 import { CSSProperties, useState } from 'react'
-import ImmersionTop from '@/components/ImmersionNavigation'
-import { Image, Text, View } from '@tarojs/components'
+import BaseNavigationBar from '@/components/BaseNavigationBar'
+import { Image, View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import { useHomeStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
 import { useUserInfoStore } from '@/stores/app'
@@ -10,11 +10,11 @@ import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon from '@/components/Icon'
 import styles from './index.module.scss'
 
-const SettingBtnClassName = 'flex-center size-50 p-10'
+const avatarSize = 36
 const SettingButton = () => {
   return (
-    <View className={SettingBtnClassName}>
-      <Icon name="home-setting" size={20} />
+    <View className={`flex-center ml-auto size-${avatarSize}`}>
+      <Icon name="home-setting" size={24} />
     </View>
   )
 }
@@ -120,18 +120,19 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
   const avatar = useUserInfoStore((state) => state.userInfo.avatar)
   const setShowMine = useHomeStore((state) => state.setShowMine)
   return (
-    <ImmersionTop
+    <BaseNavigationBar
       footer={<Footer onRefresh={props.onRefresh} />}
       footerHeight={FOOTER_HEIGHT}
+      title="Y"
     >
-      <Image
-        src={avatar}
-        className="size-40 rounded-full m-10"
-        onClick={() => setShowMine(true)}
-      />
-      <Text className="mx-auto text-[22px]">Y</Text>
-      {/* 占位元素 */}
-      {isH5 ? <SettingButton /> : <View className={SettingBtnClassName} />}
-    </ImmersionTop>
+      <View className="h-full flex items-center px-10">
+        <Image
+          src={avatar}
+          className={`size-${avatarSize} rounded-full`}
+          onClick={() => setShowMine(true)}
+        />
+        {isH5 ? <SettingButton /> : null}
+      </View>
+    </BaseNavigationBar>
   )
 }
