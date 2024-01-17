@@ -9,7 +9,10 @@ import BaseNavigationBar from '@/components/BaseNavigationBar'
 const avatarSize = 36
 const SettingButton = () => {
   return (
-    <View className={`flex-center size-${avatarSize}`}>
+    <View
+      className="flex-center"
+      style={{ height: avatarSize, width: avatarSize }}
+    >
       <Icon name="home-setting" size={24} />
     </View>
   )
@@ -105,6 +108,7 @@ export default function NavigationBar() {
         <Image
           src={avatar}
           className={`size-${avatarSize} rounded-full`}
+          style={{ width: avatarSize, height: avatarSize }}
           onClick={() => setShowMine(true)}
         />
         <SearchBar />

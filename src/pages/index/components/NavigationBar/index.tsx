@@ -13,7 +13,10 @@ import styles from './index.module.scss'
 const avatarSize = 36
 const SettingButton = () => {
   return (
-    <View className={`flex-center ml-auto size-${avatarSize}`}>
+    <View
+      className="flex-center ml-auto"
+      style={{ height: avatarSize, width: avatarSize }}
+    >
       <Icon name="home-setting" size={24} />
     </View>
   )
@@ -128,7 +131,9 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
       <View className="h-full flex items-center px-10">
         <Image
           src={avatar}
-          className={`size-${avatarSize} rounded-full`}
+          className="rounded-full"
+          // tailwind类不要使用动态值
+          style={{ width: avatarSize, height: avatarSize }}
           onClick={() => setShowMine(true)}
         />
         {isH5 ? <SettingButton /> : null}
