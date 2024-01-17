@@ -10,7 +10,7 @@ export default function (props: {
   title?: string
   titleSize?: number
 }) {
-  let navigationHeight = 40
+  let navigationHeight = 50
   let paddingRight = 0
   if (!isH5) {
     const menuButtonRect = Taro.getMenuButtonBoundingClientRect()
