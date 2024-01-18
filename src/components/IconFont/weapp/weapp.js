@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // group-add | search | theme | pause | play | user | team | list | bookmark | plus | check | arrow-up | icon | arrow-down | post-share | post-view | post-comment | heart | heart-fill | home-setting
+    // video | picture | audio | add-post | group-add | search | theme | pause | play | user | team | list | bookmark | plus | check | arrow-up | icon | arrow-down | post-share | post-view | post-comment | heart | heart-fill | home-setting
     name: {
       type: String,
     },

@@ -3,6 +3,10 @@ import { Video, View } from '@tarojs/components'
 import Taro, { VideoContext, useLoad } from '@tarojs/taro'
 import { useRef, useState } from 'react'
 
+definePageConfig({
+  navigationBarTitleText: '播放视频'
+})
+
 export default function Index() {
   const [src, setSrc] = useState('')
   const [loading, setLoading] = useState(true)
@@ -16,7 +20,7 @@ export default function Index() {
     setLoading(false)
   }
   return (
-    <View className="bg-black absolute-full">
+    <View className="bg-black absolute-full z-[1000]">
       <Video
         id="video-player"
         src={src}

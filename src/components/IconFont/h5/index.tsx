@@ -2,6 +2,10 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import Video from './Video';
+import Picture from './Picture';
+import Audio from './Audio';
+import AddPost from './AddPost';
 import GroupAdd from './GroupAdd';
 import Search from './Search';
 import Theme from './Theme';
@@ -22,6 +26,10 @@ import PostComment from './PostComment';
 import Heart from './Heart';
 import HeartFill from './HeartFill';
 import HomeSetting from './HomeSetting';
+export { default as Video } from './Video';
+export { default as Picture } from './Picture';
+export { default as Audio } from './Audio';
+export { default as AddPost } from './AddPost';
 export { default as GroupAdd } from './GroupAdd';
 export { default as Search } from './Search';
 export { default as Theme } from './Theme';
@@ -43,7 +51,7 @@ export { default as Heart } from './Heart';
 export { default as HeartFill } from './HeartFill';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
+export type IconNames = 'video' | 'picture' | 'audio' | 'add-post' | 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -53,6 +61,14 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'video':
+      return <Video {...rest} />;
+    case 'picture':
+      return <Picture {...rest} />;
+    case 'audio':
+      return <Audio {...rest} />;
+    case 'add-post':
+      return <AddPost {...rest} />;
     case 'group-add':
       return <GroupAdd {...rest} />;
     case 'search':

@@ -40,3 +40,7 @@ export const formatNumber = (num: number) => {
 export const tabPageHeight = isH5
   ? 'calc(100vh - var(--taro-tabbar-height))'
   : '100vh'
+
+export const createTabPageBottom = (bottom: number) => {
+  return isH5 ? `calc(${bottom}px + var(--taro-tabbar-height))` : `${bottom}px`
+}
