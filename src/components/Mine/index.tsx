@@ -90,8 +90,11 @@ const SelectTheme = (props: { visible: boolean; close: () => void }) => {
   )
 }
 
-export default function Mine(props: { visible: boolean; onClose: () => void }) {
-  const setShowMine = useHomeStore((state) => state.setShowMine)
+export default function Mine() {
+  const { showMine, setShowMine } = useHomeStore((state) => ({
+    showMine: state.showMine,
+    setShowMine: state.setShowMine
+  }))
   const userInfo = useUserInfoStore((state) => state.userInfo)
   const { statusBarHeight } = useStatusBarHeight()
 
@@ -104,11 +107,11 @@ export default function Mine(props: { visible: boolean; onClose: () => void }) {
     <>
       <Popup
         lockScroll
-        visible={props.visible}
+        visible={showMine}
         position="left"
         className="h-screen w-[250px] flex flex-col overflow-hidden"
         style={{ paddingTop: statusBarHeight }}
-        onClose={props.onClose}
+        onClose={() => setShowMine(false)}
       >
         {/* lockScroll与ScrollView配合使用 */}
         <ScrollView

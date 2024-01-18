@@ -30,3 +30,13 @@ export const formatNumber = (num: number) => {
     return num
   }
 }
+
+/*
+ tab页 页面高度
+ 小程序：100vh为页面高度
+ H5： var(--taro-tabbar-height)为tabbar高度，包含在页面高度中
+      var(--taro-tabbar-height)单位为PX，在calc中无效，因此不能在css类中使用，在style中才能生效
+ */
+export const tabPageHeight = isH5
+  ? 'calc(100vh - var(--taro-tabbar-height))'
+  : '100vh'

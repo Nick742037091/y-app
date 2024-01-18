@@ -1,4 +1,5 @@
 import { GroupListItem } from '@/services/group/types'
+import CascadeAvatars from '@/components/CascadeAvatars'
 import { Image, View } from '@tarojs/components'
 import styles from './index.module.scss'
 
@@ -17,17 +18,10 @@ export default function (props: { list: GroupListItem[] }) {
               <View className="font-bold text-[16px]">{item.groupName}</View>
               <View className="bold my-6">{item.memberNum} 成员</View>
               <View className="flex">
-                {item.memberList.map((member, memberIndex) => {
-                  return (
-                    // 动态z-index控制前面头像覆盖后面
-                    <Image
-                      style={{ zIndex: 10 - memberIndex }}
-                      src={member.avatar}
-                      key={memberIndex}
-                      className={styles.member_avatar}
-                    />
-                  )
-                })}
+                <CascadeAvatars
+                  list={item.memberList.map((member) => member.avatar)}
+                  size={26}
+                />
               </View>
             </View>
           </View>

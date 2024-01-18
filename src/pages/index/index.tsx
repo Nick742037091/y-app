@@ -36,10 +36,8 @@ const SkeletonList = () => {
 
 // 首页
 export default function Index() {
-  const { tab, showMine, setShowMine } = useHomeStore((state) => ({
-    tab: state.tab,
-    showMine: state.showMine,
-    setShowMine: state.setShowMine
+  const { tab } = useHomeStore((state) => ({
+    tab: state.tab
   }))
   const { data, pageNum, isNoMore, loading, reload } = useInfiniteScroll(
     async (nextPageNum) => {
@@ -68,7 +66,7 @@ export default function Index() {
         list={<PostList postList={data?.list || []} />}
         onRefresh={reload}
       />
-      <Mine visible={showMine} onClose={() => setShowMine(false)} />
+      <Mine />
     </ThemeProvider>
   )
 }

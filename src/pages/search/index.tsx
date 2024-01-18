@@ -7,10 +7,13 @@ import ThemeProvider from '@/components/ThemeProvider'
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
 import { Skeleton } from '@nutui/nutui-react-taro'
-import NavigationBar from './components/NavigationBar'
+import SearchNavigationBar from '@/components/SearchNavigationBar'
 import TrendingList from './components/TrendingList'
+import {
+  NavigationFooter,
+  NAV_FOOTER_HEIGHT
+} from './components/NavigationFooter'
 import tendingListStyles from './components/TrendingList/index.module.scss'
-import { useHomeStore } from '@/stores/home'
 
 definePageConfig({
   navigationBarTitleText: '搜索',
@@ -37,11 +40,6 @@ export default function Index() {
   const { tab } = useSearchStore((state) => ({
     tab: state.tab
   }))
-  const { showMine, setShowMine } = useHomeStore((state) => ({
-    tab: state.tab,
-    showMine: state.showMine,
-    setShowMine: state.setShowMine
-  }))
   const { data, loading, refreshAsync } = useRequest(
     async () => {
       const result = await getTrendingList({ type: tab })
@@ -51,14 +49,18 @@ export default function Index() {
   )
   return (
     <ThemeProvider>
-      <NavigationBar />
+      <SearchNavigationBar
+        placeholder="搜索Y"
+        footer={<NavigationFooter />}
+        footerHeight={NAV_FOOTER_HEIGHT}
+      />
       <PagePullToRefresh
         loading={loading}
         skeleton={<SkeletonList />}
         list={<TrendingList list={data || []} />}
         onRefresh={() => refreshAsync()}
       />
-      <Mine visible={showMine} onClose={() => setShowMine(false)} />
+      <Mine />
     </ThemeProvider>
   )
 }

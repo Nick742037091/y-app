@@ -5,7 +5,6 @@ import ThemeProvider from '@/components/ThemeProvider'
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
 import { Skeleton } from '@nutui/nutui-react-taro'
-import { useHomeStore } from '@/stores/home'
 import { getRecommendGroupList } from '@/services/group'
 import NavigationBar from './components/NavigationBar'
 import GroupList from './components/GroupList'
@@ -38,11 +37,6 @@ const SkeletonList = () => {
 }
 
 export default function Index() {
-  const { showMine, setShowMine } = useHomeStore((state) => ({
-    tab: state.tab,
-    showMine: state.showMine,
-    setShowMine: state.setShowMine
-  }))
   const { data, loading, refreshAsync } = useRequest(async () => {
     const result = await getRecommendGroupList()
     return result.data
@@ -56,7 +50,7 @@ export default function Index() {
         list={<GroupList list={data || []} />}
         onRefresh={() => refreshAsync()}
       />
-      <Mine visible={showMine} onClose={() => setShowMine(false)} />
+      <Mine />
     </ThemeProvider>
   )
 }

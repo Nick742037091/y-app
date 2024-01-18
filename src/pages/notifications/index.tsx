@@ -1,5 +1,4 @@
 import { Image, View } from '@tarojs/components'
-import { useHomeStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
@@ -8,11 +7,11 @@ import ThemeProvider from '@/components/ThemeProvider'
 import { getNotificationList } from '@/services/notification/index'
 import type { Notification } from '@/services/notification/types'
 import { useNotificationStore } from '@/stores/notification'
+import dayjs from 'dayjs'
 
 import NavigationBar from './components/NavigationBar'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import notificationStyles from './index.module.scss'
-import dayjs from 'dayjs'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -55,10 +54,6 @@ const NotificationList = (props: { list: Notification[] }) => {
 }
 
 export default function Index() {
-  const { showMine, setShowMine } = useHomeStore((state) => ({
-    showMine: state.showMine,
-    setShowMine: state.setShowMine
-  }))
   const { tab } = useNotificationStore((state) => ({
     tab: state.tab
   }))
@@ -89,7 +84,7 @@ export default function Index() {
         list={<NotificationList list={data?.list || []} />}
         onRefresh={reload}
       />
-      <Mine visible={showMine} onClose={() => setShowMine(false)} />
+      <Mine />
     </ThemeProvider>
   )
 }

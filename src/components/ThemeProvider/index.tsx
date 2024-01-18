@@ -4,11 +4,23 @@ import { persist } from 'zustand/middleware'
 
 import { View } from '@tarojs/components'
 import { createPersistOptions } from '@/utils/storage'
+import { CSSProperties } from 'react'
 
-export default function ThemeProvider(props: { children }) {
+export default function ThemeProvider(props: {
+  children
+  className?: string
+  style?: CSSProperties
+}) {
   const colorPrimary = useColorPrimary()
-  const style = `--color-primary: ${colorPrimary}`
-  return <View style={style}>{props.children}</View>
+  const style = {
+    ...props.style,
+    '--color-primary': colorPrimary
+  }
+  return (
+    <View style={style} className={props.className}>
+      {props.children}
+    </View>
+  )
 }
 
 export const primaryColorMap = {

@@ -3,6 +3,7 @@ import BaseNavigationBar from '@/components/BaseNavigationBar'
 import { Image, View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import { useHomeStore, TAB, TAB_RECOMMEND, TAB_FOLLOWING } from '@/stores/home'
+import CascadeAvatars from '@/components/CascadeAvatars/index'
 import { useUserInfoStore } from '@/stores/app'
 import { getNewPosterList } from '@/services/post'
 import { useRequest } from 'taro-hooks'
@@ -59,17 +60,10 @@ const ScrollToTop = (props: { onClick: () => void }) => {
       onClick={props.onClick}
     >
       <Icon className="mr-4" name="arrow-up" color="white" size={20} />
-      {data?.map((item, index) => {
-        return (
-          // 动态z-index控制前面头像覆盖后面
-          <Image
-            style={{ zIndex: 10 - index }}
-            src={item.avatar}
-            key={index}
-            className={styles.publish_avatar}
-          />
-        )
-      })}
+      <CascadeAvatars
+        list={(data || []).map((item) => item.avatar)}
+        size={26}
+      />
       <View className="ml-6 flex-shrink-0 flex w-45">已发布</View>
     </View>
   )
