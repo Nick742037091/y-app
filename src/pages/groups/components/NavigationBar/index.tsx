@@ -33,7 +33,7 @@ export default function NavigationBar() {
           style={{ width: avatarSize, height: avatarSize }}
           onClick={() => setShowMine(true)}
         />
-        <View className="text-[20px] ml-20 mr-auto">社群</View>
+        <View className="text-[18px] ml-20 mr-auto">社群</View>
         <IconWrapper>
           <Icon name="search" size={24} />
         </IconWrapper>
