@@ -10,7 +10,7 @@ export default function (props: { list: string[]; size: number }) {
         return (
           <Image
             style={{
-              zIndex: 100 - index,
+              zIndex: 10 - index,
               width: size,
               height: size
             }}

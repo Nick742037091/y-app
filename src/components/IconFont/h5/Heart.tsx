@@ -13,7 +13,7 @@ const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
 };
 
-const PostLike: FunctionComponent<Props> = ({ size, color, style: _style, ...rest }) => {
+const Heart: FunctionComponent<Props> = ({ size, color, style: _style, ...rest }) => {
   const style = _style ? { ...DEFAULT_STYLE, ..._style } : DEFAULT_STYLE;
 
   return (
@@ -26,8 +26,8 @@ const PostLike: FunctionComponent<Props> = ({ size, color, style: _style, ...res
   );
 };
 
-PostLike.defaultProps = {
+Heart.defaultProps = {
   size: 18,
 };
 
-export default PostLike;
+export default Heart;

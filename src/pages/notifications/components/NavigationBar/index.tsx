@@ -6,6 +6,7 @@ import { useHomeStore } from '@/stores/home'
 import { useNotificationStore } from '@/stores/notification'
 import { useUserInfoStore } from '@/stores/app'
 import Icon from '@/components/Icon'
+import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
 
 const avatarSize = 36
 const SettingButton = () => {
@@ -53,7 +54,11 @@ const Footer = (props: { onRefresh: () => void }) => {
         <View
           key={item.key}
           className="flex-1 flex-center"
-          style={{ height: FOOTER_HEIGHT }}
+          style={{
+            height: FOOTER_HEIGHT,
+            color: item.key === tab ? colorBlackPrimary : colorBlackSecondary,
+            fontWeight: item.key === tab ? 'bold' : 'normal'
+          }}
           onClick={() => setTab(item.key)}
         >
           {item.title}

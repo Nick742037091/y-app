@@ -1,4 +1,5 @@
 import { useSearchStore } from '@/stores/search'
+import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
 import { ScrollView, View } from '@tarojs/components'
 import { CSSProperties } from 'react'
 
@@ -48,7 +49,12 @@ export const NavigationFooter = () => {
           <View
             key={item.key}
             className="flex-shrink-0 flex-center"
-            style={{ height: NAV_FOOTER_HEIGHT, width: TAB_WIDTH }}
+            style={{
+              height: NAV_FOOTER_HEIGHT,
+              width: TAB_WIDTH,
+              color: item.key === tab ? colorBlackPrimary : colorBlackSecondary,
+              fontWeight: item.key === tab ? 'bold' : 'normal'
+            }}
             onClick={() => setTab(item.key)}
           >
             {item.title}

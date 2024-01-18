@@ -1,5 +1,5 @@
 .post_item {
-  @apply flex text-[15px] py-12 px-16;
+  @apply flex text-[15px] py-8 px-16;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   & + & {
@@ -8,5 +8,38 @@
 }
 
 .post_bottom_btn {
-  @apply flex-1 flex items-center py-8;
+  @apply flex-1 flex items-center pt-8;
+}
+.post_icon {
+  padding: 4px;
+  margin: -4px;
+  border-radius: 50%;
+
+  // TODO 礼花效果
+  @keyframes favoriteActive {
+    from {
+      background-color: transparent;
+      transform: scale(0.3);
+    }
+    to {
+      background-color: rgb(249, 24, 128, 0.4);
+      transform: scale(1);
+    }
+  }
+  @keyframes favoriteInactive {
+    from {
+      background-color: rgb(249, 24, 128, 0.4);
+      transform: scale(0.3);
+    }
+    to {
+      background-color: transparent;
+      transform: scale(1);
+    }
+  }
+  &.active {
+    animation: 300ms ease favoriteActive;
+  }
+  &.inactive {
+    animation: 300ms ease favoriteInactive;
+  }
 }

@@ -9,6 +9,7 @@ import { getNewPosterList } from '@/services/post'
 import { useRequest } from 'taro-hooks'
 import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon from '@/components/Icon'
+import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
 import styles from './index.module.scss'
 
 const avatarSize = 36
@@ -95,7 +96,11 @@ const Footer = (props: { onRefresh: () => void }) => {
         <View
           key={item.key}
           className="flex-1 flex-center"
-          style={{ height: FOOTER_HEIGHT + 'px' }}
+          style={{
+            height: FOOTER_HEIGHT,
+            color: item.key === tab ? colorBlackPrimary : colorBlackSecondary,
+            fontWeight: item.key === tab ? 'bold' : 'normal'
+          }}
           onClick={() => setTab(item.key)}
         >
           {item.title}

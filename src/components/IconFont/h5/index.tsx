@@ -19,7 +19,8 @@ import ArrowDown from './ArrowDown';
 import PostShare from './PostShare';
 import PostView from './PostView';
 import PostComment from './PostComment';
-import PostLike from './PostLike';
+import Heart from './Heart';
+import HeartFill from './HeartFill';
 import HomeSetting from './HomeSetting';
 export { default as GroupAdd } from './GroupAdd';
 export { default as Search } from './Search';
@@ -38,10 +39,11 @@ export { default as ArrowDown } from './ArrowDown';
 export { default as PostShare } from './PostShare';
 export { default as PostView } from './PostView';
 export { default as PostComment } from './PostComment';
-export { default as PostLike } from './PostLike';
+export { default as Heart } from './Heart';
+export { default as HeartFill } from './HeartFill';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'post-like' | 'home-setting';
+export type IconNames = 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -85,8 +87,10 @@ const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
       return <PostView {...rest} />;
     case 'post-comment':
       return <PostComment {...rest} />;
-    case 'post-like':
-      return <PostLike {...rest} />;
+    case 'heart':
+      return <Heart {...rest} />;
+    case 'heart-fill':
+      return <HeartFill {...rest} />;
     case 'home-setting':
       return <HomeSetting {...rest} />;
 

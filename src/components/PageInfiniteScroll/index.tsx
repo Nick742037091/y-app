@@ -87,12 +87,13 @@ export function Refreshing(props: { height: number }) {
 
 export function RefresFinished(props: { height: number }) {
   const colorPrimary = useColorPrimary()
+  // mt-20修复不居中问题
   return (
     <Icon
       name="check"
       size={30}
       color={colorPrimary}
-      className="flex-center"
+      className="flex-center mt-20"
       style={{ height: props.height }}
     />
   )

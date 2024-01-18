@@ -43,7 +43,9 @@ const NotificationList = (props: { list: Notification[] }) => {
           <View key={index} className={notificationStyles.notification}>
             <Image src={item.avatar} className="size-40 rounded-full" />
             <View className="ml-10">
-              <View>{dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}</View>
+              <View className="text-black-secondary">
+                {dayjs(item.time).format('YYYY-MM-DD HH:mm:ss')}
+              </View>
               <View className="mt-4">{item.content}</View>
             </View>
           </View>

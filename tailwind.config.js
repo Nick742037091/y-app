@@ -7,7 +7,11 @@ import {
   colorInfo,
   colorPlaceholer,
   colorWhite,
-  colorBlack
+  colorBlack,
+  colorBlackPrimary,
+  colorBlackNormal,
+  colorBlackSecondary,
+  colorBorder
 } from './src/styles/variables'
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line import/no-commonjs
@@ -27,9 +31,13 @@ module.exports = {
       warning: colorWarning,
       danger: colorDanger,
       info: colorInfo,
-      placeholder: colorPlaceholer,
       black: colorBlack,
-      white: colorWhite
+      white: colorWhite,
+      'black-primary': colorBlackPrimary,
+      'black-secondary': colorBlackSecondary,
+      'black-normal': colorBlackNormal,
+      placeholder: colorPlaceholer,
+      border: colorBorder
     }
   },
   plugins: [

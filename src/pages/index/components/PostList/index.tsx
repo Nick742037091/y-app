@@ -2,10 +2,16 @@ import dayjs from 'dayjs'
 import { PostItem } from '@/services/post/types'
 import Icon from '@/components/Icon'
 import { Image, Text, View } from '@tarojs/components'
+import classNames from 'classnames'
+import { colorBlackPrimary } from '@/styles/variables'
 import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
+import { useRef } from 'react'
 
-export function PostList(props: { postList: PostItem[] }) {
+export function PostList(props: {
+  postList: PostItem[]
+  onFavorite: (index: number) => void
+}) {
   if (!props.postList) return null
   return (
     <>
@@ -26,7 +32,10 @@ export function PostList(props: { postList: PostItem[] }) {
             </View>
             <Text>{item.content}</Text>
             <PostMedia post={item} index={index} />
-            <PostBottomButtons post={item} />
+            <PostBottomButtons
+              post={item}
+              onFavorite={() => props.onFavorite(index)}
+            />
           </View>
         </View>
       ))}
@@ -34,7 +43,39 @@ export function PostList(props: { postList: PostItem[] }) {
   )
 }
 
-const PostBottomButtons = (props: { post: PostItem }) => {
+// 收藏按钮
+const FavoriteButton = (props: { post: PostItem; onClick: () => void }) => {
+  const { post } = props
+  const firstShow = useRef(true)
+  const iconName = post.isFavorited ? 'heart-fill' : 'heart'
+  const iconColor = post.isFavorited ? 'rgb(249, 24, 128)' : colorBlackPrimary
+  // 首次加载不显示动画
+  let activeClass = ''
+  if (!firstShow.current) {
+    activeClass = post.isFavorited ? styles.active : styles.inactive
+  }
+  const handleClick = () => {
+    if (firstShow.current) {
+      firstShow.current = false
+    }
+    props.onClick()
+  }
+  return (
+    <View className={styles.post_bottom_btn} onClick={handleClick}>
+      <View className={classNames(styles.post_icon, activeClass)}>
+        <Icon name={iconName} color={iconColor} />
+      </View>
+      <Text className="ml-4" style={{ color: iconColor }}>
+        {post.favoriteNum}
+      </Text>
+    </View>
+  )
+}
+
+const PostBottomButtons = (props: {
+  post: PostItem
+  onFavorite: () => void
+}) => {
   const { post } = props
   return (
     <View className="flex">
@@ -46,10 +87,7 @@ const PostBottomButtons = (props: { post: PostItem }) => {
         <Icon name="post-share" />
         <Text className="ml-4">{post.shareNum}</Text>
       </View>
-      <View className={styles.post_bottom_btn}>
-        <Icon name="post-like" />
-        <Text className="ml-4">{post.likeNum}</Text>
-      </View>
+      <FavoriteButton post={post} onClick={props.onFavorite} />
       <View className={styles.post_bottom_btn}>
         <Icon name="post-view" />
         <Text className="ml-4">{post.viewNum}</Text>

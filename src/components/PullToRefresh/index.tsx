@@ -4,7 +4,7 @@ import { isH5 } from '@/utils'
 import throttle from 'lodash/throttle'
 import Loading from '../Loading'
 import Icon from '../Icon'
-import { useColorPrimary, useThemeStore } from '../ThemeProvider'
+import { useColorPrimary } from '../ThemeProvider'
 
 // 默认下拉刷新超时时间
 const DEFAULT_REFRESH_TIMEOUT = 1000

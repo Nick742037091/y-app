@@ -7,6 +7,7 @@ import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
 import ThemeProvider from '@/components/ThemeProvider'
 
+import { cloneDeep } from 'lodash'
 import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
@@ -34,27 +35,37 @@ const SkeletonList = () => {
   )
 }
 
-// 首页
 export default function Index() {
   const { tab } = useHomeStore((state) => ({
     tab: state.tab
   }))
-  const { data, pageNum, isNoMore, loading, reload } = useInfiniteScroll(
-    async (nextPageNum) => {
-      const result = await getPostList({
-        pageNum: nextPageNum,
-        pageSzie: 10,
-        type: tab
-      })
-      return result.data
-    },
-    { reloadDeps: [tab] }
-  )
+  const { data, pageNum, isNoMore, loading, reload, mutate } =
+    useInfiniteScroll(
+      async (nextPageNum) => {
+        const result = await getPostList({
+          pageNum: nextPageNum,
+          pageSzie: 10,
+          type: tab
+        })
+        return result.data
+      },
+      { reloadDeps: [tab] }
+    )
   useTabItemTap((item) => {
     if (item.pagePath.includes(PAGE_PATH)) {
       reload()
     }
   })
+
+  // 收藏
+  // TODO 本地模拟，未请求接口
+  const handleFavorite = (index: number) => {
+    if (!data || !data?.list) return
+    const newList = [...data.list]
+    const item = newList[index]
+    item.isFavorited = !item.isFavorited
+    mutate({ list: newList, total: data.total })
+  }
   return (
     <ThemeProvider>
       <NavigationBar onRefresh={reload} />
@@ -63,7 +74,9 @@ export default function Index() {
         loading={loading}
         isNoMore={isNoMore}
         skeleton={<SkeletonList />}
-        list={<PostList postList={data?.list || []} />}
+        list={
+          <PostList postList={data?.list || []} onFavorite={handleFavorite} />
+        }
         onRefresh={reload}
       />
       <Mine />

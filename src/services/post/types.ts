@@ -7,7 +7,7 @@ export type PostItem = {
   content: string
   commentNum: number
   shareNum: number
-  likeNum: number
+  favoriteNum: number
   viewNum: number
   imgList: string[]
   video: string
@@ -16,6 +16,7 @@ export type PostItem = {
   gifPoster: string
   gifWidth: number
   gifHeight: number
+  isFavorited: boolean
 }
 
 export type Publisher = {
