@@ -75,7 +75,7 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
     // 切换到第一页，先滚动到顶部再重置页数，避免触发useReachBottom
     Taro.pageScrollTo({
       scrollTop: 0,
-      duration: 0
+      duration: 300
     })
     loadMore(1, true)
     // 返回promise，可用于判断请求是否结束
