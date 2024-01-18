@@ -43,3 +43,20 @@
     animation: 300ms ease favoriteInactive;
   }
 }
+
+.post_favorite_num {
+  @apply ml-4;
+  height: 17px;
+  line-height: 17px;
+  @keyframes numChange {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  &.change {
+    animation: 300ms ease numChange;
+  }
+}

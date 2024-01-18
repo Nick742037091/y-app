@@ -65,6 +65,11 @@ export default function Index() {
     const newList = [...data.list]
     const item = newList[index]
     item.isFavorited = !item.isFavorited
+    if (item.isFavorited) {
+      item.favoriteNum++
+    } else {
+      item.favoriteNum--
+    }
     mutate({ list: newList, total: data.total })
   }
   return (
