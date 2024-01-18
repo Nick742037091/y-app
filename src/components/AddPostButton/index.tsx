@@ -2,12 +2,12 @@ import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import classnames from 'classnames'
 import { colorPrimary } from '@/styles/variables'
-import Icon, { IconNames } from '../Icon'
 import { createTabPageBottom } from '@/utils'
+import Icon, { IconNames } from '../Icon'
 import styles from './index.module.scss'
 
 export default function () {
-  const [showButtons, setShowButtons] = useState(true)
+  const [showButtons, setShowButtons] = useState(false)
   const handleClickAdd = () => {
     if (!showButtons) {
       setShowButtons(true)

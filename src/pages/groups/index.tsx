@@ -18,21 +18,21 @@ definePageConfig({
 
 const SkeletonList = () => {
   return (
-    <>
+    <View className="p-10">
       {Array.from({ length: 10 }).map((_, index) => {
         return (
-          <View key={index} className={groupListStyles.trending_item}>
+          <View key={index} className={groupListStyles.group_item}>
             <Skeleton
               rows={3}
               animated
               avatar
               avatarShape="square"
-              avatarSize="32"
+              avatarSize="100px"
             />
           </View>
         )
       })}
-    </>
+    </View>
   )
 }
 
