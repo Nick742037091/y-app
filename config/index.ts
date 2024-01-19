@@ -99,9 +99,10 @@ export default defineConfig(async (merge, { command, mode }) => {
     },
     h5: {
       router: {
-        mode: 'browser'
+        mode: 'browser',
+        basename: '/y-app'
       },
-      publicPath: '/',
+      publicPath: '/y-app',
       staticDirectory: 'static',
       htmlPluginOption: {
         favicon: 'src/favicon.ico'
