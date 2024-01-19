@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import classnames from 'classnames'
 import { createTabPageBottom } from '@/utils'
-import Taro from '@tarojs/taro'
+import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon, { IconNames } from '../Icon'
 import styles from './index.module.scss'
 import { useColorPrimary } from '../ThemeProvider'
 
 export default function () {
-  const [showButtons, setShowButtons] = useState(false)
   const colorPrimary = useColorPrimary()
+  const [showButtons, setShowButtons] = useState(false)
   const handleClickAdd = () => {
     if (!showButtons) {
       setShowButtons(true)
@@ -25,6 +25,14 @@ export default function () {
     { key: 'space', label: '空间', icon: 'audio' },
     { key: 'picture', label: '照片', icon: 'picture' }
   ] as { key: string; label: string; icon: IconNames }[]
+
+  // 向上滚动显示发帖按钮
+  const [showAddButton, setShowAddButton] = useState(true)
+  const [scrollTop, setScrollTop] = useState(0)
+  usePageScroll((event) => {
+    setShowAddButton(event.scrollTop < scrollTop)
+    setScrollTop(event.scrollTop)
+  })
   return (
     <>
       {showButtons && (
@@ -66,7 +74,11 @@ export default function () {
       )}
       <View
         onClick={handleClickAdd}
-        className={classnames(styles.add_btn, showButtons ? styles.active : '')}
+        className={classnames(
+          styles.add_btn,
+          showButtons ? styles.rotate : '',
+          showAddButton ? '' : styles.hidden
+        )}
         style={{ bottom: createTabPageBottom(20) }}
       >
         <Icon

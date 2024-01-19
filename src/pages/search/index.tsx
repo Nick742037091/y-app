@@ -14,6 +14,7 @@ import {
   NAV_FOOTER_HEIGHT
 } from './components/NavigationFooter'
 import tendingListStyles from './components/TrendingList/index.module.scss'
+import AddPostButton from '@/components/AddPostButton'
 
 definePageConfig({
   navigationBarTitleText: '搜索',
@@ -60,6 +61,7 @@ export default function Index() {
         list={<TrendingList list={data || []} />}
         onRefresh={() => refreshAsync()}
       />
+      <AddPostButton />
       <Mine />
     </ThemeProvider>
   )

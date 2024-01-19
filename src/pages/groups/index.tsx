@@ -9,6 +9,7 @@ import { getRecommendGroupList } from '@/services/group'
 import NavigationBar from './components/NavigationBar'
 import GroupList from './components/GroupList'
 import groupListStyles from './components/GroupList/index.module.scss'
+import AddPostButton from '@/components/AddPostButton'
 
 definePageConfig({
   navigationBarTitleText: '社群',
@@ -50,6 +51,7 @@ export default function Index() {
         list={<GroupList list={data || []} />}
         onRefresh={() => refreshAsync()}
       />
+      <AddPostButton />
       <Mine />
     </ThemeProvider>
   )

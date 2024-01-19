@@ -47,3 +47,11 @@ export const tabPageHeight = isH5
 export const createTabPageBottom = (bottom: number) => {
   return isH5 ? `calc(${bottom}px + ${tabbarHeightCssVar})` : `${bottom}px`
 }
+
+export const waitFor = (time: number) => {
+  return new Promise((resolve: any) => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
+}

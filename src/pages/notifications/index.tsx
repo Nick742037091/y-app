@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import NavigationBar from './components/NavigationBar'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import notificationStyles from './index.module.scss'
+import AddPostButton from '@/components/AddPostButton'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -86,6 +87,7 @@ export default function Index() {
         list={<NotificationList list={data?.list || []} />}
         onRefresh={reload}
       />
+      <AddPostButton />
       <Mine />
     </ThemeProvider>
   )
