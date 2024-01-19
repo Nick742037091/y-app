@@ -98,6 +98,9 @@ export default defineConfig(async (merge, { command, mode }) => {
       }
     },
     h5: {
+      router: {
+        mode: 'browser'
+      },
       publicPath: '/',
       staticDirectory: 'static',
       htmlPluginOption: {
