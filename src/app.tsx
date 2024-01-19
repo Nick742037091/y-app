@@ -3,7 +3,6 @@ import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
-import { View } from '@tarojs/components'
 import { useUserInfoStore } from './stores/app'
 import './app.scss'
 
@@ -17,9 +16,8 @@ function App({ children }: PropsWithChildren<any>) {
     useUserInfoStore.getState().queryUserInfo()
   })
 
-  // children 是将要会渲染的页面
-  // 需要设置高度100%，否则首页会被tabbar覆盖
-  return <View className="h-full">{children}</View>
+  // 不要添加层级，会影响页面高度和页面切换动效
+  return children
 }
 
 export default App
