@@ -65,22 +65,22 @@ const FavoriteButton = (props: { post: PostItem; onClick: () => void }) => {
     setTimeout(() => setNumChange(false), 300)
   }
   return (
-    <View
-      className={classNames(styles.post_bottom_btn, 'overflow-hidden')}
-      onClick={handleClick}
-    >
+    <View className={classNames(styles.post_bottom_btn)} onClick={handleClick}>
       <View className={classNames(styles.post_icon, activeClass)}>
         <Icon name={iconName} color={iconColor} />
       </View>
-      <Text
-        className={classNames(
-          styles.post_favorite_num,
-          numChange && styles.change
-        )}
-        style={{ color: iconColor }}
-      >
-        {post.favoriteNum}
-      </Text>
+      <View className="overflow-hidden">
+        {/* 使用Text会导致translateY失效 */}
+        <View
+          className={classNames(
+            styles.post_favorite_num,
+            numChange && styles.change
+          )}
+          style={{ color: iconColor }}
+        >
+          {post.favoriteNum}
+        </View>
+      </View>
     </View>
   )
 }

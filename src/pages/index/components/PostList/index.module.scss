@@ -46,8 +46,6 @@
 
 .post_favorite_num {
   @apply ml-4;
-  height: 17px;
-  line-height: 17px;
   @keyframes numChange {
     from {
       transform: translateY(100%);
