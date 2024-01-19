@@ -1,18 +1,19 @@
-import { Progress, Textarea, View } from '@tarojs/components'
+import { Textarea, View } from '@tarojs/components'
 import ThemeProvider, { useColorPrimary } from '@/components/ThemeProvider'
 import UserAvatar from '@/components/UserAvatar'
 import Icon, { IconNames } from '@/components/Icon'
 import { waitFor } from '@/utils'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
-import { ConfigProvider } from '@nutui/nutui-react-taro'
+import TopProgress from '@/components/LoopProgress'
+import classNames from 'classnames'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
-import TopProgress from '@/components/LoopProgress'
+import { IMG_LENGTH_MAX, useImgList } from './hooks/useImgList'
 
 definePageConfig({
-  navigationBarTitleText: '添加帖子',
+  navigationBarTitleText: '撰写新帖子',
   navigationStyle: 'custom'
 })
 
@@ -26,6 +27,7 @@ const iconList: Array<{
   { icon: 'schedule', key: 'schedule' },
   { icon: 'location', key: 'location' }
 ]
+
 // 函数组件名称不可缺少，会导致热更新失败
 export default function Index() {
   const colorPrimary = useColorPrimary()
@@ -38,10 +40,31 @@ export default function Index() {
     setPostLoading(false)
     Taro.navigateBack()
   }
+  const onClickItem = (key: string) => {
+    switch (key) {
+      case 'picture':
+        handleChooseImg()
+        break
+      case 'gif':
+        break
+      case 'list':
+        break
+      case 'schedule':
+        break
+      case 'location':
+        break
+    }
+  }
+  /** 选择图片 */
+  const { imgList, imgElementList, handleChooseImg } = useImgList()
+  const isIconDisabled = (key: string) => {
+    if (key === 'picture' && imgList.length >= IMG_LENGTH_MAX) {
+      return true
+    }
+  }
   return (
     <ThemeProvider className={styles.post_add}>
       {postLoading && <TopProgress />}
-
       <NavigationBar disabled={postMsg.length === 0} onSubmit={handleSumit} />
       <View className="px-16">
         <View className="flex">
@@ -51,16 +74,21 @@ export default function Index() {
             onInput={(e) => setPostMsg(e.detail.value)}
             maxlength={250}
             autoHeight
-            className="flex-1 py-12 text-[20px] max-h-[70vh] min-h-[40vh]"
+            className="flex-1 py-12 text-[20px] max-h-[70vh] min-h-[100px]"
             placeholder="有什么新鲜事？"
           />
         </View>
       </View>
+      {imgElementList}
       <View className="flex items-center py-4 mx-10 border-t border-line">
         {iconList.map((item) => (
           <Icon
+            onClick={() => onClickItem(item.key)}
             key={item.key}
-            className="size-36 flex-center"
+            className={classNames(
+              'size-36 flex-center',
+              isIconDisabled(item.key) && 'opacity-50'
+            )}
             name={item.icon}
             size={24}
             color={colorPrimary}
