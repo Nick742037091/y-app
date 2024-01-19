@@ -21,6 +21,8 @@ const CIPluginFn = () => {
   }
 }
 
+const isDev = process.env.NODE_ENV === 'development'
+
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig: UserConfigExport = {
@@ -34,10 +36,9 @@ export default defineConfig(async (merge, { command, mode }) => {
       375: 2 / 1
     },
     sourceRoot: 'src',
-    outputRoot:
-      process.env.NODE_ENV === 'development'
-        ? `dist/dev/${process.env.TARO_ENV}`
-        : `dist/build/${process.env.TARO_ENV}`,
+    outputRoot: isDev
+      ? `dist/dev/${process.env.TARO_ENV}`
+      : `dist/build/${process.env.TARO_ENV}`,
     plugins: [
       '@tarojs/plugin-html',
       '@taro-hooks/plugin-react',
