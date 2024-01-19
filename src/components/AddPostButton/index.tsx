@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import classnames from 'classnames'
 import { createTabPageBottom } from '@/utils'
+import Taro from '@tarojs/taro'
 import Icon, { IconNames } from '../Icon'
 import styles from './index.module.scss'
 import { useColorPrimary } from '../ThemeProvider'
@@ -12,6 +13,11 @@ export default function () {
   const handleClickAdd = () => {
     if (!showButtons) {
       setShowButtons(true)
+    } else {
+      setShowButtons(false)
+      Taro.navigateTo({
+        url: '/post/pages/add/index'
+      })
     }
   }
   const actionList = [

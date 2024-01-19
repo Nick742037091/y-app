@@ -1,12 +1,12 @@
-import { CSSProperties, useState } from 'react'
+import { CSSProperties } from 'react'
 import BaseNavigationBar from '@/components/BaseNavigationBar'
-import { Image, View } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import { useHomeStore } from '@/stores/home'
 import { useNotificationStore } from '@/stores/notification'
-import { useUserInfoStore } from '@/stores/app'
 import Icon from '@/components/Icon'
 import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
+import UserAvatar from '@/components/UserAvatar'
 
 const avatarSize = 36
 const SettingButton = () => {
@@ -76,7 +76,6 @@ const Footer = (props: { onRefresh: () => void }) => {
 }
 
 export default function NavigationBar(props: { onRefresh: () => void }) {
-  const avatar = useUserInfoStore((state) => state.userInfo.avatar)
   const setShowMine = useHomeStore((state) => state.setShowMine)
   return (
     <BaseNavigationBar
@@ -85,13 +84,7 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
       title="通知"
     >
       <View className="h-full flex items-center px-10">
-        <Image
-          src={avatar}
-          className="rounded-full"
-          // tailwind类不要使用动态值
-          style={{ width: avatarSize, height: avatarSize }}
-          onClick={() => setShowMine(true)}
-        />
+        <UserAvatar size={avatarSize} onClick={() => setShowMine(true)} />
         {/* TODO H5设置按钮放在其他地方 */}
         {isH5 ? <SettingButton /> : null}
       </View>

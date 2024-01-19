@@ -9,6 +9,7 @@ export default function (props: {
   children?: any
   title?: string
   titleSize?: number
+  showBorder?: boolean
 }) {
   let navigationHeight = 50
   let paddingRight = 0
@@ -26,6 +27,7 @@ export default function (props: {
       navigationHeight={navigationHeight}
       footer={props.footer}
       footerHeight={props.footerHeight}
+      showBorder={props.showBorder}
     >
       <View className="w-full h-full relative" style={{ paddingRight }}>
         {props.children}

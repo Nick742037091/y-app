@@ -11,7 +11,7 @@ import {
   colorBlackPrimary,
   colorBlackNormal,
   colorBlackSecondary,
-  colorBorder
+  colorLine
 } from './src/styles/variables'
 /** @type {import('tailwindcss').Config} */
 // eslint-disable-next-line import/no-commonjs
@@ -37,7 +37,7 @@ module.exports = {
       'black-secondary': colorBlackSecondary,
       'black-normal': colorBlackNormal,
       placeholder: colorPlaceholer,
-      border: colorBorder
+      line: colorLine
     }
   },
   plugins: [

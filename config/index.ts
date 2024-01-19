@@ -128,6 +128,10 @@ export default defineConfig(async (merge, { command, mode }) => {
             namingPattern: 'module', // 转换模式，取值为 global/module
             generateScopedName: '[name]__[local]___[hash:base64:5]'
           }
+        },
+        htmltransform: {
+          // 关闭使Textarea样式在h5平台能生效
+          enable: false
         }
       },
       webpackChain(chain) {

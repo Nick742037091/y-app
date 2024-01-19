@@ -31,6 +31,9 @@ export const formatNumber = (num: number) => {
   }
 }
 
+// tabbar高度css变量
+export const tabbarHeightCssVar = 'var(--taro-tabbar-height)'
+
 /*
  tab页 页面高度
  小程序：100vh为页面高度
@@ -38,9 +41,9 @@ export const formatNumber = (num: number) => {
       var(--taro-tabbar-height)单位为PX，在calc中无效，因此不能在css类中使用，在style中才能生效
  */
 export const tabPageHeight = isH5
-  ? 'calc(100vh - var(--taro-tabbar-height))'
+  ? `calc(100vh - ${tabbarHeightCssVar})`
   : '100vh'
 
 export const createTabPageBottom = (bottom: number) => {
-  return isH5 ? `calc(${bottom}px + var(--taro-tabbar-height))` : `${bottom}px`
+  return isH5 ? `calc(${bottom}px + ${tabbarHeightCssVar})` : `${bottom}px`
 }

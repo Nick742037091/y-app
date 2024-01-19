@@ -6,13 +6,11 @@ import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
 import ThemeProvider from '@/components/ThemeProvider'
-
-import { cloneDeep } from 'lodash'
+import AddPostButton from '@/components/AddPostButton'
 import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
-import AddPostButton from '@/components/AddPostButton'
 
 const PAGE_PATH = 'pages/index/index'
 

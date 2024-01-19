@@ -2,6 +2,13 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import Location from './Location';
+import Schedule from './Schedule';
+import Calendar from './Calendar';
+import OrderList from './OrderList';
+import Gif from './Gif';
+import ArrowRight from './ArrowRight';
+import ArrowLeft from './ArrowLeft';
 import Video from './Video';
 import Picture from './Picture';
 import Audio from './Audio';
@@ -26,6 +33,13 @@ import PostComment from './PostComment';
 import Heart from './Heart';
 import HeartFill from './HeartFill';
 import HomeSetting from './HomeSetting';
+export { default as Location } from './Location';
+export { default as Schedule } from './Schedule';
+export { default as Calendar } from './Calendar';
+export { default as OrderList } from './OrderList';
+export { default as Gif } from './Gif';
+export { default as ArrowRight } from './ArrowRight';
+export { default as ArrowLeft } from './ArrowLeft';
 export { default as Video } from './Video';
 export { default as Picture } from './Picture';
 export { default as Audio } from './Audio';
@@ -51,7 +65,7 @@ export { default as Heart } from './Heart';
 export { default as HeartFill } from './HeartFill';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'video' | 'picture' | 'audio' | 'add-post' | 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
+export type IconNames = 'location' | 'schedule' | 'calendar' | 'order-list' | 'gif' | 'arrow-right' | 'arrow-left' | 'video' | 'picture' | 'audio' | 'add-post' | 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -61,6 +75,20 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'location':
+      return <Location {...rest} />;
+    case 'schedule':
+      return <Schedule {...rest} />;
+    case 'calendar':
+      return <Calendar {...rest} />;
+    case 'order-list':
+      return <OrderList {...rest} />;
+    case 'gif':
+      return <Gif {...rest} />;
+    case 'arrow-right':
+      return <ArrowRight {...rest} />;
+    case 'arrow-left':
+      return <ArrowLeft {...rest} />;
     case 'video':
       return <Video {...rest} />;
     case 'picture':

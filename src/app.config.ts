@@ -10,6 +10,10 @@ export default defineAppConfig({
   ],
   subPackages: [
     {
+      root: 'post',
+      pages: ['pages/add/index']
+    },
+    {
       root: 'media',
       pages: ['pages/video-play/index']
     }

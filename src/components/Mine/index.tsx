@@ -4,6 +4,7 @@ import { Image, ScrollView, Text, View } from '@tarojs/components'
 import { useState } from 'react'
 import { useStatusBarHeight } from '@/utils/hooks/page'
 import { useHomeStore } from '@/stores/home'
+import { tabbarHeightCssVar } from '@/utils'
 import styles from './index.module.scss'
 import Icon, { IconNames } from '../Icon'
 import { primaryColorMap, useThemeStore } from '../ThemeProvider'
@@ -68,11 +69,13 @@ const SelectTheme = (props: { visible: boolean; close: () => void }) => {
     { name: '红色', key: 'red' },
     { name: '橙色', key: 'orange' }
   ]
+
   return (
     <ActionSheet
       title="选择主题颜色"
       visible={props.visible}
       onCancel={() => props?.close()}
+      className="z-[2000]"
     >
       {options.map((item, index) => {
         return (
@@ -86,6 +89,8 @@ const SelectTheme = (props: { visible: boolean; close: () => void }) => {
           </View>
         )
       })}
+      {/* 填充tabbar高度，避免覆盖 */}
+      <View style={{ height: tabbarHeightCssVar }}></View>
     </ActionSheet>
   )
 }

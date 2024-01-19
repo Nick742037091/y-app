@@ -1,11 +1,9 @@
-import { CSSProperties } from 'react'
-import { Image, Input, ScrollView, View } from '@tarojs/components'
+import { Input, View } from '@tarojs/components'
 import { isH5 } from '@/utils'
 import { useHomeStore } from '@/stores/home'
-import { useSearchStore } from '@/stores/search'
-import { useUserInfoStore } from '@/stores/app'
 import Icon from '@/components/Icon'
 import BaseNavigationBar from '@/components/BaseNavigationBar'
+import UserAvatar from '../UserAvatar'
 
 const avatarSize = 36
 const SettingButton = () => {
@@ -38,7 +36,6 @@ export default function SearchNavigationBar(props: {
   footer?: any
   footerHeight?: any
 }) {
-  const avatar = useUserInfoStore((state) => state.userInfo.avatar)
   const setShowMine = useHomeStore((state) => state.setShowMine)
   return (
     <BaseNavigationBar footer={props.footer} footerHeight={props.footerHeight}>
@@ -46,12 +43,7 @@ export default function SearchNavigationBar(props: {
         className="h-full flex items-center px-10"
         style={{ paddingRight: isH5 ? 10 : 0 }}
       >
-        <Image
-          src={avatar}
-          className={`size-${avatarSize} rounded-full`}
-          style={{ width: avatarSize, height: avatarSize }}
-          onClick={() => setShowMine(true)}
-        />
+        <UserAvatar size={avatarSize} onClick={() => setShowMine(true)} />
         <SearchBar placeholder={props.placeholder} />
         {/* TODO H5设置按钮放在其他地方 */}
         {isH5 ? <SettingButton /> : null}

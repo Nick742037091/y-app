@@ -2,6 +2,7 @@ import { View } from '@tarojs/components'
 import { useStatusBarHeight } from '@/utils/hooks/page'
 import { usePageScroll } from '@tarojs/taro'
 import { CSSProperties, useRef, useState } from 'react'
+import classNames from 'classnames'
 import styles from './index.module.scss'
 
 /**
@@ -16,6 +17,7 @@ const ImmersionTop = (props: {
   children: any
   footer?: any
   footerHeight?: number
+  showBorder?: boolean
 }) => {
   // 若状态栏文字颜色为白色，需要设置背景颜色，透明度用于实现玻璃效果，
   const backgroundColor = props.backgroundColor || 'rgba(255,255,255)'
@@ -31,6 +33,7 @@ const ImmersionTop = (props: {
 
   const children = props.children
   const footer = props.footer
+  const showBorder = props.showBorder === undefined ? true : props.showBorder
 
   // 导航栏垂直位移距离
   const [navigationTranslateY, setNavigationTranslateY] = useState(0)
@@ -81,7 +84,13 @@ const ImmersionTop = (props: {
   return (
     <>
       {statusBarPosition}
-      <View className={styles.navigation} style={navigationStyles}>
+      <View
+        className={classNames(
+          styles.navigation,
+          showBorder ? styles.show_border : ''
+        )}
+        style={navigationStyles}
+      >
         <View style={{ height: navigationHeight + 'px' }}>{children}</View>
         {footer}
       </View>

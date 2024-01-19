@@ -12,4 +12,4 @@ export const colorBlackPrimary = '#303133'
 export const colorBlackSecondary = '#909399'
 export const colorBlackNormal = colorInfo
 export const colorPlaceholer = '#C0C4CC'
-export const colorBorder = '#DCDFE6'
+export const colorLine = '#DCDFE6'
