@@ -1,3 +1,4 @@
+import { BaseEventOrig } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 
 export const isH5 = process.env.TARO_ENV === 'h5'
@@ -48,10 +49,31 @@ export const createTabPageBottom = (bottom: number) => {
   return isH5 ? `calc(${bottom}px + ${tabbarHeightCssVar})` : `${bottom}px`
 }
 
+/**
+ * 延迟Promise函数
+ * @param time 延迟时间(ms)
+ * @returns
+ */
 export const waitFor = (time: number) => {
   return new Promise((resolve: any) => {
     setTimeout(() => {
       resolve()
     }, time)
   })
+}
+
+/** 创建【防止滚动穿透】的属性，用于弹窗根布局
+ - 适用于小程序，H5不会有滚动穿透问题(真机待验证)
+ - 由于禁用滚动，内部滚动元素需要用scroll-view
+ - 小程序调试工具对于拖动才有效，鼠标滚动无效，但不影响手机端
+ */
+export const createStopScrollProps = () => {
+  if (isH5) return {}
+  return {
+    // 在事件捕获阶段禁用默认滚动，事件冒泡阶段应该是因为过于滞后，无法实现效果
+    catchMove: true,
+    onTouchMove: (e: BaseEventOrig) => {
+      e.preventDefault()
+    }
+  }
 }

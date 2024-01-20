@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import classnames from 'classnames'
-import { createTabPageBottom } from '@/utils'
+import { createStopScrollProps, createTabPageBottom } from '@/utils'
 import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon, { IconNames } from '../Icon'
 import styles from './index.module.scss'
@@ -39,6 +39,7 @@ export default function () {
         <View
           className="fixed left-0 right-0 top-0 bottom-0 bg-white bg-opacity-95 z-[599]"
           onClick={() => setShowButtons(false)}
+          {...createStopScrollProps()}
         />
       )}
 

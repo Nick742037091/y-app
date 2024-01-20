@@ -1,6 +1,11 @@
 import Icon from '@/components/Icon'
-import { Swiper } from '@nutui/nutui-react-taro'
-import { Image, StandardProps, View } from '@tarojs/components'
+import {
+  Image,
+  StandardProps,
+  View,
+  Swiper,
+  SwiperItem
+} from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classNames from 'classnames'
 import { useState } from 'react'
@@ -41,30 +46,33 @@ export const useImgList = () => {
   }
 
   const imgElementList = imgList.length > 0 && (
-    <Swiper
-      className="flex-1"
-      height={200}
-      previousMargin="30px"
-      nextMargin="30px"
-    >
+    <Swiper previousMargin="20px" nextMargin="20px" className="h-[200px] mb-10">
       {imgList.map((item, index) => {
         return (
-          <Swiper.Item key={index} className="px-5 relative">
-            <Image
-              className="h-[200Px] w-full rounded-[16px]"
-              src={item.path}
-              mode="aspectFill"
-            ></Image>
-            <ImgIconWrapper
-              className="absolute top-10 right-15"
-              onClick={() => handleDeleteImg(index)}
+          <SwiperItem key={index}>
+            <View
+              className="h-full w-full"
+              style={{
+                paddingLeft: index == 0 ? '0' : '10px',
+                paddingRight: index == imgList.length - 1 ? '0' : '10px'
+              }}
             >
-              <Icon name="close" color="white"></Icon>
-            </ImgIconWrapper>
-            <ImgIconWrapper className="absolute bottom-10 right-15">
-              <Icon name="ellipsis-y" color="white"></Icon>
-            </ImgIconWrapper>
-          </Swiper.Item>
+              <Image
+                className="h-full w-full rounded-[16px]"
+                src={item.path}
+                mode="aspectFill"
+              />
+              <ImgIconWrapper
+                className="absolute top-10 right-12"
+                onClick={() => handleDeleteImg(index)}
+              >
+                <Icon name="close" color="white"></Icon>
+              </ImgIconWrapper>
+              <ImgIconWrapper className="absolute bottom-10 right-15">
+                <Icon name="ellipsis-y" color="white"></Icon>
+              </ImgIconWrapper>
+            </View>
+          </SwiperItem>
         )
       })}
     </Swiper>
