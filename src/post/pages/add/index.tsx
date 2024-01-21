@@ -58,9 +58,11 @@ export default function Index() {
   /** 选择图片 */
   const { imgList, imgElementList, handleChooseImg } = useImgList()
   const isIconDisabled = (key: string) => {
-    if (key === 'picture' && imgList.length >= IMG_LENGTH_MAX) {
-      return true
+    if (key === 'picture') {
+      return imgList.length >= IMG_LENGTH_MAX
     }
+    // TODO 未实现的功能暂时置灰
+    return true
   }
   return (
     <ThemeProvider className={styles.post_add}>

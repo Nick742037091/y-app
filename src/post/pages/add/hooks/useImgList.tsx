@@ -27,8 +27,12 @@ const ImgIconWrapper = (props: StandardProps) => {
   )
 }
 
+/** 图片类型
+ * delete 控制删除动效-缩放
+ */
+type ImgFile = Taro.chooseImage.ImageFile & { delete: boolean }
 export const useImgList = () => {
-  const [imgList, setImgList] = useState<Taro.chooseImage.ImageFile[]>([])
+  const [imgList, setImgList] = useState<ImgFile[]>([])
   const handleChooseImg = () => {
     if (imgList.length >= IMG_LENGTH_MAX) return
     Taro.chooseImage({
@@ -36,22 +40,41 @@ export const useImgList = () => {
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
-        setImgList([...imgList, ...res.tempFiles].slice(0, IMG_LENGTH_MAX))
+        const selectList = res.tempFiles.map((item) => {
+          return {
+            ...item,
+            delete: false
+          } as ImgFile
+        })
+        setImgList([...imgList, ...selectList].slice(0, IMG_LENGTH_MAX))
       }
     })
   }
 
   const handleDeleteImg = (index: number) => {
-    setImgList(imgList.filter((_, i) => i !== index))
+    const nextImgList = [...imgList]
+    nextImgList[index].delete = true
+    setImgList(nextImgList)
+    setTimeout(() => {
+      setImgList(nextImgList.filter((_, i) => i !== index))
+    }, 300)
   }
 
-  const imgElementList = imgList.length > 0 && (
+  const srcList = imgList.map((item) => item.path)
+  const imgElementList = srcList.length > 0 && (
     <Swiper previousMargin="20px" nextMargin="20px" className="h-[200px] mb-10">
       {imgList.map((item, index) => {
         return (
-          <SwiperItem key={index}>
+          <SwiperItem
+            key={item.path}
+            className="transition-transform duration-300 origin-center"
+            style={{ transform: item.delete ? 'scale(0)' : 'none' }}
+            onClick={() =>
+              Taro.previewImage({ urls: srcList, current: item.path })
+            }
+          >
             <View
-              className="h-full w-full"
+              className="h-full w-full "
               style={{
                 paddingLeft: index == 0 ? '0' : '10px',
                 paddingRight: index == imgList.length - 1 ? '0' : '10px'
@@ -63,12 +86,12 @@ export const useImgList = () => {
                 mode="aspectFill"
               />
               <ImgIconWrapper
-                className="absolute top-10 right-12"
+                className="absolute top-8 right-16"
                 onClick={() => handleDeleteImg(index)}
               >
                 <Icon name="close" color="white"></Icon>
               </ImgIconWrapper>
-              <ImgIconWrapper className="absolute bottom-10 right-15">
+              <ImgIconWrapper className="absolute bottom-8 right-16">
                 <Icon name="ellipsis-y" color="white"></Icon>
               </ImgIconWrapper>
             </View>
