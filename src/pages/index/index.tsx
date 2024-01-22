@@ -11,6 +11,7 @@ import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
+import SnackBar from '@/components/SnackBar'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -85,6 +86,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
+      <SnackBar />
     </ThemeProvider>
   )
 }

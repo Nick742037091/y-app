@@ -77,3 +77,17 @@ export const createStopScrollProps = () => {
     }
   }
 }
+
+const tabPageList = [
+  '/y-app/pages/index/index',
+  '/y-app/pages/search/index',
+  '/y-app/pages/groups/index',
+  '/y-app/pages/notifications/index',
+  '/y-app/pages/messages/index'
+]
+export const isTabPage = () => {
+  const path = Taro.getCurrentInstance().page?.path || ''
+  const match = path.match(/([^?]+)/g)
+  if (!match) return false
+  return tabPageList.includes(match[0])
+}

@@ -8,6 +8,7 @@ import Taro from '@tarojs/taro'
 import TopProgress from '@/components/LoopProgress'
 import classNames from 'classnames'
 import { CircleProgress } from '@nutui/nutui-react-taro'
+import { useSnackBarStore } from '@/components/SnackBar'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
@@ -38,12 +39,18 @@ export default function Index() {
   const colorPrimary = useColorPrimary()
   const [postMsg, setPostMsg] = useState('')
   const [postLoading, setPostLoading] = useState(false)
+  const showSnackBar = useSnackBarStore((state) => state.showSnackBar)
   const handleSumit = async () => {
     if (!postMsg) return
     setPostLoading(true)
     await waitFor(300)
     setPostLoading(false)
-    Taro.navigateBack()
+    Taro.navigateBack({
+      async success() {
+        await waitFor(100)
+        showSnackBar('保存成功')
+      }
+    })
   }
   const onClickItem = (key: string) => {
     switch (key) {

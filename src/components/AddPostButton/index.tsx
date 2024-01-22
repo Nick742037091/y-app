@@ -6,8 +6,10 @@ import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon, { IconNames } from '../Icon'
 import styles from './index.module.scss'
 import { useColorPrimary } from '../ThemeProvider'
+import { snackBarHeight, useSnackBarStore } from '../SnackBar'
 
 export default function () {
+  const isShowSnackBar = useSnackBarStore((state) => state.show)
   const colorPrimary = useColorPrimary()
   const [showButtons, setShowButtons] = useState(false)
   const handleClickAdd = () => {
@@ -45,7 +47,9 @@ export default function () {
 
       <View
         className={styles.btn_list}
-        style={{ bottom: createTabPageBottom(100) }}
+        style={{
+          bottom: createTabPageBottom(100)
+        }}
       >
         {actionList.map((action) => {
           return (
@@ -68,7 +72,9 @@ export default function () {
       {showButtons && (
         <Text
           className="fixed right-[80px] z-[600] text-[18px]"
-          style={{ bottom: createTabPageBottom(50) }}
+          style={{
+            bottom: createTabPageBottom(50)
+          }}
         >
           发帖
         </Text>
@@ -80,7 +86,11 @@ export default function () {
           showButtons ? styles.rotate : '',
           showAddButton ? '' : styles.hidden
         )}
-        style={{ bottom: createTabPageBottom(20) }}
+        style={{
+          bottom: createTabPageBottom(
+            20 + (isShowSnackBar ? snackBarHeight : 0)
+          )
+        }}
       >
         <Icon
           name={showButtons ? 'add-post' : 'plus'}

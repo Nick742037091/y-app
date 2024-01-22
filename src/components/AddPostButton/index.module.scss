@@ -17,7 +17,7 @@
 
 .add_btn {
   @apply bg-primary rounded-full size-60 fixed right-10  flex-center z-[600] shadow-lg;
-  transition: transform 0.3s ease;
+  transition: transform 300ms ease, bottom 400ms ease-in-out;
   transform-origin: center;
   &.rotate {
     transform: rotate(90deg);
