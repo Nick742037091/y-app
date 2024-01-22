@@ -7,10 +7,12 @@ import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import TopProgress from '@/components/LoopProgress'
 import classNames from 'classnames'
+import { CircleProgress } from '@nutui/nutui-react-taro'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
 import { IMG_LENGTH_MAX, useImgList } from './hooks/useImgList'
+import { useLocation } from './hooks/useLocation'
 
 definePageConfig({
   navigationBarTitleText: '撰写新帖子',
@@ -22,11 +24,14 @@ const iconList: Array<{
   key: string
 }> = [
   { icon: 'picture', key: 'picture' },
-  { icon: 'gif', key: 'gif' },
-  { icon: 'list', key: 'list' },
-  { icon: 'schedule', key: 'schedule' },
-  { icon: 'location', key: 'location' }
+  // TODO 待完成
+  // { icon: 'gif', key: 'gif' },
+  // { icon: 'list', key: 'list' },
+  // { icon: 'schedule', key: 'schedule' },
+  { icon: 'location-fill', key: 'location' }
 ]
+
+const INPUT_MAX_LENGTH = 250
 
 // 函数组件名称不可缺少，会导致热更新失败
 export default function Index() {
@@ -52,15 +57,18 @@ export default function Index() {
       case 'schedule':
         break
       case 'location':
+        handleChooseLocation()
         break
     }
   }
   /** 选择图片 */
   const { imgList, imgElementList, handleChooseImg } = useImgList()
+  const { locationElement, handleChooseLocation } = useLocation()
   const isIconDisabled = (key: string) => {
     if (key === 'picture') {
       return imgList.length >= IMG_LENGTH_MAX
     }
+    if (key === 'location') return false
     // TODO 未实现的功能暂时置灰
     return true
   }
@@ -70,19 +78,22 @@ export default function Index() {
       <NavigationBar disabled={postMsg.length === 0} onSubmit={handleSumit} />
       <View className="px-16">
         <View className="flex">
-          <UserAvatar size={40} className="mr-10 mt-8" />
-          <Textarea
-            value={postMsg}
-            onInput={(e) => setPostMsg(e.detail.value)}
-            maxlength={250}
-            autoHeight
-            className="flex-1 py-12 text-[20px] max-h-[70vh] min-h-[100px]"
-            placeholder="有什么新鲜事？"
-          />
+          <UserAvatar size={40} className="mr-10 mt-8 flex-shrink-0" />
+          <View className="flex-1 flex flex-col">
+            <Textarea
+              value={postMsg}
+              onInput={(e) => setPostMsg(e.detail.value)}
+              maxlength={INPUT_MAX_LENGTH}
+              autoHeight
+              className="flex-1 py-12 text-[20px] max-h-[70vh] min-h-[50px]"
+              placeholder="有什么新鲜事？"
+            />
+            {locationElement}
+          </View>
         </View>
       </View>
       {imgElementList}
-      <View className="flex items-center py-4 mx-10 border-t border-line">
+      <View className="flex items-center py-4 mx-10 mt-20 border-t border-line">
         {iconList.map((item) => (
           <Icon
             onClick={() => onClickItem(item.key)}
@@ -97,7 +108,14 @@ export default function Index() {
           />
         ))}
 
-        <View className="ml-auto size-28 flex-center rounded-full border-line border">
+        <View className="ml-auto pr-10 border-line border-r">
+          <CircleProgress
+            percent={(postMsg.length / INPUT_MAX_LENGTH) * 100}
+            radius={14}
+            color={colorPrimary}
+          />
+        </View>
+        <View className="ml-10 size-28 flex-center rounded-full border-line border">
           <Icon name="plus" size={18} color={colorPrimary} />
         </View>
       </View>

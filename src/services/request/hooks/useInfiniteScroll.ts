@@ -107,6 +107,7 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
     pageNum,
     loading,
     loadingMore: loading && pageNum > 1,
+    reloading: loading && pageNum === 1,
     isNoMore,
 
     setPageNum,

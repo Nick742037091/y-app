@@ -32,5 +32,9 @@ declare namespace NodeJS {
      * @see https://taro-docs.jd.com/docs/next/env-mode-config#特殊环境变量-taro_app_id
      */
     TARO_APP_ID: string
+    /**
+     * 运行环境: dev本地开发环境 | prod 生产环境
+     */
+    TARO_APP_ENV: string
   }
 }

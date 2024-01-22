@@ -11,7 +11,7 @@ export default defineAppConfig({
   subPackages: [
     {
       root: 'post',
-      pages: ['pages/add/index']
+      pages: ['pages/add/index', 'pages/choose-location/index']
     },
     {
       root: 'media',

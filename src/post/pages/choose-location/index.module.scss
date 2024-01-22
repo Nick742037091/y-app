@@ -1,0 +1,47 @@
+.search_bar {
+  @apply flex items-center;
+  font-size: 18px;
+  position: fixed;
+  left: 6px;
+  right: 6rpx;
+  top: 0;
+  background-color: white;
+  .input {
+    @apply flex-1 flex items-center relative;
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      left: 50%;
+      width: 0;
+      transform: translate(-50%);
+      bottom: 0;
+      z-index: 1;
+    }
+    &::before {
+      @apply bg-placeholder;
+      height: 1px;
+      width: 100%;
+    }
+    &::after {
+      @apply bg-primary;
+      width: 0;
+      height: 2px;
+      transition: all ease-out 300ms;
+    }
+    &.focus {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+.location_item {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 10px;
+  & + & {
+    border-top: 1px solid;
+    @apply border-line;
+  }
+}
