@@ -64,22 +64,21 @@ export const useImgList = () => {
 
   const srcList = imgList.map((item) => item.path)
   const imgElementList = srcList.length > 0 && (
-    <Swiper previousMargin="20px" nextMargin="20px" className="h-[200px] mb-10">
+    <Swiper previousMargin="20px" nextMargin="20px" className="h-[200px] mt-20">
       {imgList.map((item, index) => {
         return (
           <SwiperItem
             key={item.path}
-            className="transition-transform duration-300 origin-center"
-            style={{ transform: item.delete ? 'scale(0)' : 'none' }}
             onClick={() =>
               Taro.previewImage({ urls: srcList, current: item.path })
             }
           >
             <View
-              className="h-full w-full "
+              className="h-full w-full transition-transform duration-300 origin-center"
               style={{
                 paddingLeft: index == 0 ? '0' : '10px',
-                paddingRight: index == imgList.length - 1 ? '0' : '10px'
+                paddingRight: index == imgList.length - 1 ? '0' : '10px',
+                transform: item.delete ? 'scale(0)' : 'none'
               }}
             >
               <Image
