@@ -94,8 +94,9 @@ export default function Index() {
             placeholder="搜索位置"
             value={searchKeyword}
             onInput={(e) => {
-              setSearchKeyword(e.detail.value)
-              setShowSearch(true)
+              const value = e.detail.value
+              setSearchKeyword(value)
+              setShowSearch(!!value)
             }}
           />
           {searchKeyword && (

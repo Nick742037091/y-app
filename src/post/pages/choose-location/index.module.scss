@@ -13,20 +13,19 @@
       position: absolute;
       content: '';
       left: 50%;
-      width: 0;
       transform: translate(-50%);
       bottom: 0;
       z-index: 1;
     }
     &::before {
       @apply bg-placeholder;
-      height: 1px;
+      height: 2px;
       width: 100%;
     }
     &::after {
       @apply bg-primary;
       width: 0;
-      height: 2px;
+      height: 3px;
       transition: all ease-out 300ms;
     }
     &.focus {
