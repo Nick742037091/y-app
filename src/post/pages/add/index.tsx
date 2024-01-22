@@ -110,7 +110,7 @@ export default function Index() {
 
         <View className="ml-auto pr-10 border-line border-r">
           <CircleProgress
-            percent={(postMsg.length / INPUT_MAX_LENGTH) * 100}
+            percent={(postMsg.length / INPUT_MAX_LENGTH) * 100 + ''}
             radius={14}
             color={colorPrimary}
           />
