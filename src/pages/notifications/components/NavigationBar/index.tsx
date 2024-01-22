@@ -86,7 +86,7 @@ export default function NavigationBar(props: { onRefresh: () => void }) {
       <View className="h-full flex items-center px-10">
         <UserAvatar size={avatarSize} onClick={() => setShowMine(true)} />
         {/* TODO H5设置按钮放在其他地方 */}
-        {isH5 ? <SettingButton /> : null}
+        {/* {isH5 ? <SettingButton /> : null} */}
       </View>
     </BaseNavigationBar>
   )

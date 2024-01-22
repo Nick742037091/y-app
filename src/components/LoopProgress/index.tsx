@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useInterval } from 'ahooks'
 import { Progress } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { useColorPrimary } from '../ThemeProvider'
 
 /**
@@ -10,6 +11,7 @@ import { useColorPrimary } from '../ThemeProvider'
  * @returns
  */
 export default function (props: { loopDuration?: number }) {
+  const statusBarHeight = Taro.getSystemInfoSync().statusBarHeight
   const loopDuration =
     props.loopDuration === undefined ? 300 : props.loopDuration
   const colorPrimary = useColorPrimary()
@@ -30,6 +32,7 @@ export default function (props: { loopDuration?: number }) {
   return (
     <Progress
       className="fixed left-0 right-0 top-0 z-[1000]"
+      style={{ top: statusBarHeight }}
       percent={percent}
       activeColor={colorPrimary}
       strokeWidth="4"

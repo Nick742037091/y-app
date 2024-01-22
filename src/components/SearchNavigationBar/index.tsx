@@ -46,7 +46,7 @@ export default function SearchNavigationBar(props: {
         <UserAvatar size={avatarSize} onClick={() => setShowMine(true)} />
         <SearchBar placeholder={props.placeholder} />
         {/* TODO H5设置按钮放在其他地方 */}
-        {isH5 ? <SettingButton /> : null}
+        {/* {isH5 ? <SettingButton /> : null} */}
       </View>
     </BaseNavigationBar>
   )

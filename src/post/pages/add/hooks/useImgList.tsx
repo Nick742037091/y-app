@@ -4,7 +4,8 @@ import {
   StandardProps,
   View,
   Swiper,
-  SwiperItem
+  SwiperItem,
+  ITouchEvent
 } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classNames from 'classnames'
@@ -51,7 +52,8 @@ export const useImgList = () => {
     })
   }
 
-  const handleDeleteImg = (index: number) => {
+  const handleDeleteImg = (e: ITouchEvent, index: number) => {
+    e.stopPropagation()
     const nextImgList = [...imgList]
     nextImgList[index].delete = true
     setImgList(nextImgList)
@@ -87,13 +89,14 @@ export const useImgList = () => {
               />
               <ImgIconWrapper
                 className="absolute top-8 right-16"
-                onClick={() => handleDeleteImg(index)}
+                onClick={(e) => handleDeleteImg(e, index)}
               >
                 <Icon name="close" color="white"></Icon>
               </ImgIconWrapper>
-              <ImgIconWrapper className="absolute bottom-8 right-16">
+              {/* TODO编辑图片 */}
+              {/* <ImgIconWrapper className="absolute bottom-8 right-16">
                 <Icon name="ellipsis-y" color="white"></Icon>
-              </ImgIconWrapper>
+              </ImgIconWrapper> */}
             </View>
           </SwiperItem>
         )

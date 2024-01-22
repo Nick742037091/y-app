@@ -108,16 +108,18 @@ export default function Index() {
           />
         ))}
 
-        <View className="ml-auto pr-10 border-line border-r">
+        {/* <View className="ml-auto pr-10 border-line border-r"> */}
+        <View className="ml-auto pr-10 ">
           <CircleProgress
             percent={(postMsg.length / INPUT_MAX_LENGTH) * 100 + ''}
             radius={14}
             color={colorPrimary}
           />
         </View>
-        <View className="ml-10 size-28 flex-center rounded-full border-line border">
+        {/* TODO添加另一个帖子 */}
+        {/* <View className="ml-10 size-28 flex-center rounded-full border-line border">
           <Icon name="plus" size={18} color={colorPrimary} />
-        </View>
+        </View> */}
       </View>
     </ThemeProvider>
   )
