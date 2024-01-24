@@ -1,6 +1,6 @@
 Component({
   properties: {
-    // location-fill | ellipsis-y | close | location | schedule | calendar | order-list | gif | arrow-right | arrow-left | video | picture | audio | add-post | group-add | search | theme | pause | play | user | team | list | bookmark | plus | check | arrow-up | icon | arrow-down | post-share | post-view | post-comment | heart | heart-fill | home-setting
+    // logout | location-fill | ellipsis-y | close | location | schedule | calendar | order-list | gif | arrow-right | arrow-left | video | picture | audio | add-post | group-add | search | theme | pause | play | user | team | list | bookmark | plus | check | arrow-up | icon | arrow-down | post-share | post-view | post-comment | heart | heart-fill | home-setting
     name: {
       type: String,
     },

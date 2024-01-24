@@ -8,6 +8,19 @@ export default {
     stats: true
   },
   mini: {},
-  h5: {},
+  h5: {
+    devServer: {
+      proxy: {
+        '/dev-api': {
+          target: 'https://www.nick-h.cn/yApi',
+          changeOrigin: true,
+          logLevel: 'debug',
+          pathRewrite: {
+            '/dev-api': ''
+          }
+        }
+      }
+    }
+  },
   plugins: isH5 ? [] : ['@tarojs/plugin-react-devtools']
 } satisfies UserConfigExport

@@ -6,7 +6,8 @@ export default defineAppConfig({
     'pages/search/index',
     'pages/groups/index',
     'pages/notifications/index',
-    'pages/messages/index'
+    'pages/messages/index',
+    'pages/login/index'
   ],
   subPackages: [
     {

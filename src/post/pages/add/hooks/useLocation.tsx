@@ -1,5 +1,5 @@
 import Icon from '@/components/Icon'
-import { postEvents } from '@/events'
+import { postEvents } from '@/utils/events'
 import { LocationListItem } from '@/services/location/types'
 import { colorBlackNormal } from '@/styles/variables'
 import Taro from '@tarojs/taro'

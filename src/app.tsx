@@ -3,7 +3,7 @@ import 'dayjs/locale/zh-cn'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
-import { useUserInfoStore } from './stores/app'
+import { useAppStore } from './stores/app'
 import './app.scss'
 
 // 中文化
@@ -13,7 +13,10 @@ dayjs.extend(relativeTime)
 
 function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
-    useUserInfoStore.getState().queryUserInfo()
+    useAppStore.getState().queryUserInfo()
+    setTimeout(() => {
+      useAppStore.getState().checkLogin()
+    }, 500)
   })
 
   // 不要添加层级，会影响页面高度和页面切换动效

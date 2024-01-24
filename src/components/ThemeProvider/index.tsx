@@ -3,7 +3,7 @@ import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { persist } from 'zustand/middleware'
 
 import { View } from '@tarojs/components'
-import { createPersistOptions } from '@/utils/storage'
+import { createStorePersistOptions } from '@/utils/storage'
 import { CSSProperties } from 'react'
 
 export default function ThemeProvider(props: {
@@ -40,7 +40,7 @@ export const useThemeStore = create(
       theme: 'blue',
       setTheme: (val) => set({ theme: val })
     }),
-    createPersistOptions('theme')
+    createStorePersistOptions('theme')
   )
 )
 if (process.env.NODE_ENV === 'development') {

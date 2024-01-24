@@ -1,5 +1,7 @@
 // 请求属性
-export type RequestOptions = Omit<Taro.request.Option, 'url'> & {}
+export type RequestOptions = Omit<Taro.request.Option, 'url'> & {
+  baseUrl?: string
+}
 // 请求方法
 export type Methods = Taro.request.Option['method']
 // 响应类型

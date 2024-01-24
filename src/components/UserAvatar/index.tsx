@@ -1,4 +1,4 @@
-import { useUserInfoStore } from '@/stores/app'
+import { useAppStore } from '@/stores/app'
 import { Image } from '@tarojs/components'
 import classNames from 'classnames'
 
@@ -7,7 +7,7 @@ export default function (props: {
   onClick?: () => void
   className?: string
 }) {
-  const avatar = useUserInfoStore((state) => state.userInfo.avatar)
+  const avatar = useAppStore((state) => state.userInfo.avatar)
   const size = props.size || 24
   // tailwind类不要使用动态值
   return (

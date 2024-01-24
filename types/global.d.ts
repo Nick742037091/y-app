@@ -36,5 +36,9 @@ declare namespace NodeJS {
      * 运行环境: dev本地开发环境 | prod 生产环境
      */
     TARO_APP_ENV: string
+    /**
+     * 请求Host
+     */
+    TARO_APP_API_HOST: string
   }
 }

@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import React, { SVGAttributes, FunctionComponent } from 'react';
+import Logout from './Logout';
 import LocationFill from './LocationFill';
 import EllipsisY from './EllipsisY';
 import Close from './Close';
@@ -36,6 +37,7 @@ import PostComment from './PostComment';
 import Heart from './Heart';
 import HeartFill from './HeartFill';
 import HomeSetting from './HomeSetting';
+export { default as Logout } from './Logout';
 export { default as LocationFill } from './LocationFill';
 export { default as EllipsisY } from './EllipsisY';
 export { default as Close } from './Close';
@@ -71,7 +73,7 @@ export { default as Heart } from './Heart';
 export { default as HeartFill } from './HeartFill';
 export { default as HomeSetting } from './HomeSetting';
 
-export type IconNames = 'location-fill' | 'ellipsis-y' | 'close' | 'location' | 'schedule' | 'calendar' | 'order-list' | 'gif' | 'arrow-right' | 'arrow-left' | 'video' | 'picture' | 'audio' | 'add-post' | 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
+export type IconNames = 'logout' | 'location-fill' | 'ellipsis-y' | 'close' | 'location' | 'schedule' | 'calendar' | 'order-list' | 'gif' | 'arrow-right' | 'arrow-left' | 'video' | 'picture' | 'audio' | 'add-post' | 'group-add' | 'search' | 'theme' | 'pause' | 'play' | 'user' | 'team' | 'list' | 'bookmark' | 'plus' | 'check' | 'arrow-up' | 'icon' | 'arrow-down' | 'post-share' | 'post-view' | 'post-comment' | 'heart' | 'heart-fill' | 'home-setting';
 
 interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
   name: IconNames;
@@ -81,6 +83,8 @@ interface Props extends Omit<SVGAttributes<SVGElement>, 'color'> {
 
 const IconFont: FunctionComponent<Props> = ({ name, ...rest }) => {
   switch (name) {
+    case 'logout':
+      return <Logout {...rest} />;
     case 'location-fill':
       return <LocationFill {...rest} />;
     case 'ellipsis-y':
