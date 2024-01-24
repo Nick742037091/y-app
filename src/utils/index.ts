@@ -90,6 +90,7 @@ const tabPageList = [
 
 export const getCurrentPagePath = () => {
   const page = Taro.getCurrentInstance().page
+  console.log('current page', page)
   if (isH5) {
     const path = page?.path || ''
     const match = path.match(/^\/y-app([^?]+)/)
