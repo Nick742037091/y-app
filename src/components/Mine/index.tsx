@@ -16,9 +16,16 @@ const Actions = (props: { changeTheme: () => void }) => {
     { key: 'user', label: '个人资料', iconName: 'user' as IconNames },
     { key: 'bookmark', label: '书签', iconName: 'bookmark' as IconNames },
     { key: 'list', label: '列表', iconName: 'list' as IconNames },
-    { key: 'theme', label: '主题', iconName: 'theme' as IconNames },
-    { key: 'logout', label: '退出登录', iconName: 'logout' as IconNames }
+    { key: 'theme', label: '主题', iconName: 'theme' as IconNames }
   ]
+  const isLogin = useAppStore((state) => state.isLogin)()
+  if (isLogin) {
+    list.push({
+      key: 'logout',
+      label: '退出登录',
+      iconName: 'logout' as IconNames
+    })
+  }
   const handleClick = (key: string) => {
     switch (key) {
       case 'user':

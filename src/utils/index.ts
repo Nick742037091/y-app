@@ -5,6 +5,8 @@ export const isH5 = process.env.TARO_ENV === 'h5'
 
 export const isAndroid = Taro.getSystemInfoSync().system === 'android'
 
+export const isDev = process.env.TARO_APP_ENV === 'dev'
+
 export const playVideo = (url: string) => {
   Taro.navigateTo({
     url: `/media/pages/video-play/index?url=${encodeURIComponent(url)}`
@@ -87,10 +89,15 @@ const tabPageList = [
 ]
 
 export const getCurrentPagePath = () => {
-  const path = Taro.getCurrentInstance().page?.path || ''
-  const match = path.match(/^\/y-app([^?]+)/)
-  if (!match) return ''
-  return match[1]
+  const page = Taro.getCurrentInstance().page
+  if (isH5) {
+    const path = page?.path || ''
+    const match = path.match(/^\/y-app([^?]+)/)
+    if (!match) return ''
+    return match[1]
+  } else {
+    return (page as any).route
+  }
 }
 export const isTabPage = () => {
   const path = getCurrentPagePath()

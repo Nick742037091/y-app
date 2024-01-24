@@ -8,6 +8,7 @@ import { create } from 'zustand'
 
 interface UserInfoState {
   token: string
+  isLogin: () => boolean
   userInfo: UserInfo
   isLogining: boolean
   queryUserInfo: () => void
@@ -23,6 +24,9 @@ const LoginPagePath = '/pages/login/index'
 export const useAppStore = create<UserInfoState>((set, get) => {
   return {
     token: getToken(),
+    isLogin: () => {
+      return !!get().token
+    },
     userInfo: {
       avatar: '',
       userName: '',
@@ -69,5 +73,5 @@ export const useAppStore = create<UserInfoState>((set, get) => {
 })
 
 if (process.env.NODE_ENV === 'development') {
-  mountStoreDevtool('UserInfo', useAppStore)
+  mountStoreDevtool('App', useAppStore)
 }

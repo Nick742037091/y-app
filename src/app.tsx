@@ -12,10 +12,12 @@ dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 
 function App({ children }: PropsWithChildren<any>) {
+  const queryUserInfo = useAppStore((state) => state.queryUserInfo)
+  const checkLogin = useAppStore((state) => state.checkLogin)
   useLaunch(() => {
-    useAppStore.getState().queryUserInfo()
+    queryUserInfo()
     setTimeout(() => {
-      useAppStore.getState().checkLogin()
+      checkLogin()
     }, 500)
   })
 

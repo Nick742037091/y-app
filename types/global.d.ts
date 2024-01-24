@@ -37,8 +37,12 @@ declare namespace NodeJS {
      */
     TARO_APP_ENV: string
     /**
-     * 请求Host
+     * 请求baseUrl
      */
-    TARO_APP_API_HOST: string
+    TARO_APP_BASE_URL: string
+    /**
+     * 请求代理baseUrl
+     */
+    TARO_APP_PROXY_BASE_URL: string
   }
 }
