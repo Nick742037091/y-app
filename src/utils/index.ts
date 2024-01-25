@@ -1,5 +1,6 @@
 import { BaseEventOrig } from '@tarojs/components'
 import Taro from '@tarojs/taro'
+import { h5RoutBaseName } from './config'
 
 export const isH5 = process.env.TARO_ENV === 'h5'
 
@@ -80,6 +81,29 @@ export const createStopScrollProps = () => {
   }
 }
 
+/**
+ * 获取剔除basename的当前页面路径
+ * @returns
+ */
+export const getCurrentPagePath = () => {
+  const page = Taro.getCurrentPages()[0]
+  return getPagePath(page.route || '')
+}
+
+/**
+ * 获取剔除basename的页面路径
+ */
+export const getPagePath = (route: string) => {
+  if (isH5) {
+    const regx = new RegExp(`${h5RoutBaseName}(.+)`)
+    const match = route.match(regx)
+    if (!match) return ''
+    return match[1]
+  } else {
+    return route
+  }
+}
+
 const tabPageList = [
   '/pages/index/index',
   '/pages/search/index',
@@ -87,19 +111,6 @@ const tabPageList = [
   '/pages/notifications/index',
   '/pages/messages/index'
 ]
-
-export const getCurrentPagePath = () => {
-  const page = Taro.getCurrentInstance().page
-  console.log('current page', page)
-  if (isH5) {
-    const path = page?.path || ''
-    const match = path.match(/^\/y-app([^?]+)/)
-    if (!match) return ''
-    return match[1]
-  } else {
-    return (page as any).route
-  }
-}
 export const isTabPage = () => {
   const path = getCurrentPagePath()
   return tabPageList.includes(path)

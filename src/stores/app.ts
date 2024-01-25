@@ -43,7 +43,7 @@ export const useAppStore = create<UserInfoState>((set, get) => {
     checkLogin: () => {
       // 避免重复跳转登录页
       const pagePath = getCurrentPagePath()
-      if (!pagePath || pagePath === LoginPagePath) return true
+      if (pagePath === LoginPagePath) return true
       if (get().isLogining) return true
       if (!get().token) {
         get().navigateToLogin()

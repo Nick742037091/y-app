@@ -6,6 +6,8 @@ import devConfig from './dev'
 import prodConfig from './prod'
 import pkg from '../package.json'
 
+const h5RoutBaseName = '/y-app'
+
 const CIPluginFn = () => {
   /**
    * @typedef { import("@tarojs/plugin-mini-ci").CIOptions } CIOptions
@@ -101,9 +103,9 @@ export default defineConfig(async (merge, { command, mode }) => {
     h5: {
       router: {
         mode: 'browser',
-        basename: '/y-app'
+        basename: h5RoutBaseName
       },
-      publicPath: '/y-app',
+      publicPath: h5RoutBaseName,
       staticDirectory: 'static',
       htmlPluginOption: {
         favicon: 'src/favicon.ico'
