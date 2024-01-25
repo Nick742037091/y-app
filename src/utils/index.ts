@@ -87,7 +87,7 @@ export const createStopScrollProps = () => {
  */
 export const getCurrentPagePath = () => {
   const page = Taro.getCurrentPages()[0]
-  return getPagePath(page.route || '')
+  return getPagePath(page?.route || '')
 }
 
 /**
