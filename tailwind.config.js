@@ -1,10 +1,10 @@
 import plugin from 'tailwindcss/plugin'
 import {
   colorPrimary,
-  colorSuccess,
-  colorWarning,
-  colorDanger,
-  colorInfo,
+  colorGreen,
+  colorOrange,
+  colorRed,
+  colorGray,
   colorPlaceholer,
   colorWhite,
   colorBlack,
@@ -27,10 +27,10 @@ module.exports = {
     colors: {
       // 主题颜色
       primary: colorPrimary,
-      success: colorSuccess,
-      warning: colorWarning,
-      danger: colorDanger,
-      info: colorInfo,
+      green: colorGreen,
+      orange: colorOrange,
+      red: colorRed,
+      gray: colorGray,
       black: colorBlack,
       white: colorWhite,
       'black-primary': colorBlackPrimary,

@@ -5,6 +5,13 @@ import { persist } from 'zustand/middleware'
 import { View } from '@tarojs/components'
 import { createStorePersistOptions } from '@/utils/storage'
 import { CSSProperties } from 'react'
+import {
+  colorBlue,
+  colorGray,
+  colorGreen,
+  colorOrange,
+  colorRed
+} from '@/styles/variables'
 
 export default function ThemeProvider(props: {
   children
@@ -24,11 +31,14 @@ export default function ThemeProvider(props: {
 }
 
 export const primaryColorMap = {
-  blue: '#409eff',
-  green: '#67C23A',
-  red: '#F56C6C',
-  orange: '#E6A23C'
+  blue: colorBlue,
+  green: colorGreen,
+  red: colorRed,
+  orange: colorOrange,
+  gray: colorGray
 }
+
+export type PrimaryColorKey = keyof typeof primaryColorMap
 
 interface ThemeState {
   theme: string

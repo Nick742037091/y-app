@@ -8,7 +8,11 @@ import { tabbarHeightCssVar } from '@/utils'
 import { logout } from '@/services/auth'
 import styles from './index.module.scss'
 import Icon, { IconNames } from '../Icon'
-import { primaryColorMap, useThemeStore } from '../ThemeProvider'
+import {
+  PrimaryColorKey,
+  primaryColorMap,
+  useThemeStore
+} from '../ThemeProvider'
 
 const Actions = (props: { changeTheme: () => void }) => {
   const setShowMine = useHomeStore((state) => state.setShowMine)
@@ -89,8 +93,9 @@ const SelectTheme = (props: { visible: boolean; close: () => void }) => {
     { name: '蓝色', key: 'blue' },
     { name: '绿色', key: 'green' },
     { name: '红色', key: 'red' },
-    { name: '橙色', key: 'orange' }
-  ]
+    { name: '橙色', key: 'orange' },
+    { name: '灰色', key: 'gray' }
+  ] as { name: string; key: PrimaryColorKey }[]
 
   return (
     <ActionSheet

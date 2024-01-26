@@ -10,6 +10,7 @@ import NavigationBar from './components/NavigationBar'
 import GroupList from './components/GroupList'
 import groupListStyles from './components/GroupList/index.module.scss'
 import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
 
 definePageConfig({
   navigationBarTitleText: '社群',
@@ -53,6 +54,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
+      <SnackBar isTabPage />
     </ThemeProvider>
   )
 }

@@ -5,9 +5,11 @@ import Icon from '@/components/Icon'
 import classNames from 'classnames'
 import { login } from '@/services/auth'
 
-import styles from './index.module.scss'
 import { useAppStore } from '@/stores/app'
 import Taro from '@tarojs/taro'
+import { waitFor } from '@/utils'
+import SnackBar, { useSnackBarStore } from '@/components/SnackBar'
+import styles from './index.module.scss'
 
 definePageConfig({
   navigationBarTitleText: '登录'
@@ -50,13 +52,25 @@ export default function Index() {
   const isPasswordChecked = password !== ''
   const setToken = useAppStore((state) => state.setToken)
   const setLogining = useAppStore((state) => state.setLogining)
+  const { showSuccess, showError } = useSnackBarStore((state) => ({
+    showSuccess: state.showSuccess,
+    showError: state.showError
+  }))
 
   const handleLogin = async () => {
-    const { code, data } = await login({ userName, password })
-    if (code !== 0) return
-    setToken(data.token)
-    setLogining(false)
-    Taro.navigateBack()
+    const { code, data, msg } = await login({ userName, password })
+    if (code === 0) {
+      setToken(data.token)
+      setLogining(false)
+      Taro.navigateBack({
+        success: async () => {
+          await waitFor(300)
+          showSuccess('登录成功')
+        }
+      })
+    } else {
+      showError(msg)
+    }
   }
 
   return (
@@ -85,6 +99,7 @@ export default function Index() {
           登录
         </View>
       </View>
+      <SnackBar />
     </ThemeProvider>
   )
 }

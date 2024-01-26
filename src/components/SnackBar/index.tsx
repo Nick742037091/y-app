@@ -1,39 +1,55 @@
 import { isTabPage } from '@/utils'
 import { View } from '@tarojs/components'
 import { create } from 'zustand'
+import classNames from 'classnames'
+import { PrimaryColorKey, primaryColorMap } from '../ThemeProvider'
 
 interface SnackBarState {
   message: string
   show: boolean
-  showSnackBar: (string, duration?: number) => void
+  type: PrimaryColorKey
+  showSnackBar: (string, type?: PrimaryColorKey, duration?: number) => void
+  showSuccess: (string, duration?: number) => void
+  showError: (string, duration?: number) => void
 }
 
-export const useSnackBarStore = create<SnackBarState>((set) => ({
+export const useSnackBarStore = create<SnackBarState>((set, get) => ({
   message: '',
   show: false,
-  showSnackBar: (message, duration = 2000) => {
-    set({ message, show: true })
+  type: 'blue',
+  showSnackBar: (message, type = 'blue', duration = 1500) => {
+    set({ message, type, show: true })
     setTimeout(() => {
       set({ show: false })
     }, duration)
+  },
+  showSuccess: (message, duration) => {
+    get().showSnackBar(message, 'blue', duration)
+  },
+  showError: (message, duration) => {
+    get().showSnackBar(message, 'red', duration)
   }
 }))
 
 export const snackBarHeight = 40
 
-export default function SnackBar() {
-  const { show, message } = useSnackBarStore((state) => ({
+export default function SnackBar(props: { isTabPage?: boolean }) {
+  const { show, message, type } = useSnackBarStore((state) => ({
     show: state.show,
-    message: state.message
+    message: state.message,
+    type: state.type
   }))
-  const isTab = isTabPage()
+
   return (
     <View
-      className="bg-primary text-white fixed left-0 right-0 flex-center z-[1000] transition-transform ease-in-out"
+      className={classNames(
+        'text-white fixed left-0 right-0 flex-center z-[1000] transition-transform ease-in-out'
+      )}
       style={{
+        backgroundColor: primaryColorMap[type],
         height: snackBarHeight,
-        bottom: isTab ? `var(--taro-tabbar-height)` : 0,
-        transitionDuration: isTab ? '600ms' : '300ms',
+        bottom: props.isTabPage ? `var(--taro-tabbar-height)` : 0,
+        transitionDuration: props.isTabPage ? '600ms' : '300ms',
         transform: show ? 'translateY(0)' : 'translateY(100px)'
       }}
     >

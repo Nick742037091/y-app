@@ -13,6 +13,7 @@ import NavigationBar from './components/NavigationBar'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import notificationStyles from './index.module.scss'
 import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -89,6 +90,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
+      <SnackBar isTabPage />
     </ThemeProvider>
   )
 }

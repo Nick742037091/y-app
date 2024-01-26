@@ -86,7 +86,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
-      <SnackBar />
+      <SnackBar isTabPage />
     </ThemeProvider>
   )
 }

@@ -3,6 +3,7 @@ import ThemeProvider from '@/components/ThemeProvider'
 import SearchNavigationBar from '@/components/SearchNavigationBar'
 import { View } from '@tarojs/components'
 import { tabPageHeight } from '@/utils'
+import SnackBar from '@/components/SnackBar'
 
 definePageConfig({
   navigationBarTitleText: '消息',
@@ -26,8 +27,9 @@ export default function Index() {
             </View>
           </View>
         </View>
-        <Mine />
       </View>
+      <Mine />
+      <SnackBar isTabPage />
     </ThemeProvider>
   )
 }
