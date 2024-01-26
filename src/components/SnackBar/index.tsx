@@ -1,4 +1,4 @@
-import { isTabPage } from '@/utils'
+import { isH5 } from '@/utils'
 import { View } from '@tarojs/components'
 import { create } from 'zustand'
 import classNames from 'classnames'
@@ -48,7 +48,7 @@ export default function SnackBar(props: { isTabPage?: boolean }) {
       style={{
         backgroundColor: primaryColorMap[type],
         height: snackBarHeight,
-        bottom: props.isTabPage ? `var(--taro-tabbar-height)` : 0,
+        bottom: props.isTabPage && isH5 ? `var(--taro-tabbar-height)` : 0,
         transitionDuration: props.isTabPage ? '600ms' : '300ms',
         transform: show ? 'translateY(0)' : 'translateY(100px)'
       }}
