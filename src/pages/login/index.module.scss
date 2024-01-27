@@ -8,3 +8,14 @@
 .login_input {
   @apply text-[16px] h-40 flex-1 flex items-center;
 }
+
+.btn_login,
+.btn_register {
+  @apply w-[266px] h-38 flex-center rounded-full  border border-primary text-[15px];
+}
+.btn_login {
+  @apply bg-white text-primary;
+}
+.btn_register {
+  @apply bg-primary text-white mt-15;
+}

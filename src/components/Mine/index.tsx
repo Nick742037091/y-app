@@ -13,6 +13,7 @@ import {
   primaryColorMap,
   useThemeStore
 } from '../ThemeProvider'
+import UserAvatar from '../UserAvatar'
 
 const Actions = (props: { changeTheme: () => void }) => {
   const setShowMine = useHomeStore((state) => state.setShowMine)
@@ -153,11 +154,13 @@ export default function Mine() {
         >
           <View className="p-16 text-[15px]">
             <View className="flex items-center">
-              <Image src={userInfo.avatar} className="size-40 rounded-full" />
+              <UserAvatar size={40} />
               <Icon className={styles.icon_add} name="plus" />
             </View>
             <View className="font-bold text-black">{userInfo.userName}</View>
-            <View className=" text-info">@{userInfo.fullName}</View>
+            {userInfo.fullName && (
+              <View className="text-info">@{userInfo.fullName}</View>
+            )}
             <View className="mt-12  text-info flex items-center">
               <View>
                 <Text className="text-black mr-5">{userInfo.followingNum}</Text>

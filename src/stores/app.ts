@@ -10,6 +10,7 @@ interface UserInfoState {
   token: string
   isLogin: () => boolean
   userInfo: UserInfo
+  setUserInfo: (userInfo: UserInfo) => void
   isLogining: boolean
   queryUserInfo: () => void
   checkLogin: () => void
@@ -33,6 +34,9 @@ export const useAppStore = create<UserInfoState>((set, get) => {
       fullName: '',
       followerNum: 0,
       followingNum: 0
+    },
+    setUserInfo: (userInfo: UserInfo) => {
+      set({ userInfo })
     },
     isLogining: false,
     queryUserInfo: async () => {

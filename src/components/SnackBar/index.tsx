@@ -31,6 +31,12 @@ export const useSnackBarStore = create<SnackBarState>((set, get) => ({
   }
 }))
 
+export const showSnackBar = useSnackBarStore.getState().showSnackBar
+
+export const showSuccess = useSnackBarStore.getState().showSuccess
+
+export const showError = useSnackBarStore.getState().showError
+
 export const snackBarHeight = 40
 
 export default function SnackBar(props: { isTabPage?: boolean }) {

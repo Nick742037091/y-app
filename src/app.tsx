@@ -12,13 +12,15 @@ dayjs.locale('zh-cn')
 dayjs.extend(relativeTime)
 
 function App({ children }: PropsWithChildren<any>) {
-  const queryUserInfo = useAppStore((state) => state.queryUserInfo)
-  const checkLogin = useAppStore((state) => state.checkLogin)
+  const appStore = useAppStore()
   useLaunch(() => {
-    queryUserInfo()
-    setTimeout(() => {
-      checkLogin()
-    }, 500)
+    if (appStore.isLogin()) {
+      appStore.queryUserInfo()
+    } else {
+      setTimeout(() => {
+        appStore.checkLogin()
+      }, 500)
+    }
   })
 
   // 不要添加层级，会影响页面高度和页面切换动效

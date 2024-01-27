@@ -3,12 +3,12 @@ import { useState } from 'react'
 import ThemeProvider from '@/components/ThemeProvider'
 import Icon from '@/components/Icon'
 import classNames from 'classnames'
-import { login } from '@/services/auth'
+import { login, register } from '@/services/auth'
 
 import { useAppStore } from '@/stores/app'
 import Taro from '@tarojs/taro'
 import { waitFor } from '@/utils'
-import SnackBar, { useSnackBarStore } from '@/components/SnackBar'
+import SnackBar, { showError, showSuccess } from '@/components/SnackBar'
 import styles from './index.module.scss'
 
 definePageConfig({
@@ -50,22 +50,35 @@ export default function Index() {
   const [password, setPassword] = useState('')
   const isUserNameChecked = userName !== ''
   const isPasswordChecked = password !== ''
-  const setToken = useAppStore((state) => state.setToken)
-  const setLogining = useAppStore((state) => state.setLogining)
-  const { showSuccess, showError } = useSnackBarStore((state) => ({
-    showSuccess: state.showSuccess,
-    showError: state.showError
-  }))
+  const appStore = useAppStore()
 
   const handleLogin = async () => {
     const { code, data, msg } = await login({ userName, password })
     if (code === 0) {
-      setToken(data.token)
-      setLogining(false)
+      appStore.setToken(data.token)
+      appStore.setUserInfo(data.userInfo)
+      appStore.setLogining(false)
       Taro.navigateBack({
         success: async () => {
           await waitFor(300)
           showSuccess('登录成功')
+        }
+      })
+    } else {
+      showError(msg)
+    }
+  }
+
+  const handleRegister = async () => {
+    const { code, data, msg } = await register({ userName, password })
+    if (code === 0) {
+      appStore.setToken(data.token)
+      appStore.setUserInfo(data.userInfo)
+      appStore.setLogining(false)
+      Taro.navigateBack({
+        success: async () => {
+          await waitFor(300)
+          showSuccess('创建账号成功')
         }
       })
     } else {
@@ -91,12 +104,13 @@ export default function Index() {
         onInput={setPassword}
         isChecked={isPasswordChecked}
       />
-      <View className="mt-40 flex-center">
-        <View
-          className="w-80 h-40 flex-center rounded-[10px] text-white bg-black text-[20px]"
-          onClick={handleLogin}
-        >
+      <View className="mt-40 flex flex-col items-center">
+        <View className={styles.btn_login} onClick={handleLogin}>
           登录
+        </View>
+
+        <View className={styles.btn_register} onClick={handleRegister}>
+          创建账号
         </View>
       </View>
       <SnackBar />
