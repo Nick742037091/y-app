@@ -5,13 +5,13 @@ import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
-import ThemeProvider from '@/components/ThemeProvider'
 import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import postListStyles from './components/PostList/index.module.scss'
-import SnackBar from '@/components/SnackBar'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -72,7 +72,7 @@ export default function Index() {
     mutate({ list: newList, total: data.total })
   }
   return (
-    <ThemeProvider>
+    <PageRoot isTabPage>
       <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
@@ -87,6 +87,6 @@ export default function Index() {
       <AddPostButton />
       <Mine />
       <SnackBar isTabPage />
-    </ThemeProvider>
+    </PageRoot>
   )
 }

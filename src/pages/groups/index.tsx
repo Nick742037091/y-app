@@ -1,6 +1,8 @@
 import { useRequest } from '@/services/request/hooks'
 import Mine from '@/components/Mine'
-import ThemeProvider from '@/components/ThemeProvider'
+import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
@@ -9,8 +11,6 @@ import { getRecommendGroupList } from '@/services/group'
 import NavigationBar from './components/NavigationBar'
 import GroupList from './components/GroupList'
 import groupListStyles from './components/GroupList/index.module.scss'
-import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
 
 definePageConfig({
   navigationBarTitleText: '社群',
@@ -44,7 +44,7 @@ export default function Index() {
     return result.data
   })
   return (
-    <ThemeProvider>
+    <PageRoot isTabPage>
       <NavigationBar />
       <PagePullToRefresh
         loading={loading}
@@ -55,6 +55,6 @@ export default function Index() {
       <AddPostButton />
       <Mine />
       <SnackBar isTabPage />
-    </ThemeProvider>
+    </PageRoot>
   )
 }

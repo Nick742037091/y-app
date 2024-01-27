@@ -1,9 +1,9 @@
 import Mine from '@/components/Mine'
-import ThemeProvider from '@/components/ThemeProvider'
 import SearchNavigationBar from '@/components/SearchNavigationBar'
 import { View } from '@tarojs/components'
 import { tabPageHeight } from '@/utils'
 import SnackBar from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 
 definePageConfig({
   navigationBarTitleText: '消息',
@@ -13,7 +13,7 @@ definePageConfig({
 
 export default function Index() {
   return (
-    <ThemeProvider>
+    <PageRoot isTabPage>
       <View className="flex flex-col" style={{ height: tabPageHeight }}>
         <SearchNavigationBar placeholder="搜索私信" />
         <View className="flex-1 flex flex-col justify-center p-20">
@@ -30,6 +30,6 @@ export default function Index() {
       </View>
       <Mine />
       <SnackBar isTabPage />
-    </ThemeProvider>
+    </PageRoot>
   )
 }

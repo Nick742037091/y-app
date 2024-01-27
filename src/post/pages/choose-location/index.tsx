@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { getLocatinoList } from '@/services/location'
 import { useInfiniteScroll } from '@/services/request/hooks'
-import ThemeProvider from '@/components/ThemeProvider'
 import { Input, View } from '@tarojs/components'
 import classNames from 'classnames'
 import { LocationListItem } from '@/services/location/types'
@@ -10,6 +9,7 @@ import Taro from '@tarojs/taro'
 import Icon from '@/components/Icon'
 import { colorBlackSecondary } from '@/styles/variables'
 import Loading from '@/components/Loading'
+import PageRoot from '@/components/PageRoot'
 
 import styles from './index.module.scss'
 
@@ -80,7 +80,7 @@ export default function Index() {
     }
   }
   return (
-    <ThemeProvider>
+    <PageRoot>
       <View className={styles.search_bar}>
         <View
           className={classNames(styles.input, keywordFocus && styles.focus)}
@@ -118,6 +118,6 @@ export default function Index() {
         </View>
       </View>
       {content}
-    </ThemeProvider>
+    </PageRoot>
   )
 }

@@ -1,11 +1,10 @@
 import { Input, View } from '@tarojs/components'
 import { useState } from 'react'
-import ThemeProvider from '@/components/ThemeProvider'
 import Icon from '@/components/Icon'
 import classNames from 'classnames'
 import { login, register } from '@/services/auth'
-
 import { useAppStore } from '@/stores/app'
+import PageRoot from '@/components/PageRoot'
 import Taro from '@tarojs/taro'
 import { waitFor } from '@/utils'
 import SnackBar, { showError, showSuccess } from '@/components/SnackBar'
@@ -87,7 +86,7 @@ export default function Index() {
   }
 
   return (
-    <ThemeProvider className="h-[100vh] flex flex-col">
+    <PageRoot className="h-[100vh] flex flex-col">
       <View className="text-[30px] font-bold my-20 text-center">Y</View>
       <View className="text-[20px] font-bold mt-80 mb-20 text-center">
         查看世界正在发生的新鲜事
@@ -114,6 +113,6 @@ export default function Index() {
         </View>
       </View>
       <SnackBar />
-    </ThemeProvider>
+    </PageRoot>
   )
 }

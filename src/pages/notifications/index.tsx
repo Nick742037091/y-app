@@ -3,17 +3,17 @@ import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
 import { useTabItemTap } from '@tarojs/taro'
-import ThemeProvider from '@/components/ThemeProvider'
 import { getNotificationList } from '@/services/notification/index'
 import type { Notification } from '@/services/notification/types'
 import { useNotificationStore } from '@/stores/notification'
 import dayjs from 'dayjs'
+import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 
 import NavigationBar from './components/NavigationBar'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import notificationStyles from './index.module.scss'
-import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
 
 const PAGE_PATH = 'pages/index/index'
 
@@ -78,7 +78,7 @@ export default function Index() {
     }
   })
   return (
-    <ThemeProvider>
+    <PageRoot isTabPage>
       <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
@@ -91,6 +91,6 @@ export default function Index() {
       <AddPostButton />
       <Mine />
       <SnackBar isTabPage />
-    </ThemeProvider>
+    </PageRoot>
   )
 }

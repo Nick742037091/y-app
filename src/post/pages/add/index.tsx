@@ -1,5 +1,5 @@
 import { Textarea, View } from '@tarojs/components'
-import ThemeProvider, { useColorPrimary } from '@/components/ThemeProvider'
+import { useColorPrimary } from '@/components/ThemeProvider'
 import UserAvatar from '@/components/UserAvatar'
 import Icon, { IconNames } from '@/components/Icon'
 import { waitFor } from '@/utils'
@@ -9,6 +9,7 @@ import TopProgress from '@/components/LoopProgress'
 import classNames from 'classnames'
 import { CircleProgress } from '@nutui/nutui-react-taro'
 import { showSuccess } from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
@@ -79,7 +80,7 @@ export default function Index() {
     return true
   }
   return (
-    <ThemeProvider className={styles.post_add}>
+    <PageRoot className={styles.post_add}>
       {postLoading && <TopProgress />}
       <NavigationBar disabled={postMsg.length === 0} onSubmit={handleSumit} />
       <View className="px-16">
@@ -127,6 +128,6 @@ export default function Index() {
           <Icon name="plus" size={18} color={colorPrimary} />
         </View> */}
       </View>
-    </ThemeProvider>
+    </PageRoot>
   )
 }

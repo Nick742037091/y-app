@@ -2,8 +2,9 @@ import { getTrendingList } from '@/services/post'
 import { useSearchStore } from '@/stores/search'
 import { useRequest } from '@/services/request/hooks'
 import Mine from '@/components/Mine'
-import ThemeProvider from '@/components/ThemeProvider'
-
+import AddPostButton from '@/components/AddPostButton'
+import SnackBar from '@/components/SnackBar'
+import PageRoot from '@/components/PageRoot'
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
 import { Skeleton } from '@nutui/nutui-react-taro'
@@ -14,8 +15,6 @@ import {
   NAV_FOOTER_HEIGHT
 } from './components/NavigationFooter'
 import tendingListStyles from './components/TrendingList/index.module.scss'
-import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
 
 definePageConfig({
   navigationBarTitleText: '搜索',
@@ -50,7 +49,7 @@ export default function Index() {
     { refreshDeps: [tab] }
   )
   return (
-    <ThemeProvider>
+    <PageRoot isTabPage>
       <SearchNavigationBar
         placeholder="搜索Y"
         footer={<NavigationFooter />}
@@ -65,6 +64,6 @@ export default function Index() {
       <AddPostButton />
       <Mine />
       <SnackBar isTabPage />
-    </ThemeProvider>
+    </PageRoot>
   )
 }
