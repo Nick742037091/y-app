@@ -157,7 +157,9 @@ export default function Mine() {
               <UserAvatar size={40} />
               <Icon className={styles.icon_add} name="plus" />
             </View>
-            <View className="font-bold text-black">{userInfo.userName}</View>
+            <View className="font-bold text-black mt-4 ml-6">
+              {userInfo.userName}
+            </View>
             {userInfo.fullName && (
               <View className="text-info">@{userInfo.fullName}</View>
             )}
