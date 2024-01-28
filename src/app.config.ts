@@ -11,12 +11,12 @@ export default defineAppConfig({
   ],
   subPackages: [
     {
-      root: 'post',
-      pages: ['pages/add/index', 'pages/choose-location/index']
+      root: 'pages/post',
+      pages: ['add/index', 'choose-location/index']
     },
     {
-      root: 'media',
-      pages: ['pages/video-play/index']
+      root: 'pages/media',
+      pages: ['video-play/index']
     }
   ],
   window: {

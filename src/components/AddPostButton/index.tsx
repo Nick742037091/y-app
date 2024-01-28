@@ -18,7 +18,7 @@ export default function () {
     } else {
       setShowButtons(false)
       Taro.navigateTo({
-        url: '/post/pages/add/index'
+        url: '/pages/post/add/index'
       })
     }
   }

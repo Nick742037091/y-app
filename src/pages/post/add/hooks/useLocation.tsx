@@ -9,7 +9,7 @@ export const useLocation = () => {
   const [location, setLocation] = useState('')
   const handleChooseLocation = () => {
     Taro.navigateTo({
-      url: `/post/pages/choose-location/index?location=${location}`
+      url: `/pages/post/choose-location/index?location=${location}`
     })
   }
   useEffect(() => {

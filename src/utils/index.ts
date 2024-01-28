@@ -10,7 +10,7 @@ export const isDev = process.env.TARO_APP_ENV === 'dev'
 
 export const playVideo = (url: string) => {
   Taro.navigateTo({
-    url: `/media/pages/video-play/index?url=${encodeURIComponent(url)}`
+    url: `/pages/media/video-play/index?url=${encodeURIComponent(url)}`
   })
 }
 
