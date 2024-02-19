@@ -1,3 +1,14 @@
+export type createPostParams = {
+  content: string
+  imgList?: string[]
+  video?: string
+  videoPoster?: string
+  gifVideo?: string
+  gifPoster?: string
+  gifWidth?: number
+  gifHeight?: number
+}
+
 export type PostItem = {
   id: string
   nickName: string

@@ -44,7 +44,7 @@ export default function Index() {
       async (nextPageNum) => {
         const result = await getPostList({
           pageNum: nextPageNum,
-          pageSzie: 10,
+          pageSize: 10,
           type: tab
         })
         return result.data

@@ -9,3 +9,15 @@ export const getUserInfo = () => {
     { baseUrl: requestBaseUrl }
   )
 }
+
+export const uploadFile = (filePath: string, type?: string, path?: string) => {
+  return yApi.uploadFile<string>(
+    '/upload/file',
+    filePath,
+    'file',
+    { type, path },
+    {
+      baseUrl: requestBaseUrl
+    }
+  )
+}

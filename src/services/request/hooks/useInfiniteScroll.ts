@@ -67,6 +67,11 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
       loadingDelay: options?.loadingDelay || DEFAULT_LOADING_DELAY
     }
   )
+  useEffect(() => {
+    if (data && data.total >= data.list.length) {
+      setIsNoMore(true)
+    }
+  }, [data])
 
   const reloadResolve = useRef<() => void>()
   // 添加useCallback避免闭包带来的性能损耗

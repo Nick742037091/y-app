@@ -1,13 +1,25 @@
 import { ListData } from '@/services/request/base/types'
 import { yApi } from '@/services/request/instances/y'
-import { PostItem, Publisher, Trending } from './types'
+import { requestBaseUrl } from '@/utils/config'
+import { createPostParams, PostItem, Publisher, Trending } from './types'
 
+/** 发布帖子 */
+export const addPost = (data: createPostParams) => {
+  return yApi.post<PostItem>('/post', data, { baseUrl: requestBaseUrl })
+}
+
+/**
+ * 获取帖子列表
+ * @param data
+ */
 export const getPostList = (data: {
   pageNum: number
-  pageSzie: number
+  pageSize: number
   type: number
 }) => {
-  return yApi.get<ListData<PostItem>>('/post/list', data)
+  return yApi.get<ListData<PostItem>>('/post?apifoxApiId=148071620', data, {
+    baseUrl: requestBaseUrl
+  })
 }
 
 export const getNewPosterList = () => {

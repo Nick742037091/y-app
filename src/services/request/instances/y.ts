@@ -1,5 +1,6 @@
 import { useAppStore } from '@/stores/app'
 import { getToken } from '@/utils/storage'
+import { isSuccessCode } from '@/utils/index'
 import { createInstance } from '../base/index'
 
 export const yApi = createInstance({
@@ -16,7 +17,7 @@ export const yApi = createInstance({
     return options
   },
   success: (result, resolve, reject) => {
-    if ([200, 201].includes(result.statusCode)) {
+    if (isSuccessCode(result.statusCode)) {
       resolve(result.data)
     } else if (result.statusCode === 401) {
       // 无token或token失效

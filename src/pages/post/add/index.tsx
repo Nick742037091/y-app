@@ -8,8 +8,10 @@ import Taro from '@tarojs/taro'
 import TopProgress from '@/components/LoopProgress'
 import classNames from 'classnames'
 import { CircleProgress } from '@nutui/nutui-react-taro'
-import { showSuccess } from '@/components/SnackBar'
+import { showError, showSuccess } from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
+import { uploadFile } from '@/services/app/index'
+import { addPost } from '@/services/post/index'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
@@ -36,21 +38,46 @@ const iconList: Array<{
 const INPUT_MAX_LENGTH = 250
 
 // 函数组件名称不可缺少，会导致热更新失败
-export default function Index() {
+export default function AddPost() {
   const colorPrimary = useColorPrimary()
   const [postMsg, setPostMsg] = useState('')
   const [postLoading, setPostLoading] = useState(false)
   const handleSumit = async () => {
     if (!postMsg) return
-    setPostLoading(true)
-    await waitFor(300)
-    setPostLoading(false)
-    Taro.navigateBack({
-      async success() {
-        await waitFor(100)
-        showSuccess('保存成功')
+    try {
+      setPostLoading(true)
+      const imgList = await handleUpload()
+      const { msg, code } = await addPost({
+        content: postMsg,
+        imgList
+      })
+      if (code !== 0) {
+        showError(msg)
+        return
       }
-    })
+      setPostLoading(false)
+      Taro.navigateBack({
+        async success() {
+          await waitFor(100)
+          showSuccess('保存成功')
+        }
+      })
+    } catch (e) {
+      setPostLoading(false)
+    }
+  }
+
+  const handleUpload = async () => {
+    const urlList = await Promise.all(
+      imgList.map(async (item) => {
+        const { path, type } = item
+        const { data, code } = await uploadFile(path, type, 'post')
+        if (code !== 0) return null
+        return data as string
+      })
+    )
+    console.log('urlList', urlList)
+    return urlList.filter((item) => !!item) as string[]
   }
   const onClickItem = (key: string) => {
     switch (key) {

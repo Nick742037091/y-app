@@ -18,6 +18,14 @@ export default {
           pathRewrite: {
             '/dev-api': ''
           }
+        },
+        '/local-api': {
+          target: 'http://127.0.0.1:4001',
+          changeOrigin: true,
+          logLevel: 'debug',
+          pathRewrite: {
+            '/local-api': ''
+          }
         }
       }
     }

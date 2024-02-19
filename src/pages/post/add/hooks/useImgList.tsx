@@ -1,9 +1,9 @@
 import Icon from '@/components/Icon'
 import {
-  Image,
   StandardProps,
   View,
   Swiper,
+  Image,
   SwiperItem,
   ITouchEvent
 } from '@tarojs/components'

@@ -115,3 +115,16 @@ export const isTabPage = () => {
   const path = getCurrentPagePath()
   return tabPageList.includes(path)
 }
+
+/**
+ * 获取文件后缀
+ * @param {string} imei 文件类型，如image/jpeg
+ */
+export const getFileExt = (imei: string) => {
+  const imgMatch = /image\/(\w+)/.exec(imei)
+  if (imgMatch) return imgMatch[1]
+}
+
+export const isSuccessCode = (statusCode: number) => {
+  return statusCode >= 200 && statusCode < 300
+}
