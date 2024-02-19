@@ -25,8 +25,8 @@ export function PostList(props: {
           />
           <View className="flex-1 flex flex-col ">
             <View>
-              <Text className="font-bold ">{item.nickName}</Text>
-              <Text className="ml-4 text-info">@{item.fullname}</Text>
+              <Text className="font-bold ">{item.userName}</Text>
+              <Text className="ml-4 text-info">@{item.fullName}</Text>
               <Text className="mx-5">·</Text>
               <Text>{dayjs(item.createTime).fromNow()}</Text>
             </View>

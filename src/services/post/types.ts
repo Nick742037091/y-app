@@ -11,8 +11,8 @@ export type createPostParams = {
 
 export type PostItem = {
   id: string
-  nickName: string
-  fullname: string
+  userName: string
+  fullName: string
   avatar: string
   createTime: string
   content: string
