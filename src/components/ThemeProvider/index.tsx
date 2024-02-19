@@ -3,7 +3,7 @@ import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { persist } from 'zustand/middleware'
 
 import { View } from '@tarojs/components'
-import { createStorePersistOptions } from '@/utils/storage'
+import { createStorePersistOptions } from '@/storage'
 import { CSSProperties } from 'react'
 import {
   colorBlue,

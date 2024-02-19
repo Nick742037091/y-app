@@ -1,7 +1,7 @@
 import { getUserInfo } from '@/services/app'
 import { UserInfo } from '@/services/app/types'
 import { getCurrentPagePath } from '@/utils'
-import { clearToken, getToken, setToken } from '@/utils/storage'
+import { clearToken, getToken, setToken } from '@/storage'
 import Taro from '@tarojs/taro'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'

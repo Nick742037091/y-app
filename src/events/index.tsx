@@ -6,5 +6,6 @@ const createEvent = (moduleName: string, keyName: string) => {
 
 const MODULE_POST = 'post'
 export const postEvents = {
-  setLocation: createEvent(MODULE_POST, 'setLocation')
+  setLocation: createEvent(MODULE_POST, 'setLocation'),
+  addPost: createEvent(MODULE_POST, 'addPost')
 }

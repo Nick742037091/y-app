@@ -17,7 +17,7 @@ export const getPostList = (data: {
   pageSize: number
   type: number
 }) => {
-  return yApi.get<ListData<PostItem>>('/post?apifoxApiId=148071620', data, {
+  return yApi.get<ListData<PostItem>>('/post', data, {
     baseUrl: requestBaseUrl
   })
 }

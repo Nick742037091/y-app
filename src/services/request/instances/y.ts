@@ -1,5 +1,5 @@
 import { useAppStore } from '@/stores/app'
-import { getToken } from '@/utils/storage'
+import { getToken } from '@/storage'
 import { isSuccessCode } from '@/utils/index'
 import { createInstance } from '../base/index'
 

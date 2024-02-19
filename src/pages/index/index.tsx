@@ -4,10 +4,12 @@ import { useHomeStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
-import { useTabItemTap } from '@tarojs/taro'
+import Taro, { useTabItemTap } from '@tarojs/taro'
 import AddPostButton from '@/components/AddPostButton'
 import SnackBar from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
+import { useEffect } from 'react'
+import { postEvents } from '@/events/index'
 import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
@@ -56,6 +58,12 @@ export default function Index() {
       reload()
     }
   })
+  useEffect(() => {
+    Taro.eventCenter.on(postEvents.addPost, () => reload())
+    return () => {
+      Taro.eventCenter.off()
+    }
+  }, [])
 
   // 收藏
   // TODO 本地模拟，未请求接口
