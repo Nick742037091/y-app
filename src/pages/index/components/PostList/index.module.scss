@@ -16,7 +16,7 @@
   border-radius: 50%;
 
   // TODO 礼花效果
-  @keyframes favoriteActive {
+  @keyframes likeActive {
     from {
       background-color: transparent;
       transform: scale(0.3);
@@ -26,7 +26,7 @@
       transform: scale(1);
     }
   }
-  @keyframes favoriteInactive {
+  @keyframes likeInactive {
     from {
       background-color: rgb(249, 24, 128, 0.4);
       transform: scale(0.3);
@@ -37,14 +37,14 @@
     }
   }
   &.active {
-    animation: 300ms ease favoriteActive;
+    animation: 300ms ease likeActive;
   }
   &.inactive {
-    animation: 300ms ease favoriteInactive;
+    animation: 300ms ease likeInactive;
   }
 }
 
-.post_favorite_num {
+.post_like_num {
   @apply ml-4;
   @keyframes numChange {
     from {

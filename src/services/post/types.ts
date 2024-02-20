@@ -10,7 +10,7 @@ export type createPostParams = {
 }
 
 export type PostItem = {
-  id: string
+  id: number
   userName: string
   fullName: string
   avatar: string
@@ -18,7 +18,7 @@ export type PostItem = {
   content: string
   commentNum: number
   shareNum: number
-  favoriteNum: number
+  likeNum: number
   viewNum: number
   imgList: string[]
   video: string
@@ -27,7 +27,7 @@ export type PostItem = {
   gifPoster: string
   gifWidth: number
   gifHeight: number
-  isFavorited: boolean
+  isLiked: boolean
 }
 
 export type Publisher = {

@@ -1,5 +1,5 @@
 import { View } from '@tarojs/components'
-import { getPostList } from '@/services/post'
+import { getPostList, likePost } from '@/services/post'
 import { useHomeStore } from '@/stores/home'
 import { useInfiniteScroll } from '@/services/request/hooks'
 import { Skeleton } from '@nutui/nutui-react-taro'
@@ -65,17 +65,21 @@ export default function Index() {
     }
   }, [])
 
-  // 收藏
-  // TODO 本地模拟，未请求接口
-  const handleFavorite = (index: number) => {
+  // 点赞
+  const handleLike = async (index: number) => {
     if (!data || !data?.list) return
     const newList = [...data.list]
     const item = newList[index]
-    item.isFavorited = !item.isFavorited
-    if (item.isFavorited) {
-      item.favoriteNum++
+    const { code } = await likePost({
+      postId: item.id,
+      status: !item.isLiked
+    })
+    if (code !== 0) return
+    item.isLiked = !item.isLiked
+    if (item.isLiked) {
+      item.likeNum++
     } else {
-      item.favoriteNum--
+      item.likeNum--
     }
     mutate({ list: newList, total: data.total })
   }
@@ -87,9 +91,7 @@ export default function Index() {
         loading={loading}
         isNoMore={isNoMore}
         skeleton={<SkeletonList />}
-        list={
-          <PostList postList={data?.list || []} onFavorite={handleFavorite} />
-        }
+        list={<PostList postList={data?.list || []} onLike={handleLike} />}
         onRefresh={reload}
       />
       <AddPostButton />

@@ -10,7 +10,7 @@ import PostMedia from '../PostMedia'
 
 export function PostList(props: {
   postList: PostItem[]
-  onFavorite: (index: number) => void
+  onLike: (index: number) => void
 }) {
   if (!props.postList) return null
   return (
@@ -32,10 +32,7 @@ export function PostList(props: {
             </View>
             <Text>{item.content}</Text>
             <PostMedia post={item} index={index} />
-            <PostBottomButtons
-              post={item}
-              onFavorite={() => props.onFavorite(index)}
-            />
+            <PostBottomButtons post={item} onLike={() => props.onLike(index)} />
           </View>
         </View>
       ))}
@@ -43,16 +40,16 @@ export function PostList(props: {
   )
 }
 
-// 收藏按钮
-const FavoriteButton = (props: { post: PostItem; onClick: () => void }) => {
+// 点赞按钮
+const LikeButton = (props: { post: PostItem; onClick: () => void }) => {
   const { post } = props
   const firstShow = useRef(true)
-  const iconName = post.isFavorited ? 'heart-fill' : 'heart'
-  const iconColor = post.isFavorited ? 'rgb(249, 24, 128)' : colorBlackPrimary
+  const iconName = post.isLiked ? 'heart-fill' : 'heart'
+  const iconColor = post.isLiked ? 'rgb(249, 24, 128)' : colorBlackPrimary
   // 首次加载不显示动画
   let activeClass = ''
   if (!firstShow.current) {
-    activeClass = post.isFavorited ? styles.active : styles.inactive
+    activeClass = post.isLiked ? styles.active : styles.inactive
   }
   // 数字变化添加位移动画
   const [numChange, setNumChange] = useState(false)
@@ -73,22 +70,19 @@ const FavoriteButton = (props: { post: PostItem; onClick: () => void }) => {
         {/* 使用Text会导致translateY失效 */}
         <View
           className={classNames(
-            styles.post_favorite_num,
+            styles.post_like_num,
             numChange && styles.change
           )}
           style={{ color: iconColor }}
         >
-          {post.favoriteNum}
+          {post.likeNum}
         </View>
       </View>
     </View>
   )
 }
 
-const PostBottomButtons = (props: {
-  post: PostItem
-  onFavorite: () => void
-}) => {
+const PostBottomButtons = (props: { post: PostItem; onLike: () => void }) => {
   const { post } = props
   return (
     <View className="flex">
@@ -100,7 +94,7 @@ const PostBottomButtons = (props: {
         <Icon name="post-share" />
         <Text className="ml-4">{post.shareNum}</Text>
       </View>
-      <FavoriteButton post={post} onClick={props.onFavorite} />
+      <LikeButton post={post} onClick={props.onLike} />
       <View className={styles.post_bottom_btn}>
         <Icon name="post-view" />
         <Text className="ml-4">{post.viewNum}</Text>
