@@ -13,6 +13,11 @@ export const likePost = (data: { postId: number; status: boolean }) => {
   return yApi.post('/post/like', data, { baseUrl: requestBaseUrl })
 }
 
+/** 浏览帖子 */
+export const viewPost = (data: { postId: number }) => {
+  return yApi.post('/post/view', data, { baseUrl: requestBaseUrl })
+}
+
 /**
  * 获取帖子列表
  * @param data
@@ -25,6 +30,20 @@ export const getPostList = (data: {
   return yApi.get<ListData<PostItem>>('/post', data, {
     baseUrl: requestBaseUrl
   })
+}
+
+/**
+ * 获取帖子详情
+ * @param data
+ */
+export const getPostDetail = (postId: number) => {
+  return yApi.get<PostItem>(
+    `/post/${postId}`,
+    {},
+    {
+      baseUrl: requestBaseUrl
+    }
+  )
 }
 
 export const getNewPosterList = () => {

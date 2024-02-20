@@ -12,12 +12,12 @@ import { showError, showSuccess } from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
 import { uploadFile } from '@/services/app/index'
 import { addPost } from '@/services/post/index'
+import { postEvents } from '@/events/index'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
 import { IMG_LENGTH_MAX, useImgList } from './hooks/useImgList'
 import { useLocation } from './hooks/useLocation'
-import { postEvents } from '@/events/index'
 
 definePageConfig({
   navigationBarTitleText: '撰写新帖子',

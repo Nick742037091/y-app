@@ -161,9 +161,9 @@ export default function Mine() {
               {userInfo.userName}
             </View>
             {userInfo.fullName && (
-              <View className="text-info">@{userInfo.fullName}</View>
+              <View className="text-gray">@{userInfo.fullName}</View>
             )}
-            <View className="mt-12  text-info flex items-center">
+            <View className="mt-12  text-gray flex items-center">
               <View>
                 <Text className="text-black mr-5">{userInfo.followingNum}</Text>
                 正在关注

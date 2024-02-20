@@ -1,9 +1,10 @@
 import dayjs from 'dayjs'
 import { PostItem } from '@/services/post/types'
 import Icon from '@/components/Icon'
-import { Image, Text, View } from '@tarojs/components'
+import { ITouchEvent, Image, Text, View } from '@tarojs/components'
 import classNames from 'classnames'
 import { colorBlackPrimary } from '@/styles/variables'
+import Taro from '@tarojs/taro'
 import { useRef, useState } from 'react'
 import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
@@ -13,10 +14,20 @@ export function PostList(props: {
   onLike: (index: number) => void
 }) {
   if (!props.postList) return null
+
+  const handleClickPost = (item: PostItem) => {
+    Taro.navigateTo({
+      url: `/pages/post/detail/index?postId=${item.id}`
+    })
+  }
   return (
     <>
       {props.postList.map((item, index) => (
-        <View key={index} className={styles.post_item}>
+        <View
+          key={index}
+          className={styles.post_item}
+          onClick={() => handleClickPost(item)}
+        >
           <Image
             src={item.avatar}
             className="size-40 rounded-full mr-12 bg-placeholder"
@@ -25,13 +36,15 @@ export function PostList(props: {
           />
           <View className="flex-1 flex flex-col ">
             <View>
-              <Text className="font-bold ">{item.userName}</Text>
-              <Text className="ml-4 text-info">@{item.fullName}</Text>
+              <Text className="font-bold">{item.userName}</Text>
+            </View>
+            <View>
+              <Text className="text-gray">@{item.fullName}</Text>
               <Text className="mx-5">·</Text>
               <Text>{dayjs(item.createTime).fromNow()}</Text>
             </View>
             <Text>{item.content}</Text>
-            <PostMedia post={item} index={index} />
+            <PostMedia post={item} />
             <PostBottomButtons post={item} onLike={() => props.onLike(index)} />
           </View>
         </View>
@@ -53,7 +66,8 @@ const LikeButton = (props: { post: PostItem; onClick: () => void }) => {
   }
   // 数字变化添加位移动画
   const [numChange, setNumChange] = useState(false)
-  const handleClick = () => {
+  const handleClick = (event: ITouchEvent) => {
+    event.stopPropagation()
     if (firstShow.current) {
       firstShow.current = false
     }

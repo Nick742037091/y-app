@@ -1,5 +1,5 @@
 import Taro, { VideoContext } from '@tarojs/taro'
-import { Image, Video, View } from '@tarojs/components'
+import { ITouchEvent, Image, Video, View } from '@tarojs/components'
 import { PostItem } from '@/services/post/types'
 import { playVideo } from '@/utils'
 import Icon from '@/components/Icon'
@@ -13,11 +13,15 @@ const createImage = (
   key: string | number = '',
   previewable: boolean = true
 ) => {
-  const hanclePreview = () =>
-    previewable &&
-    Taro.previewImage({
-      urls: [url]
-    })
+  const hanclePreview = (event: ITouchEvent) => {
+    event.stopPropagation()
+    if (previewable) {
+      Taro.previewImage({
+        urls: [url]
+      })
+    }
+  }
+
   return (
     <View
       key={key}
@@ -182,7 +186,7 @@ export const GifPoster = (props: {
   )
 }
 
-const Media = (props: { post: PostItem; index: number }) => {
+const PostMedia = (props: { post: PostItem }) => {
   const { post } = props
   if (post.video) {
     return <VideoPoster video={post.video} poster={post.videoPoster} />
@@ -200,4 +204,4 @@ const Media = (props: { post: PostItem; index: number }) => {
   return <ImgList list={post.imgList} />
 }
 
-export default Media
+export default PostMedia
