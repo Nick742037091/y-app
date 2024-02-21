@@ -27,7 +27,7 @@ export const getPostList = (data: {
   pageSize: number
   type: number
 }) => {
-  return yApi.get<ListData<PostItem>>('/post', data, {
+  return yApi.get<ListData<PostItem>>('/post/list', data, {
     baseUrl: requestBaseUrl
   })
 }
