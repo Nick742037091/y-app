@@ -1,4 +1,5 @@
 import type { UserConfigExport } from '@tarojs/cli'
+import CompressionPlugin from 'compression-webpack-plugin'
 /**
  * @typedef { import("@tarojs/plugin-mini-ci").CIOptions } CIOptions
  * @type {CIOptions}
@@ -7,6 +8,11 @@ import type { UserConfigExport } from '@tarojs/cli'
 export default {
   mini: {},
   h5: {
+    webpackChain(chain) {
+      chain
+        .plugin('compress')
+        .use(new CompressionPlugin({ deleteOriginalAssets: true }))
+    }
     /**
      * WebpackChain 插件配置
      * @docs https://github.com/neutrinojs/webpack-chain
