@@ -2,7 +2,7 @@ import { Textarea, View } from '@tarojs/components'
 import { useColorPrimary } from '@/components/ThemeProvider'
 import UserAvatar from '@/components/UserAvatar'
 import Icon, { IconNames } from '@/components/Icon'
-import { waitFor } from '@/utils'
+import { sleep } from '@/utils'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import TopProgress from '@/components/LoopProgress'
@@ -60,7 +60,7 @@ export default function AddPost() {
       Taro.eventCenter.trigger(postEvents.addPost)
       Taro.navigateBack({
         async success() {
-          await waitFor(100)
+          await sleep(100)
           showSuccess('保存成功')
         }
       })

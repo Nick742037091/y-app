@@ -57,7 +57,7 @@ export const createTabPageBottom = (bottom: number) => {
  * @param time 延迟时间(ms)
  * @returns
  */
-export const waitFor = (time: number) => {
+export const sleep = (time: number) => {
   return new Promise((resolve: any) => {
     setTimeout(() => {
       resolve()

@@ -6,7 +6,7 @@ import { login, register } from '@/services/auth'
 import { useAppStore } from '@/stores/app'
 import PageRoot from '@/components/PageRoot'
 import Taro from '@tarojs/taro'
-import { waitFor } from '@/utils'
+import { sleep } from '@/utils'
 import SnackBar, { showError, showSuccess } from '@/components/SnackBar'
 import styles from './index.module.scss'
 
@@ -57,11 +57,10 @@ export default function Index() {
       appStore.setToken(data.token)
       appStore.setUserInfo(data.userInfo)
       appStore.setLogining(false)
-      Taro.navigateBack({
-        success: async () => {
-          await waitFor(300)
-          showSuccess('登录成功')
-        }
+      showSuccess('登录成功')
+      await sleep(500)
+      Taro.reLaunch({
+        url: '/pages/index/index'
       })
     } else {
       showError(msg)
@@ -76,7 +75,7 @@ export default function Index() {
       appStore.setLogining(false)
       Taro.navigateBack({
         success: async () => {
-          await waitFor(300)
+          await sleep(300)
           showSuccess('创建账号成功')
         }
       })

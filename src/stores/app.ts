@@ -56,6 +56,7 @@ export const useAppStore = create<UserInfoState>((set, get) => {
       return true
     },
     navigateToLogin() {
+      if (get().isLogining) return
       // TODO 退出登录页需要重置
       get().setLogining(true)
       Taro.navigateTo({
