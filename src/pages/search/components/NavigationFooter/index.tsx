@@ -1,7 +1,7 @@
 import { useSearchStore } from '@/stores/search'
 import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
 import { ScrollView, View } from '@tarojs/components'
-import { CSSProperties } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 
 const tabList = [
   {
@@ -29,20 +29,21 @@ const tabList = [
 export const NAV_FOOTER_HEIGHT = 40
 const TAB_WIDTH = 80
 export const NavigationFooter = () => {
-  const [tab, setTab] = useSearchStore((state) => [state.tab, state.setTab])
+  const [tab, setTab] = useState(0)
   const tabIndex = tabList.findIndex((item) => item.key === tab)
   const dotWrapperLeft = tabIndex * TAB_WIDTH
   const dotWrapperStyle: CSSProperties = {
     left: dotWrapperLeft,
     width: TAB_WIDTH
   }
+  // TODO 设置scrollLeft会导致页面加载时出现全屏滚动效果
   return (
     <ScrollView
       className="text-[15px]"
       scrollX
-      enhanced
       showScrollbar={false}
-      scrollLeft={dotWrapperLeft}
+
+      // scrollLeft={dotWrapperLeft}
     >
       <View className="flex items-center relative">
         {tabList.map((item) => (

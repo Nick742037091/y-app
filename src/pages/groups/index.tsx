@@ -1,7 +1,8 @@
 import { useRequest } from '@/services/request/hooks'
 import Mine from '@/components/Mine'
+import TabBar from '@/components/Tabbar'
 import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
+
 import PageRoot from '@/components/PageRoot'
 
 import PagePullToRefresh from '@/components/PagePullToRefresh'
@@ -54,7 +55,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
-      <SnackBar isTabPage />
+      <TabBar />
     </PageRoot>
   )
 }

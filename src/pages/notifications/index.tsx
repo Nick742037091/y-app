@@ -8,9 +8,8 @@ import type { Notification } from '@/services/notification/types'
 import { useNotificationStore } from '@/stores/notification'
 import dayjs from 'dayjs'
 import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
+import TabBar from '@/components/Tabbar'
 import PageRoot from '@/components/PageRoot'
-
 import NavigationBar from './components/NavigationBar'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
 import notificationStyles from './index.module.scss'
@@ -90,7 +89,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
-      <SnackBar isTabPage />
+      <TabBar />
     </PageRoot>
   )
 }

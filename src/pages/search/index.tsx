@@ -3,11 +3,11 @@ import { useSearchStore } from '@/stores/search'
 import { useRequest } from '@/services/request/hooks'
 import Mine from '@/components/Mine'
 import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
 import PagePullToRefresh from '@/components/PagePullToRefresh'
 import { View } from '@tarojs/components'
 import { Skeleton } from '@nutui/nutui-react-taro'
+import TabBar from '@/components/Tabbar'
 import SearchNavigationBar from '@/components/SearchNavigationBar'
 import TrendingList from './components/TrendingList'
 import {
@@ -15,6 +15,7 @@ import {
   NAV_FOOTER_HEIGHT
 } from './components/NavigationFooter'
 import tendingListStyles from './components/TrendingList/index.module.scss'
+import NavigationBar from '../index/components/NavigationBar'
 
 definePageConfig({
   navigationBarTitleText: '搜索',
@@ -38,16 +39,10 @@ const SkeletonList = () => {
 
 // 搜索页
 export default function Index() {
-  const { tab } = useSearchStore((state) => ({
-    tab: state.tab
-  }))
-  const { data, loading, refreshAsync } = useRequest(
-    async () => {
-      const result = await getTrendingList({ type: tab })
-      return result.data
-    },
-    { refreshDeps: [tab] }
-  )
+  const { data, loading, refreshAsync } = useRequest(async () => {
+    const result = await getTrendingList({ type: 0 })
+    return result.data
+  })
   return (
     <PageRoot isTabPage>
       <SearchNavigationBar
@@ -63,7 +58,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
-      <SnackBar isTabPage />
+      <TabBar />
     </PageRoot>
   )
 }

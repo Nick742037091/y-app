@@ -6,10 +6,10 @@ import { Skeleton } from '@nutui/nutui-react-taro'
 import Mine from '@/components/Mine'
 import Taro, { useTabItemTap } from '@tarojs/taro'
 import AddPostButton from '@/components/AddPostButton'
-import SnackBar from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
 import { useEffect } from 'react'
 import { postEvents } from '@/events/index'
+import TabBar from '@/components/Tabbar'
 import NavigationBar from './components/NavigationBar'
 import { PostList } from './components/PostList'
 import PageInfiniteScroll from '../../components/PageInfiniteScroll'
@@ -96,7 +96,7 @@ export default function Index() {
       />
       <AddPostButton />
       <Mine />
-      <SnackBar isTabPage />
+      <TabBar />
     </PageRoot>
   )
 }

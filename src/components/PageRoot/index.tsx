@@ -1,4 +1,5 @@
 import { StandardProps, View } from '@tarojs/components'
+import { isLoginPage, useAppStore } from '@/stores/app'
 import ThemeProvider from '../ThemeProvider'
 import SnackBar from '../SnackBar'
 
@@ -10,6 +11,10 @@ import SnackBar from '../SnackBar'
 export default function PageRoot(
   props: StandardProps & { isTabPage?: boolean }
 ) {
+  const appStore = useAppStore()
+  if (!appStore.isLogin() && !isLoginPage()) {
+    return null
+  }
   const { children, isTabPage, ...restProps } = props
   return (
     <View {...restProps}>

@@ -36,7 +36,7 @@ export default function useInfiniteScroll<T extends ServiceDataType>(
       // 合并分页数据
       setPageNum(newPageNum)
       const result = await serveice(newPageNum)
-      if (result.list === null) return
+      if (!result || result.list === null) return
       // 查询列表为空，无更多数据
       if (result.list.length === 0) {
         setIsNoMore(true)

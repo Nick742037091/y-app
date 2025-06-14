@@ -10,6 +10,7 @@ import { useRequest } from 'taro-hooks'
 import Taro, { usePageScroll } from '@tarojs/taro'
 import Icon from '@/components/Icon'
 import { colorBlackPrimary, colorBlackSecondary } from '@/styles/variables'
+import { useAppStore } from '@/stores/app'
 import styles from './index.module.scss'
 
 const avatarSize = 36
@@ -32,8 +33,10 @@ const ScrollToTop = (props: { onClick: () => void }) => {
   usePageScroll((options) => {
     setScrollTop(options.scrollTop)
   })
+  const appStore = useAppStore()
   const { data } = useRequest(
     async () => {
+      if (!appStore.isLogin()) return []
       const result = await getNewPosterList()
       return result.code === 0 ? result.data : []
     },

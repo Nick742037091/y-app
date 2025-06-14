@@ -16,10 +16,6 @@ function App({ children }: PropsWithChildren<any>) {
   useLaunch(() => {
     if (appStore.isLogin()) {
       appStore.queryUserInfo()
-    } else {
-      setTimeout(() => {
-        appStore.checkLogin()
-      }, 500)
     }
   })
 

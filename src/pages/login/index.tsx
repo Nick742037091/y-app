@@ -52,11 +52,18 @@ export default function Index() {
   const appStore = useAppStore()
 
   const handleLogin = async () => {
+    if (!userName) {
+      showError('请输入账号')
+      return
+    }
+    if (!password) {
+      showError('请输入密码')
+      return
+    }
     const { code, data, msg } = await login({ userName, password })
     if (code === 0) {
       appStore.setToken(data.token)
       appStore.setUserInfo(data.userInfo)
-      appStore.setLogining(false)
       showSuccess('登录成功')
       await sleep(500)
       Taro.reLaunch({
@@ -68,16 +75,22 @@ export default function Index() {
   }
 
   const handleRegister = async () => {
+    if (!userName) {
+      showError('请输入账号')
+      return
+    }
+    if (!password) {
+      showError('请输入密码')
+      return
+    }
     const { code, data, msg } = await register({ userName, password })
     if (code === 0) {
       appStore.setToken(data.token)
       appStore.setUserInfo(data.userInfo)
-      appStore.setLogining(false)
-      Taro.navigateBack({
-        success: async () => {
-          await sleep(300)
-          showSuccess('创建账号成功')
-        }
+      showSuccess('创建账号成功')
+      await sleep(500)
+      Taro.switchTab({
+        url: '/pages/index/index'
       })
     } else {
       showError(msg)

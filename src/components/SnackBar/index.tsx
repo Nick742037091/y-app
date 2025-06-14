@@ -54,7 +54,7 @@ export default function SnackBar(props: { isTabPage?: boolean }) {
       style={{
         backgroundColor: primaryColorMap[type],
         height: snackBarHeight,
-        bottom: props.isTabPage && isH5 ? `var(--taro-tabbar-height)` : 0,
+        bottom: props.isTabPage ? 50 : 0,
         transitionDuration: props.isTabPage ? '600ms' : '300ms',
         transform: show ? 'translateY(0)' : 'translateY(100px)'
       }}

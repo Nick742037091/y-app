@@ -11,16 +11,18 @@ interface UserInfoState {
   isLogin: () => boolean
   userInfo: UserInfo
   setUserInfo: (userInfo: UserInfo) => void
-  isLogining: boolean
   queryUserInfo: () => void
   checkLogin: () => void
-  setLogining: (isLogining: boolean) => void
   navigateToLogin: () => void
   setToken: (token: string) => void
   clearToken: () => void
 }
 
 const LoginPagePath = '/pages/login/index'
+export const isLoginPage = () => {
+  const pagePath = getCurrentPagePath()
+  return pagePath === LoginPagePath
+}
 
 export const useAppStore = create<UserInfoState>((set, get) => {
   return {
@@ -38,17 +40,12 @@ export const useAppStore = create<UserInfoState>((set, get) => {
     setUserInfo: (userInfo: UserInfo) => {
       set({ userInfo })
     },
-    isLogining: false,
     queryUserInfo: async () => {
       const { code, data } = await getUserInfo()
       if (code !== 0) return
       set({ userInfo: data })
     },
     checkLogin: () => {
-      // 避免重复跳转登录页
-      const pagePath = getCurrentPagePath()
-      if (pagePath === LoginPagePath) return true
-      if (get().isLogining) return true
       if (!get().token) {
         get().navigateToLogin()
         return false
@@ -56,15 +53,11 @@ export const useAppStore = create<UserInfoState>((set, get) => {
       return true
     },
     navigateToLogin() {
-      if (get().isLogining) return
-      // TODO 退出登录页需要重置
-      get().setLogining(true)
-      Taro.navigateTo({
+      // 避免重复跳转登录页
+      if (isLoginPage()) return
+      Taro.reLaunch({
         url: LoginPagePath
       })
-    },
-    setLogining(isLogining: boolean) {
-      set({ isLogining })
     },
     setToken(token: string) {
       setToken(token)

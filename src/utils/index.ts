@@ -49,7 +49,7 @@ export const tabPageHeight = isH5
   : '100vh'
 
 export const createTabPageBottom = (bottom: number) => {
-  return isH5 ? `calc(${bottom}px + ${tabbarHeightCssVar})` : `${bottom}px`
+  return `${bottom + 50}px`
 }
 
 /**
@@ -86,8 +86,9 @@ export const createStopScrollProps = () => {
  * @returns
  */
 export const getCurrentPagePath = () => {
-  const page = Taro.getCurrentPages()[0]
-  return getPagePath(page?.route || '')
+  const pages = Taro.getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  return getPagePath(currentPage?.route || '')
 }
 
 /**
