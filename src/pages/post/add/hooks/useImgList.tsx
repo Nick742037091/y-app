@@ -84,7 +84,7 @@ export const useImgList = () => {
               <Image
                 className="h-full w-full rounded-[16px]"
                 src={item.path}
-                mode="aspectFill"
+                mode="widthFix"
               />
               <ImgIconWrapper
                 className="absolute top-8 right-16"

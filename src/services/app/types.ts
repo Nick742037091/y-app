@@ -4,4 +4,7 @@ export interface UserInfo {
   followingNum: number
   fullName: string
   userName: string
+  profileBanner: string
+  description: string
+  createTime: string
 }
