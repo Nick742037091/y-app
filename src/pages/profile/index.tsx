@@ -3,18 +3,36 @@ import { Invoice } from '@nutui/icons-react-taro'
 import { useAppStore } from '@/stores/app'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
+import PageRoot from '@/components/PageRoot'
+import BackNavigationBar from '@/components/BackNavigationBar'
+import { ProfileData } from '@/services/auth/types'
+import { getProfileData } from '@/services/auth'
+import { useState, useEffect } from 'react'
 
 export default function Profile() {
   const { userInfo } = useAppStore()
-  console.log('profileBanner', userInfo.profileBanner)
-  // TODO Taro 图片 mode=aspectFill变形
+  const [profileData, setProfileData] = useState<ProfileData | null>(null)
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      const res = await getProfileData()
+      setProfileData(res.data)
+    }
+    fetchProfileData()
+  }, [])
   return (
-    <View>
-      <View
-        style={{
-          background: `url(${userInfo.profileBanner}) no-repeat center center / cover`
-        }}
+    <PageRoot>
+      <BackNavigationBar height={53}>
+        <View className="flex flex-col ml-[20px]">
+          <View className="text-[14px] font-bold">{userInfo.fullName}</View>
+          <View className="text-[13px] text-[#888]">
+            {profileData?.postNum}帖子
+          </View>
+        </View>
+      </BackNavigationBar>
+      <Image
+        src={userInfo.profileBanner}
         className="w-[375px] h-[125px]"
+        mode="aspectFill"
       />
       <View
         className={clsx(
@@ -37,12 +55,12 @@ export default function Profile() {
           </View>
         </View>
         <View className="text-[24px] mt-[12px] font-bold">
-          {userInfo.userName}
+          {userInfo.fullName}
         </View>
-        <View className="text-[14px] text-[#888]">@{userInfo.fullName}</View>
+        <View className="text-[14px] text-[#888]">@{userInfo.userName}</View>
         <View className="mt-[16px] text-[16px]">{userInfo.description}</View>
         <View className="mt-[16px] text-[16px] flex items-center  text-[#888]">
-          <Invoice size={16} color="#888" className="mr-[4px]" />
+          <Invoice size={16} color="#000000" className="mr-[4px]" />
           {dayjs(userInfo.createTime).format('YYYY年M月')}加入
         </View>
         <View className="mt-[16px] text-[16px] flex items-center">
@@ -56,6 +74,6 @@ export default function Profile() {
           </View>
         </View>
       </View>
-    </View>
+    </PageRoot>
   )
 }

@@ -17,17 +17,16 @@ body,
 page {
   font-size: 14px;
   color: #303133;
-}
-
-// 修复H5 Image mode="aspectFill"的bug
-.taro-img__mode-aspectFill {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-// 修复H5 Image mode="aspectFit"的bug
-.taro-img__mode-aspectfit {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
+  // 修复H5 Image mode="aspectFill"的bug
+  .taro-img__mode-aspectfill {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  // 修复H5 Image mode="aspectFit"的bug
+  .taro-img__mode-aspectfit {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
 }
