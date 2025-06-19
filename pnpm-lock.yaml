@@ -83,9 +83,6 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: 1.11.13
-      jotai:
-        specifier: ^2.12.5
-        version: 2.12.5(@types/react@18.2.0)(react@18.3.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -7224,18 +7221,6 @@ packages:
 
   joi@17.13.3:
     resolution: {integrity: sha512-otDA4ldcIx+ZXsKHWmp0YizCweVRZG96J10b0FevjfuncLO1oX59THoAmHkNubYJ+9gWsYsp5k8v4ib6oDv1fA==}
-
-  jotai@2.12.5:
-    resolution: {integrity: sha512-G8m32HW3lSmcz/4mbqx0hgJIQ0ekndKWiYP7kWVKi0p6saLXdSoye+FZiOFyonnd7Q482LCzm8sMDl7Ar1NWDw==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=17.0.0'
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
 
   joycon@3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
@@ -20243,11 +20228,6 @@ snapshots:
       '@sideway/address': 4.1.5
       '@sideway/formula': 3.0.1
       '@sideway/pinpoint': 2.0.0
-
-  jotai@2.12.5(@types/react@18.2.0)(react@18.3.1):
-    optionalDependencies:
-      '@types/react': 18.2.0
-      react: 18.3.1
 
   joycon@3.1.1: {}
 
