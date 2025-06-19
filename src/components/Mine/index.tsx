@@ -14,6 +14,7 @@ import {
   useThemeStore
 } from '../ThemeProvider'
 import UserAvatar from '../UserAvatar'
+import Taro from '@tarojs/taro'
 
 const Actions = (props: { changeTheme: () => void }) => {
   const setShowMine = useHomeStore((state) => state.setShowMine)
@@ -136,6 +137,12 @@ export default function Mine() {
     setShowSelectTheme(true)
     setShowMine(false)
   }
+
+  const handleClickAvatar = () => {
+    Taro.navigateTo({
+      url: '/pages/profile/index'
+    })
+  }
   return (
     <>
       <Popup
@@ -154,7 +161,7 @@ export default function Mine() {
         >
           <View className="p-16 text-[15px]">
             <View className="flex items-center">
-              <UserAvatar size={40} />
+              <UserAvatar size={40} onClick={handleClickAvatar} />
               <Icon className={styles.icon_add} name="plus" />
             </View>
             <View className="font-bold text-black mt-4 ml-6">
