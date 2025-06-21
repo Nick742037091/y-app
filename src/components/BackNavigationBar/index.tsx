@@ -13,7 +13,7 @@ export default function BackNavigationBar(props: {
   }
   return (
     <View
-      className="flex items-center px-[16px]"
+      className="fixed top-0 left-0 right-0 z-10 bg-white flex items-center px-[16px]"
       style={{
         height: height + 'px'
       }}

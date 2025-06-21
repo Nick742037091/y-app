@@ -8,7 +8,8 @@ export default defineAppConfig({
     'pages/notifications/index',
     'pages/messages/index',
     'pages/login/index',
-    'pages/profile/index'
+    'pages/profile/index',
+    'pages/profile/edit'
   ],
   subPackages: [
     {

@@ -34,3 +34,12 @@ export const getProfileData = () => {
     }
   )
 }
+
+export const updateProfile = (data: {
+  userName: string
+  description: string
+}) => {
+  return yApi.post('/auth/updateProfile', data, {
+    baseUrl: requestBaseUrl
+  })
+}
