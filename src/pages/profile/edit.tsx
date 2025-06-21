@@ -6,10 +6,13 @@ import BackNavigationBar from '@/components/BackNavigationBar'
 import { useState } from 'react'
 import { updateProfile } from '@/services/auth'
 import Taro from '@tarojs/taro'
+import { sleep } from '@/utils'
 import { ProfileInput } from './components/ProfileInput'
+import { useUploadImage } from './components/UploadImage'
 
 export default function Profile() {
   const { userInfo, queryUserInfo } = useAppStore()
+  const { Dialog, open } = useUploadImage()
   const [name, setName] = useState(userInfo.userName || '')
   const [description, setDescription] = useState(userInfo.description || '')
   const handleSave = async () => {
@@ -18,10 +21,9 @@ export default function Profile() {
       title: '保存成功',
       icon: 'success'
     })
-    setTimeout(() => {
-      queryUserInfo()
-      Taro.navigateBack()
-    }, 1000)
+    await sleep(1000)
+    queryUserInfo()
+    Taro.navigateBack()
   }
   return (
     <PageRoot>
@@ -68,6 +70,7 @@ export default function Profile() {
           row={3}
         />
       </View>
+      <Dialog />
     </PageRoot>
   )
 }
