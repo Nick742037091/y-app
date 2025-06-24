@@ -3,11 +3,7 @@ import { UserInfo } from './types'
 import { yApi } from '../request/instances/y'
 
 export const getUserInfo = () => {
-  return yApi.get<UserInfo>(
-    '/auth/getUserInfo',
-    {},
-    { baseUrl: requestBaseUrl }
-  )
+  return yApi.get<UserInfo>('/auth/getUserInfo')
 }
 
 export const uploadFile = (filePath: string, type?: string, path?: string) => {
@@ -20,4 +16,18 @@ export const uploadFile = (filePath: string, type?: string, path?: string) => {
       baseUrl: requestBaseUrl
     }
   )
+}
+
+export const qcloudCredential = () => {
+  return yApi.get<{
+    expiredTime: number
+    expiration: string
+    credentials: {
+      tmpSecretId: string
+      tmpSecretKey: string
+      sessionToken: string
+    }
+    requestId: string
+    startTime: number
+  }>('/upload/qcloudCredential')
 }

@@ -1,21 +1,20 @@
 import { ListData } from '@/services/request/base/types'
 import { yApi } from '@/services/request/instances/y'
-import { requestBaseUrl } from '@/utils/config'
 import { createPostParams, PostItem, Publisher, Trending } from './types'
 
 /** 发布帖子 */
 export const addPost = (data: createPostParams) => {
-  return yApi.post<PostItem>('/post', data, { baseUrl: requestBaseUrl })
+  return yApi.post<PostItem>('/post', data)
 }
 
 /** 帖子点赞 */
 export const likePost = (data: { postId: number; status: boolean }) => {
-  return yApi.post('/post/like', data, { baseUrl: requestBaseUrl })
+  return yApi.post('/post/like', data)
 }
 
 /** 浏览帖子 */
 export const viewPost = (data: { postId: number }) => {
-  return yApi.post('/post/view', data, { baseUrl: requestBaseUrl })
+  return yApi.post('/post/view', data)
 }
 
 /**
@@ -27,9 +26,7 @@ export const getPostList = (data: {
   pageSize: number
   type: number
 }) => {
-  return yApi.get<ListData<PostItem>>('/post/list', data, {
-    baseUrl: requestBaseUrl
-  })
+  return yApi.get<ListData<PostItem>>('/post/list', data)
 }
 
 /**
@@ -37,13 +34,7 @@ export const getPostList = (data: {
  * @param data
  */
 export const getPostDetail = (postId: number) => {
-  return yApi.get<PostItem>(
-    `/post/${postId}`,
-    {},
-    {
-      baseUrl: requestBaseUrl
-    }
-  )
+  return yApi.get<PostItem>(`/post/${postId}`)
 }
 
 export const getNewPosterList = () => {

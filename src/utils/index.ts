@@ -129,3 +129,19 @@ export const getFileExt = (imei: string) => {
 export const isSuccessCode = (statusCode: number) => {
   return statusCode >= 200 && statusCode < 300
 }
+
+/**
+ * 读取文件
+ * @param file 文件
+ * @returns 文件内容
+ */
+export function readFile(file: File) {
+  return new Promise<ArrayBuffer>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      resolve(e.target?.result as ArrayBuffer)
+    }
+    reader.onerror = reject
+    reader.readAsArrayBuffer(file)
+  })
+}
