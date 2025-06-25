@@ -3,10 +3,12 @@ import { colorPrimary } from '@/styles/variables'
 import { View } from '@tarojs/components'
 import clsx from 'clsx'
 import { throttle } from 'lodash'
-import { ChangeEvent, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import Taro from '@tarojs/taro'
 import Cropper, { Area, Point } from 'react-easy-crop'
 import getCroppedImg from './cropImage'
 
+// TODO 兼容小程序端
 export function useUploadImage() {
   const [dialogVisible, setDialogVisible] = useState(false)
   const [image, setImage] = useState<string>('')
@@ -21,8 +23,15 @@ export function useUploadImage() {
   })
   const openResolve = useRef<(File) => void>(() => {})
   const open = (options: { image: string; aspect: number }) => {
-    inputRef.current!.value = ''
-    inputRef.current!.click()
+    Taro.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album'],
+      success: (res) => {
+        setImage(res.tempFiles[0].path)
+        setDialogVisible(true)
+      }
+    })
     setAspect(options.aspect)
     return new Promise<File>((resolve) => {
       openResolve.current = resolve
@@ -37,17 +46,6 @@ export function useUploadImage() {
   const onZoomChange = throttle((value: number) => {
     setZoom(value)
   }, 100)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      setImage(reader.result as string)
-      setDialogVisible(true)
-    }
-  }
   const handleSave = async () => {
     const croppedImage = await getCroppedImg(image, croppedAreaPixels)
     if (croppedImage) {
@@ -57,13 +55,6 @@ export function useUploadImage() {
   }
   const context = (
     <>
-      <input
-        type="file"
-        accept="image/*"
-        ref={inputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-      />
       {dialogVisible && (
         <View className="fixed left-[0] right-0 top-0 bottom-0 bg-black/50 z-[100]">
           <View className="w-[90vw] h-[100vh] ml-[5vw] flex flex-col rounded-[5px] overflow-hidden">

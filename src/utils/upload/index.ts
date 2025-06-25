@@ -23,17 +23,18 @@ export const upload = async (
   if (!file) return
   const cos = await initCos()
   if (!cos) return
-  const env = process.env.TARO_APP_PUBLIC_ENV!
+  const app = process.env.TARO_APP_NAME!
+  const env = process.env.TARO_APP_ENV!
   const bucket = process.env.TARO_APP_UPLOAD_BUCKET!
   const region = process.env.TARO_APP_UPLOAD_REGION!
-  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+  const ext = file?.name?.split('.').pop()?.toLowerCase() || 'jpg'
   const fileData = await readFile(file)
   const key = md5(fileData)
   console.log(key)
   const result = await cos.uploadFile({
     Bucket: bucket,
     Region: region,
-    Key: `${env}/${path}/${key}.${ext}`,
+    Key: `${app}/${env}/${path}/${key}.${ext}`,
     Body: file,
     SliceSize: 1024 * 1024 * 10,
     AsyncLimit: 6,

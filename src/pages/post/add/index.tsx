@@ -10,9 +10,9 @@ import classNames from 'classnames'
 import { CircleProgress } from '@nutui/nutui-react-taro'
 import { showError, showSuccess } from '@/components/SnackBar'
 import PageRoot from '@/components/PageRoot'
-import { uploadFile } from '@/services/app/index'
 import { addPost } from '@/services/post/index'
 import { postEvents } from '@/events/index'
+import { upload } from '@/utils/upload'
 
 import NavigationBar from './components/NavigationBar'
 import styles from './index.module.scss'
@@ -72,10 +72,9 @@ export default function AddPost() {
   const handleUpload = async () => {
     const urlList = await Promise.all(
       imgList.map(async (item) => {
-        const { path, type } = item
-        const { data, code } = await uploadFile(path, type, 'post')
-        if (code !== 0) return null
-        return data as string
+        const url = await upload(item.originalFileObj!, 'post')
+        if (!url) return null
+        return url
       })
     )
     return urlList.filter((item) => !!item) as string[]

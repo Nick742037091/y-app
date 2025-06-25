@@ -33,6 +33,10 @@ declare namespace NodeJS {
      */
     TARO_APP_ID: string
     /**
+     * 当前app名称
+     */
+    TARO_APP_NAME: string
+    /**
      * 运行环境: dev本地开发环境 | prod 生产环境
      */
     TARO_APP_ENV: string
