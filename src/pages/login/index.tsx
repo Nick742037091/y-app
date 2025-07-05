@@ -8,6 +8,7 @@ import PageRoot from '@/components/PageRoot'
 import Taro from '@tarojs/taro'
 import { sleep } from '@/utils'
 import SnackBar, { showError, showSuccess } from '@/components/SnackBar'
+import { md5 } from 'js-md5'
 import styles from './index.module.scss'
 
 definePageConfig({
@@ -60,7 +61,10 @@ export default function Index() {
       showError('请输入密码')
       return
     }
-    const { code, data, msg } = await login({ userName, password })
+    const { code, data, msg } = await login({
+      userName,
+      password: md5(password)
+    })
     if (code === 0) {
       appStore.setToken(data.token)
       appStore.setUserInfo(data.userInfo)
