@@ -81,36 +81,6 @@ export const SubmitBar = (props: {
     cleareReply()
   }
 
-  const inputView = (
-    <View className="flex flex-col">
-      <View>
-        <TextArea
-          autoFocus
-          autoSize
-          maxLength={500}
-          value={content}
-          onChange={(e) => setContent(e)}
-          className="!rounded-[16px] !bg-[#efefef] text-gray flex items-center !max-h-[60px] overflow-auto"
-        />
-      </View>
-      <View className="flex justify-end mt-10">
-        <Button
-          disabled={!content}
-          className={classNames(
-            '!border-none !text-white',
-            'text-[13px] px-25 py-10 rounded-[16px]',
-            content ? '!bg-primary' : '!bg-[#409EFF]/50'
-          )}
-          onClick={submit}
-        >
-          发送
-        </Button>
-        <Button className="!border-[#ddd] !ml-4" onClick={handleCancel}>
-          取消
-        </Button>
-      </View>
-    </View>
-  )
   return (
     <View
       className={classNames(
@@ -123,7 +93,61 @@ export const SubmitBar = (props: {
           <View className="text-gray">{replyTo.content}</View>
         </View>
       )}
-      {isInputing ? inputView : normalView}
+      <View className="flex flex-col">
+        <View className="flex">
+          <TextArea
+            autoSize
+            maxLength={500}
+            value={content}
+            onFocus={() => setIsInputing(true)}
+            onChange={(e) => setContent(e)}
+            className="!rounded-[16px] !bg-[#efefef] text-gray flex items-center !max-h-[60px] overflow-auto"
+          />
+          <View
+            className={classNames(
+              'flex overflow-hidden',
+              isInputing ? 'w-[0px]' : 'w-[280px]'
+            )}
+          >
+            <View
+              className="flex-1 flex flex-center"
+              onClick={handleClickComment}
+            >
+              <Icon name="post-comment" />
+              <Text className="ml-4">{post.commentNum}</Text>
+            </View>
+            <View className="flex-1 flex flex-center">
+              <Icon name="post-share" />
+              <Text className="ml-4">{post.shareNum}</Text>
+            </View>
+            <LikeButton post={post} onClick={handleLike} />
+          </View>
+        </View>
+        {isInputing && (
+          <View className="flex justify-end mt-10">
+            <Button
+              disabled={!content}
+              className={classNames(
+                '!border-none !text-white',
+                'text-[13px] px-25 py-10 rounded-[16px]',
+                content ? '!bg-primary' : '!bg-[#409EFF]/50'
+              )}
+              onClick={submit}
+            >
+              发送
+            </Button>
+            <Button
+              className="!border-[#ddd] !ml-4"
+              onClick={(e) => {
+                e.stopPropagation()
+                handleCancel()
+              }}
+            >
+              取消
+            </Button>
+          </View>
+        )}
+      </View>
     </View>
   )
 }
