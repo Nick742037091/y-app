@@ -110,14 +110,14 @@ const CommentChild = (props: {
                 />
                 <View className="flex-1">
                   <View className="text-gray">{child.user.userName}</View>
-                  <View className="flex">
+                  <View className="flex flex-wrap break-all">
                     {replyUserName && (
                       <Text className="mr-4">
                         回复<Text className="text-gray">{replyUserName}</Text>:
                       </Text>
                     )}
-                    {child.content}
-                    <Text className="text-gray ml-10">
+                    <Text className="mr-10">{child.content}</Text>
+                    <Text className="text-gray">
                       {dayjs(child.createTime).format('MM-DD')}
                     </Text>
                     <Text
