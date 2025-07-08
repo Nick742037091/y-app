@@ -50,3 +50,17 @@ export const getNewPosterList = () => {
 export const getTrendingList = (data: { type: number }) => {
   return yApi.get<Trending[]>('/trending/list', data)
 }
+
+/**
+ * 增加帖子评论
+ * @param data
+ */
+export const addPostComment = (data: {
+  parentId: number | null
+  replyToId: number | null
+  postId: number
+  content: string
+  ImgList?: string[]
+}) => {
+  return yApi.post<PostDetail>('/postComment', data)
+}

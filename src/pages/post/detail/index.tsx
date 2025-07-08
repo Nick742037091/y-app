@@ -1,46 +1,45 @@
-import Icon from '@/components/Icon'
 import { useLoad } from '@tarojs/taro'
 import { useMemo, useState } from 'react'
-import { getPostDetail, likePost, viewPost } from '@/services/post'
+import { getPostDetail, viewPost } from '@/services/post'
+import { CommentListItem } from '@/services/post/types'
 import { useRequest } from 'taro-hooks'
 import { ImgList } from '@/pages/index/components/PostMedia'
 import dayjs from 'dayjs'
 import PageRoot from '@/components/PageRoot'
 import { useRouteParams } from '@/utils/hooks/page'
 
-import { CommentListItem, PostDetail } from '@/services/post/types'
 import { View, Text, Image } from '@tarojs/components'
-import { LikeButton } from '@/pages/index/components/PostList'
-import styles from './index.module.scss'
+import { SubmitBar } from './components/SubmitBar'
 
 definePageConfig({
   navigationBarTitleText: '帖子'
 })
 
-const PostBottomButtons = (props: { post: PostDetail; onLike: () => void }) => {
-  const { post } = props
-  return (
-    <View className="flex py-8 border-t-[1rpx]  border-b-[1rpx] border-[#eee] border-solid">
-      <View className="flex-1 flex flex-center">
-        <Icon name="post-comment" />
-        <Text className="ml-4">{post.commentNum}</Text>
-      </View>
-      <View className="flex-1 flex flex-center">
-        <Icon name="post-share" />
-        <Text className="ml-4">{post.shareNum}</Text>
-      </View>
-      <LikeButton post={post} onClick={props.onLike} />
-    </View>
-  )
+export interface ReplyTo {
+  id: number
+  parentId: number | null
+  userName: string
+  content: string
 }
 
-const CommentList = (props: { list: CommentListItem[] }) => {
-  const { list } = props
+const CommentList = (props: {
+  list: CommentListItem[]
+  reply: (replyTo: ReplyTo) => void
+}) => {
+  const { list, reply } = props
+  const handleReply = (item: CommentListItem) => {
+    reply({
+      id: item.id,
+      parentId: item.id,
+      userName: item.user.userName,
+      content: item.content
+    })
+  }
   return (
     <View className="py-10">
       {list.map((item) => (
         <View key={item.id}>
-          <View className="flex p-16">
+          <View className="flex px-16 py-6">
             <Image
               src={item.user.avatar}
               className="size-36 rounded-full mr-12 bg-placeholder"
@@ -54,12 +53,21 @@ const CommentList = (props: { list: CommentListItem[] }) => {
                 <Text className="text-gray ml-10">
                   {dayjs(item.createTime).format('MM-DD')}
                 </Text>
-                <Text className="text-[#777] ml-10">回复</Text>
+                <Text
+                  className="text-[#777] ml-10"
+                  onClick={() => handleReply(item)}
+                >
+                  回复
+                </Text>
               </View>
-              <View className="w-[150px]">
+              <View className="w-[150px] mb-4">
                 <ImgList list={item.imgList} />
               </View>
-              <CommentChild commentId={item.id} list={item.children} />
+              <CommentChild
+                commentId={item.id}
+                list={item.children}
+                reply={reply}
+              />
             </View>
           </View>
         </View>
@@ -71,10 +79,19 @@ const CommentList = (props: { list: CommentListItem[] }) => {
 const CommentChild = (props: {
   commentId: number
   list: CommentListItem['children']
+  reply: (replyTo: ReplyTo) => void
 }) => {
-  const { commentId, list } = props
+  const { commentId, list, reply } = props
   const [isExpand, setIsExpand] = useState(false)
   const showList = isExpand ? list : list.slice(0, 1)
+  const handleReply = (item: CommentListItem['children'][0]) => {
+    reply({
+      id: item.id,
+      parentId: commentId,
+      userName: item.user.userName,
+      content: item.content
+    })
+  }
   return (
     <View>
       <View className="flex flex-col">
@@ -84,7 +101,7 @@ const CommentChild = (props: {
             child.replyTo.id == commentId ? '' : replyToUser.userName
           return (
             <View key={child.id}>
-              <View className="flex p-12">
+              <View className="flex px-8 py-6">
                 <Image
                   src={child.user.avatar}
                   className="size-24 rounded-full mr-12 bg-placeholder"
@@ -103,7 +120,12 @@ const CommentChild = (props: {
                     <Text className="text-gray ml-10">
                       {dayjs(child.createTime).format('MM-DD')}
                     </Text>
-                    <Text className="text-[#777] ml-10">回复</Text>
+                    <Text
+                      className="text-[#777] ml-10"
+                      onClick={() => handleReply(child)}
+                    >
+                      回复
+                    </Text>
                   </View>
                   <View className="w-[100px]">
                     <ImgList list={child.imgList} />
@@ -128,6 +150,7 @@ const CommentChild = (props: {
 
 export default function Index() {
   const [postId] = useState<number>(+useRouteParams('postId'))
+  const [replyTo, setReplyTo] = useState<ReplyTo>()
   const { data: postDetail, run } = useRequest(
     async () => {
       if (!postId) return null
@@ -147,45 +170,45 @@ export default function Index() {
     return pre + createTime.format('hh:mm · YYYY年MM月DD日')
   }, [postDetail])
 
-  const handleLike = async () => {
-    if (!postDetail) return
-    const { code } = await likePost({
-      postId: postDetail.id,
-      status: !postDetail.isLiked
-    })
-    if (code !== 0) return
-    run()
-  }
   if (!postDetail) return null
   return (
     <PageRoot>
-      <View className={styles.post_item}>
-        <Image
-          src={postDetail.user.avatar}
-          className="size-40 rounded-full mr-12 bg-placeholder"
-          preview="true"
-          lazyLoad
-        />
-        <View className="flex-1 flex flex-col">
-          <View>
-            <Text className="font-bold">{postDetail.user.userName}</Text>
+      <View className="h-[100vh] flex flex-col">
+        <View className="flex-1 flex flex-col overflow-auto">
+          <View className="flex text-[15px] pt-20 pb-8 px-16 border-b-[1rpx] border-[#eee] border-solid">
+            <Image
+              src={postDetail.user.avatar}
+              className="size-40 rounded-full mr-12 bg-placeholder"
+              preview="true"
+              lazyLoad
+            />
+            <View className="flex-1 flex flex-col">
+              <View>
+                <Text className="font-bold">{postDetail.user.userName}</Text>
+              </View>
+              <View>
+                <Text className="text-gray">@{postDetail.user.fullName}</Text>
+              </View>
+              <Text>{postDetail.content}</Text>
+              <ImgList list={postDetail.imgList} />
+              <View className="mt-10 text-gray">
+                {timeStr} ·{' '}
+                <Text className="text-black-primary font-bold mr-4">
+                  {postDetail.viewNum}
+                </Text>
+                查看
+              </View>
+            </View>
           </View>
-          <View>
-            <Text className="text-gray">@{postDetail.user.fullName}</Text>
-          </View>
-          <Text>{postDetail.content}</Text>
-          <ImgList list={postDetail.imgList} />
-          <View className="mt-10 text-gray">
-            {timeStr} ·{' '}
-            <Text className="text-black-primary font-bold">
-              {postDetail.viewNum}
-            </Text>
-            查看
-          </View>
+          <CommentList list={postDetail.postComments} reply={setReplyTo} />
         </View>
+        <SubmitBar
+          replyTo={replyTo}
+          post={postDetail}
+          updateDetail={run}
+          cleareReply={() => setReplyTo(undefined)}
+        />
       </View>
-      <PostBottomButtons post={postDetail} onLike={handleLike} />
-      <CommentList list={postDetail.postComments} />
     </PageRoot>
   )
 }

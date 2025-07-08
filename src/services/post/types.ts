@@ -1,4 +1,4 @@
-export type createPostParams = {
+export interface createPostParams {
   content: string
   imgList?: string[]
   video?: string
@@ -9,7 +9,7 @@ export type createPostParams = {
   gifHeight?: number
 }
 
-export type PostListItem = {
+export interface PostListItem {
   id: number
   user: {
     id: number
@@ -27,7 +27,17 @@ export type PostListItem = {
   isLiked: boolean
 }
 
-export type CommentChild = {
+export interface ReplyTo {
+  id: number
+  user: {
+    id: number
+    userName: string
+    fullName: string
+    avatar: string
+  }
+}
+
+export interface CommentChild {
   id: number
   content: string
   createTime: string
@@ -50,7 +60,7 @@ export type CommentChild = {
   parentId: number
 }
 
-export type CommentListItem = {
+export interface CommentListItem {
   id: number
   content: string
   createTime: string
@@ -64,7 +74,7 @@ export type CommentListItem = {
   }
 }
 
-export type PostDetail = {
+export interface PostDetail {
   id: number
   user: {
     id: number
@@ -83,7 +93,7 @@ export type PostDetail = {
   postComments: CommentListItem[]
 }
 
-export type Publisher = {
+export interface Publisher {
   avatar: string
 }
 
