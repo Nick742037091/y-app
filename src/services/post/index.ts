@@ -1,10 +1,16 @@
 import { ListData } from '@/services/request/base/types'
 import { yApi } from '@/services/request/instances/y'
-import { createPostParams, PostItem, Publisher, Trending } from './types'
+import {
+  createPostParams,
+  PostDetail,
+  PostListItem,
+  Publisher,
+  Trending
+} from './types'
 
 /** 发布帖子 */
 export const addPost = (data: createPostParams) => {
-  return yApi.post<PostItem>('/post', data)
+  return yApi.post<PostDetail>('/post', data)
 }
 
 /** 帖子点赞 */
@@ -26,7 +32,7 @@ export const getPostList = (data: {
   pageSize: number
   type: number
 }) => {
-  return yApi.get<ListData<PostItem>>('/post/list', data)
+  return yApi.get<ListData<PostListItem>>('/post/list', data)
 }
 
 /**
@@ -34,7 +40,7 @@ export const getPostList = (data: {
  * @param data
  */
 export const getPostDetail = (postId: number) => {
-  return yApi.get<PostItem>(`/post/${postId}`)
+  return yApi.get<PostDetail>(`/post/${postId}`)
 }
 
 export const getNewPosterList = () => {

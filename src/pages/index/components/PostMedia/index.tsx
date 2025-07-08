@@ -33,7 +33,7 @@ const createImage = (
 }
 
 // 图片列表，支持1~4张图片展示
-const ImgList = (props: { list: string[] }) => {
+export const ImgList = (props: { list: string[] }) => {
   if (props.list.length === 0) return null
   const { list } = props
   const { length } = list

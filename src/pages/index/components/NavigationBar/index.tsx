@@ -14,16 +14,6 @@ import { useAppStore } from '@/stores/app'
 import styles from './index.module.scss'
 
 const avatarSize = 36
-const SettingButton = () => {
-  return (
-    <View
-      className="flex-center ml-auto"
-      style={{ height: avatarSize, width: avatarSize }}
-    >
-      <Icon name="home-setting" size={24} />
-    </View>
-  )
-}
 
 /**
  * 滚动到顶组件
@@ -39,9 +29,9 @@ const ScrollToTop = (props: { onClick: () => void }) => {
       if (!appStore.isLogin()) return []
       const result = await getNewPosterList()
       return result.code === 0 ? result.data : []
-    },
+    }
     // 5秒刷新一次
-    { pollingInterval: 5000 }
+    // { pollingInterval: 5000 }
   )
   // 滚动到顶不显示
   if (scrollTop === 0 || !data || data?.length === 0) return null

@@ -9,11 +9,69 @@ export type createPostParams = {
   gifHeight?: number
 }
 
-export type PostItem = {
+export type PostListItem = {
   id: number
-  userName: string
-  fullName: string
-  avatar: string
+  user: {
+    id: number
+    userName: string
+    fullName: string
+    avatar: string
+  }
+  createTime: string
+  content: string
+  likeNum: number
+  viewNum: number
+  shareNum: number
+  commentNum: number
+  imgList: string[]
+  isLiked: boolean
+}
+
+export type CommentChild = {
+  id: number
+  content: string
+  createTime: string
+  imgList: string[]
+  user: {
+    id: number
+    userName: string
+    fullName: string
+    avatar: string
+  }
+  replyTo: {
+    id: number
+    user: {
+      id: number
+      userName: string
+      fullName: string
+      avatar: string
+    }
+  }
+  parentId: number
+}
+
+export type CommentListItem = {
+  id: number
+  content: string
+  createTime: string
+  imgList: string[]
+  children: CommentChild[]
+  user: {
+    id: number
+    userName: string
+    fullName: string
+    avatar: string
+  }
+}
+
+export type PostDetail = {
+  id: number
+  user: {
+    id: number
+    userName: string
+    fullName: string
+    avatar: string
+  }
   createTime: string
   content: string
   commentNum: number
@@ -21,13 +79,8 @@ export type PostItem = {
   likeNum: number
   viewNum: number
   imgList: string[]
-  video: string
-  videoPoster: string
-  gifVideo: string
-  gifPoster: string
-  gifWidth: number
-  gifHeight: number
   isLiked: boolean
+  postComments: CommentListItem[]
 }
 
 export type Publisher = {

@@ -25,3 +25,8 @@ export const useStatusBarHeight = (props?: {
     statusBarPosition
   }
 }
+
+export const useRouteParams = (key: string) => {
+  const routeParams = Taro.getCurrentInstance().router?.params
+  return routeParams?.[key] as string
+}

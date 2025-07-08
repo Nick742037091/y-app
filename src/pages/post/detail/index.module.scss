@@ -1,8 +1,3 @@
 .post_item {
   @apply flex text-[15px] pt-20 pb-8 px-16;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  & + & {
-    border-top: none;
-  }
 }

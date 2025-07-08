@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { PostItem } from '@/services/post/types'
+import { PostListItem } from '@/services/post/types'
 import Icon from '@/components/Icon'
 import { ITouchEvent, Image, Text, View } from '@tarojs/components'
 import classNames from 'classnames'
@@ -10,12 +10,12 @@ import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
 
 export function PostList(props: {
-  postList: PostItem[]
+  postList: PostListItem[]
   onLike: (index: number) => void
 }) {
   if (!props.postList) return null
 
-  const handleClickPost = (item: PostItem) => {
+  const handleClickPost = (item: PostListItem) => {
     Taro.navigateTo({
       url: `/pages/post/detail/index?postId=${item.id}`
     })
@@ -29,17 +29,17 @@ export function PostList(props: {
           onClick={() => handleClickPost(item)}
         >
           <Image
-            src={item.avatar}
+            src={item.user.avatar}
             className="size-40 rounded-full mr-12 bg-placeholder"
             preview="true"
             lazyLoad
           />
           <View className="flex-1 flex flex-col ">
             <View>
-              <Text className="font-bold">{item.userName}</Text>
+              <Text className="font-bold">{item.user.userName}</Text>
             </View>
             <View>
-              <Text className="text-gray">@{item.fullName}</Text>
+              <Text className="text-gray">@{item.user.fullName}</Text>
               <Text className="mx-5">·</Text>
               <Text>{dayjs(item.createTime).fromNow()}</Text>
             </View>
@@ -54,7 +54,10 @@ export function PostList(props: {
 }
 
 // 点赞按钮
-const LikeButton = (props: { post: PostItem; onClick: () => void }) => {
+export const LikeButton = (props: {
+  post: PostListItem
+  onClick: () => void
+}) => {
   const { post } = props
   const firstShow = useRef(true)
   const iconName = post.isLiked ? 'heart-fill' : 'heart'
@@ -76,7 +79,7 @@ const LikeButton = (props: { post: PostItem; onClick: () => void }) => {
     setTimeout(() => setNumChange(false), 300)
   }
   return (
-    <View className={classNames(styles.post_bottom_btn)} onClick={handleClick}>
+    <View className="flex-1 flex flex-center" onClick={handleClick}>
       <View className={classNames(styles.post_icon, activeClass)}>
         <Icon name={iconName} color={iconColor} />
       </View>
@@ -96,20 +99,23 @@ const LikeButton = (props: { post: PostItem; onClick: () => void }) => {
   )
 }
 
-const PostBottomButtons = (props: { post: PostItem; onLike: () => void }) => {
+export const PostBottomButtons = (props: {
+  post: PostListItem
+  onLike: () => void
+}) => {
   const { post } = props
   return (
-    <View className="flex">
-      <View className={styles.post_bottom_btn}>
+    <View className="flex mt-8">
+      <View className="flex-1 flex flex-center">
         <Icon name="post-comment" />
         <Text className="ml-4">{post.commentNum}</Text>
       </View>
-      <View className={styles.post_bottom_btn}>
+      <View className="flex-1 flex flex-center">
         <Icon name="post-share" />
         <Text className="ml-4">{post.shareNum}</Text>
       </View>
-      <LikeButton post={post} onClick={props.onLike} />
-      <View className={styles.post_bottom_btn}>
+      <LikeButton post={post} onClick={() => props.onLike()} />
+      <View className="flex-1 flex flex-center">
         <Icon name="post-view" />
         <Text className="ml-4">{post.viewNum}</Text>
       </View>
