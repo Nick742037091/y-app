@@ -105,7 +105,7 @@ export const SubmitBar = (props: {
           />
           <View
             className={classNames(
-              'flex overflow-hidden',
+              'flex overflow-hidden transition-all duration-150 ease-linear',
               isInputing ? 'w-[0px]' : 'w-[280px]'
             )}
           >
@@ -123,8 +123,13 @@ export const SubmitBar = (props: {
             <LikeButton post={post} onClick={handleLike} />
           </View>
         </View>
-        {isInputing && (
-          <View className="flex justify-end mt-10">
+        <View className="overflow-hidden">
+          <View
+            className={classNames(
+              'flex justify-end pt-10 transition-all duration-150 ease-linear',
+              isInputing ? 'h-[42px]' : 'h-0'
+            )}
+          >
             <Button
               disabled={!content}
               className={classNames(
@@ -146,7 +151,7 @@ export const SubmitBar = (props: {
               取消
             </Button>
           </View>
-        )}
+        </View>
       </View>
     </View>
   )
