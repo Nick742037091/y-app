@@ -60,7 +60,7 @@ export const addPostComment = (data: {
   replyToId: number | null
   postId: number
   content: string
-  ImgList?: string[]
+  imgList?: string[]
 }) => {
   return yApi.post<PostDetail>('/postComment', data)
 }

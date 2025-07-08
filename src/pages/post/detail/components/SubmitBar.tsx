@@ -4,8 +4,11 @@ import { PostDetail } from '@/services/post/types'
 import { LikeButton } from '@/pages/index/components/PostList'
 import { addPostComment, likePost } from '@/services/post'
 import { useEffect, useState } from 'react'
-import { Button, TextArea } from '@nutui/nutui-react-taro'
+import { Button, TextArea, Image } from '@nutui/nutui-react-taro'
+import { Image as ImageIcon, MaskClose } from '@nutui/icons-react-taro'
 import classNames from 'classnames'
+import Taro from '@tarojs/taro'
+import { upload } from '@/utils/upload'
 import { ReplyTo } from '../index'
 
 export const SubmitBar = (props: {
@@ -22,6 +25,17 @@ export const SubmitBar = (props: {
   }, [replyTo])
   const [isInputing, setIsInputing] = useState(false)
   const [content, setContent] = useState('')
+  const [img, setImg] = useState<Taro.chooseImage.ImageFile>()
+  const handleChooseImg = () => {
+    Taro.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        setImg(res.tempFiles[0])
+      }
+    })
+  }
   const handleLike = async () => {
     if (!post) return
     const { code } = await likePost({
@@ -35,43 +49,29 @@ export const SubmitBar = (props: {
   const handleClickComment = () => {
     setIsInputing(true)
   }
-  const normalView = (
-    <View className="flex items-center">
-      <View
-        className={classNames(
-          'rounded-[16px] bg-[#eee] flex-1 h-[32px] text-gray flex items-center ',
-          'text-[13px] px-25 py-10'
-        )}
-        onClick={() => setIsInputing(true)}
-      >
-        说点什么...
-      </View>
-      <View className="flex w-[180px]">
-        <View className="flex-1 flex flex-center" onClick={handleClickComment}>
-          <Icon name="post-comment" />
-          <Text className="ml-4">{post.commentNum}</Text>
-        </View>
-        <View className="flex-1 flex flex-center">
-          <Icon name="post-share" />
-          <Text className="ml-4">{post.shareNum}</Text>
-        </View>
-        <LikeButton post={post} onClick={handleLike} />
-      </View>
-    </View>
-  )
+
+  const uploadImg = async () => {
+    if (!img) return null
+    const url = await upload(img.originalFileObj!, 'post')
+    if (!url) return null
+    return url
+  }
 
   const submit = async () => {
     if (!content) return
+    const uploadImgUrl = await uploadImg()
     const { code } = await addPostComment({
       postId: post.id,
       replyToId: replyTo ? replyTo.id : null,
       parentId: replyTo ? replyTo.parentId : null,
       content,
-      ImgList: []
+      imgList: uploadImgUrl ? [uploadImgUrl] : []
     })
     if (code !== 0) return
     setIsInputing(false)
     setContent('')
+    cleareReply()
+    setImg(undefined)
     props.updateDetail()
   }
 
@@ -79,6 +79,16 @@ export const SubmitBar = (props: {
     setIsInputing(false)
     setContent('')
     cleareReply()
+  }
+
+  const handleClearImg = () => {
+    setImg(undefined)
+  }
+  const handlePreviewImg = () => {
+    if (!img) return
+    Taro.previewImage({
+      urls: [img.path]
+    })
   }
 
   return (
@@ -126,10 +136,16 @@ export const SubmitBar = (props: {
         <View className="overflow-hidden">
           <View
             className={classNames(
-              'flex justify-end pt-10 transition-all duration-150 ease-linear',
+              'flex items-center box-border transition-all duration-150 ease-linear',
               isInputing ? 'h-[42px]' : 'h-0'
             )}
           >
+            <View
+              className="p-0 ml-10 mr-auto flex flex-center"
+              onClick={handleChooseImg}
+            >
+              <ImageIcon size={18} className="" />
+            </View>
             <Button
               disabled={!content}
               className={classNames(
@@ -152,6 +168,23 @@ export const SubmitBar = (props: {
             </Button>
           </View>
         </View>
+        {img && (
+          <View className="flex">
+            <View className="ml-6 rounded-[2px] relative">
+              <MaskClose
+                size={20}
+                className="!absolute top-[-10px] right-[-10px] z-10"
+                onClick={handleClearImg}
+              />
+              <Image
+                src={img.path}
+                className="size-[40px]"
+                mode="aspectFill"
+                onClick={handlePreviewImg}
+              />
+            </View>
+          </View>
+        )}
       </View>
     </View>
   )
