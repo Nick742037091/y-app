@@ -31,12 +31,16 @@ export const useAppStore = create<UserInfoState>((set, get) => {
       return !!get().token
     },
     userInfo: {
+      id: 0,
       avatar: '',
       userName: '',
       fullName: '',
       followerNum: 0,
-      followingNum: 0
-    },
+      followingNum: 0,
+      profileBanner: '',
+      description: '',
+      createTime: ''
+    } as UserInfo,
     setUserInfo: (userInfo: UserInfo) => {
       set({ userInfo })
     },

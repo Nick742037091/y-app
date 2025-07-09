@@ -13,14 +13,18 @@ export default function () {
   const colorPrimary = useColorPrimary()
   const [showButtons, setShowButtons] = useState(false)
   const handleClickAdd = () => {
-    if (!showButtons) {
-      setShowButtons(true)
-    } else {
-      setShowButtons(false)
-      Taro.navigateTo({
-        url: '/pages/post/add/index'
-      })
-    }
+    // TODO 暂时隐藏发帖之外的入口，其他待完成
+    Taro.navigateTo({
+      url: '/pages/post/add/index'
+    })
+    // if (!showButtons) {
+    //   setShowButtons(true)
+    // } else {
+    //   setShowButtons(false)
+    //   Taro.navigateTo({
+    //     url: '/pages/post/add/index'
+    //   })
+    // }
   }
   const actionList = [
     { key: 'live', label: '开始直播', icon: 'video' },

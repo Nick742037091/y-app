@@ -84,19 +84,25 @@ export default function Index() {
     mutate({ list: newList, total: data.total })
   }
   return (
-    <PageRoot isTabPage>
+    <PageRoot>
       <NavigationBar onRefresh={reload} />
       <PageInfiniteScroll
         pageNum={pageNum}
         loading={loading}
         isNoMore={isNoMore}
         skeleton={<SkeletonList />}
-        list={<PostList postList={data?.list || []} onLike={handleLike} />}
+        list={
+          <PostList
+            postList={data?.list || []}
+            onLike={handleLike}
+            reload={reload}
+          />
+        }
         onRefresh={reload}
       />
       <AddPostButton />
       <Mine />
-      <TabBar />
+      {/* <TabBar /> */}
     </PageRoot>
   )
 }

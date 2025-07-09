@@ -20,7 +20,8 @@ export default function NavigationBar(props: {
         >
           <Icon name="arrow-left" size={20} />
         </View>
-        <View className="text-primary font-bold mr-20">草稿</View>
+        {/*  TODO 待完成 */}
+        {/* <View className="text-primary font-bold mr-20">草稿</View> */}
         <View
           className="bg-primary text-white font-bold h-28 w-64 rounded-[14px] flex-center mr-10"
           style={{ opacity: props.disabled ? 0.5 : 1 }}

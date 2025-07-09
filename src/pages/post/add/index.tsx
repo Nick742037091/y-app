@@ -28,12 +28,12 @@ const iconList: Array<{
   icon: IconNames
   key: string
 }> = [
-  { icon: 'picture', key: 'picture' },
+  { icon: 'picture', key: 'picture' }
   // TODO 待完成
   // { icon: 'gif', key: 'gif' },
   // { icon: 'list', key: 'list' },
   // { icon: 'schedule', key: 'schedule' },
-  { icon: 'location-fill', key: 'location' }
+  // { icon: 'location-fill', key: 'location' }
 ]
 
 const INPUT_MAX_LENGTH = 250
@@ -108,7 +108,7 @@ export default function AddPost() {
   }
   return (
     <PageRoot className={styles.post_add}>
-      {postLoading && <TopProgress />}
+      {postLoading && <TopProgress loopDuration={1000} />}
       <NavigationBar disabled={postMsg.length === 0} onSubmit={handleSumit} />
       <View className="px-16">
         <View className="flex">

@@ -151,7 +151,7 @@ export const SubmitBar = (props: {
               className={classNames(
                 '!border-none !text-white',
                 'text-[13px] px-25 py-10 rounded-[16px]',
-                content ? '!bg-primary' : '!bg-[#409EFF]/50'
+                content ? '!bg-primary' : '!bg-primary opacity-50 '
               )}
               onClick={submit}
             >

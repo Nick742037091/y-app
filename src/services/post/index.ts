@@ -13,6 +13,10 @@ export const addPost = (data: createPostParams) => {
   return yApi.post<PostDetail>('/post', data)
 }
 
+/** 删除帖子 */
+export const deletePost = (postId: number) => {
+  return yApi.delete<PostDetail>(`/post/${postId}`)
+}
 /** 帖子点赞 */
 export const likePost = (data: { postId: number; status: boolean }) => {
   return yApi.post('/post/like', data)

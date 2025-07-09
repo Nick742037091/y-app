@@ -113,10 +113,11 @@ const Footer = (props: { onRefresh: () => void }) => {
 
 export default function NavigationBar(props: { onRefresh: () => void }) {
   const setShowMine = useHomeStore((state) => state.setShowMine)
+  // TODO tarbar待开发
   return (
     <BaseNavigationBar
-      footer={<Footer onRefresh={props.onRefresh} />}
-      footerHeight={FOOTER_HEIGHT}
+      // footer={<Footer onRefresh={props.onRefresh} />}
+      // footerHeight={FOOTER_HEIGHT}
       title="Y"
     >
       <View className="h-full flex items-center px-10">

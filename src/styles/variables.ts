@@ -3,7 +3,7 @@ export const colorPrimary = 'var(--color-primary)'
 export const colorBlue = '#409EFF'
 export const colorGreen = '#67C23A'
 export const colorOrange = '#E6A23C'
-export const colorRed = '#F56C6C'
+export const colorRed = '#F4212E'
 export const colorGray = '#909399'
 
 export const colorBlack = '#000000'

@@ -1,4 +1,5 @@
 export interface UserInfo {
+  id: number
   avatar: string
   followerNum: number
   followingNum: number
