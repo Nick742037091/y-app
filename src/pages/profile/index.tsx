@@ -74,7 +74,8 @@ export default function Profile() {
             <Invoice size={16} color="#000000" className="mr-[4px]" />
             {dayjs(userInfo.createTime).format('YYYY年M月')}加入
           </View>
-          <View className="mt-[16px] text-[16px] flex items-center">
+          {/* TODO 待完成 */}
+          {/* <View className="mt-[16px] text-[16px] flex items-center">
             <View className="flex items-center">
               <Text className="mr-[4px] font-bold">
                 {userInfo.followingNum}
@@ -85,7 +86,7 @@ export default function Profile() {
               <Text className="mr-[4px] font-bold">{userInfo.followerNum}</Text>
               关注者
             </View>
-          </View>
+          </View> */}
         </View>
       </View>
     </PageRoot>

@@ -171,7 +171,8 @@ export default function Mine() {
             {userInfo.fullName && (
               <View className="text-gray">@{userInfo.fullName}</View>
             )}
-            <View className="mt-12  text-gray flex items-center">
+            {/* 待完成 */}
+            {/* <View className="mt-12  text-gray flex items-center">
               <View>
                 <Text className="text-black mr-5">{userInfo.followingNum}</Text>
                 正在关注
@@ -180,7 +181,7 @@ export default function Mine() {
                 <Text className="text-black mr-5">{userInfo.followerNum}</Text>
                 关注者
               </View>
-            </View>
+            </View> */}
           </View>
           <Actions changeTheme={handleChangeTheme} />
         </ScrollView>
