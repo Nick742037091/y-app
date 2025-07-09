@@ -9,17 +9,23 @@ import { useRef, useState } from 'react'
 import { More, Del } from '@nutui/icons-react-taro'
 import { useAppStore } from '@/stores/app'
 import { Popup } from '@nutui/nutui-react-taro'
-import { deletePost } from '@/services/post'
+import { deletePost, deletePostComment } from '@/services/post'
 import { showSnackBar } from '@/components/SnackBar'
 import styles from './index.module.scss'
 import PostMedia from '../PostMedia'
 
-const usePostPopup = ({ reload }: { reload: () => void }) => {
+export const POPUP_TYPE_POST = 1
+export const POPUP_TYPE_COMMNET = 2
+export type PopupType = typeof POPUP_TYPE_POST | typeof POPUP_TYPE_COMMNET
+
+export const usePostPopup = ({ reload }: { reload: () => void }) => {
   const [postId, setPostId] = useState(0)
+  const [type, setType] = useState(POPUP_TYPE_POST)
   const [popupVisible, setPopupVisible] = useState(false)
   const [confirmVisible, setConfirmVisible] = useState(false)
   const handleDelete = async () => {
-    const { code } = await deletePost(postId)
+    const api = type === POPUP_TYPE_POST ? deletePost : deletePostComment
+    const { code } = await api(postId)
     if (code === 0) {
       showSnackBar('删除成功')
       reload()
@@ -98,8 +104,9 @@ const usePostPopup = ({ reload }: { reload: () => void }) => {
       </Popup>
     </>
   )
-  const openPopup = (options: { id: number }) => {
+  const openPopup = (options: { id: number; type?: PopupType }) => {
     setPostId(options.id)
+    setType(options.type || POPUP_TYPE_POST)
     setPopupVisible(true)
   }
 
@@ -146,7 +153,7 @@ export function PostList(props: {
                   className="ml-auto"
                   onClick={(e) => {
                     e.stopPropagation()
-                    openPopup({ id: item.id })
+                    openPopup({ id: item.id, type: POPUP_TYPE_POST })
                   }}
                 >
                   <More />

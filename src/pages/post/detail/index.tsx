@@ -1,5 +1,5 @@
 import { useLoad } from '@tarojs/taro'
-import { useMemo, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import { getPostDetail, viewPost } from '@/services/post'
 import { CommentListItem } from '@/services/post/types'
 import { useRequest } from 'taro-hooks'
@@ -9,6 +9,14 @@ import PageRoot from '@/components/PageRoot'
 import { useRouteParams } from '@/utils/hooks/page'
 
 import { View, Text, Image } from '@tarojs/components'
+import { More } from '@nutui/icons-react-taro'
+import {
+  PopupType,
+  POPUP_TYPE_COMMNET,
+  usePostPopup,
+  POPUP_TYPE_POST
+} from '@/pages/index/components/PostList'
+import { useAppStore } from '@/stores/app'
 import { SubmitBar } from './components/SubmitBar'
 
 definePageConfig({
@@ -26,6 +34,7 @@ const CommentList = (props: {
   list: CommentListItem[]
   reply: (replyTo: ReplyTo) => void
 }) => {
+  const { moreBtnVisible, openPopup } = useContext(PostPopupContext)
   const { list, reply } = props
   const handleReply = (item: CommentListItem) => {
     reply({
@@ -47,7 +56,17 @@ const CommentList = (props: {
               lazyLoad
             />
             <View className="flex-1">
-              <View className="">{item.user.userName}</View>
+              <View className="flex items-center">
+                {item.user.userName}
+                {moreBtnVisible(item.user.id) && (
+                  <More
+                    className="ml-auto"
+                    onClick={() =>
+                      openPopup({ id: item.id, type: POPUP_TYPE_COMMNET })
+                    }
+                  />
+                )}
+              </View>
               <View>
                 {item.content}
                 <Text className="text-gray ml-10">
@@ -81,6 +100,7 @@ const CommentChild = (props: {
   list: CommentListItem['children']
   reply: (replyTo: ReplyTo) => void
 }) => {
+  const { moreBtnVisible, openPopup } = useContext(PostPopupContext)
   const { commentId, list, reply } = props
   const [isExpand, setIsExpand] = useState(false)
   const showList = isExpand ? list : list.slice(0, 1)
@@ -109,7 +129,17 @@ const CommentChild = (props: {
                   lazyLoad
                 />
                 <View className="flex-1">
-                  <View className="text-gray">{child.user.userName}</View>
+                  <View className="flex items-center">
+                    {child.user.userName}
+                    {moreBtnVisible(child.user.id) && (
+                      <More
+                        className="ml-auto"
+                        onClick={() =>
+                          openPopup({ id: child.id, type: POPUP_TYPE_COMMNET })
+                        }
+                      />
+                    )}
+                  </View>
                   <View className="flex flex-wrap break-all">
                     {replyUserName && (
                       <Text className="mr-4">
@@ -148,7 +178,20 @@ const CommentChild = (props: {
   )
 }
 
+const PostPopupContext = createContext<{
+  openPopup: (options: { id: number; type?: PopupType }) => void
+  moreBtnVisible: (id: number) => boolean
+}>({
+  openPopup: () => {},
+  moreBtnVisible: () => false
+})
+
 export default function Index() {
+  const { openPopup, popupContext } = usePostPopup({ reload: () => run() })
+  const userInfo = useAppStore((state) => state.userInfo)
+  const moreBtnVisible = (id: number) => {
+    return userInfo?.id === id
+  }
   const [postId] = useState<number>(+useRouteParams('postId'))
   const [replyTo, setReplyTo] = useState<ReplyTo>()
   const { data: postDetail, run } = useRequest(
@@ -173,42 +216,53 @@ export default function Index() {
   if (!postDetail) return null
   return (
     <PageRoot>
-      <View className="h-[100vh] flex flex-col">
-        <View className="flex-1 flex flex-col overflow-auto">
-          <View className="flex text-[15px] pt-20 pb-8 px-16 border-b-[1rpx] border-[#eee] border-solid">
-            <Image
-              src={postDetail.user.avatar}
-              className="size-40 rounded-full mr-12 bg-placeholder"
-              preview="true"
-              lazyLoad
-            />
-            <View className="flex-1 flex flex-col">
-              <View>
-                <Text className="font-bold">{postDetail.user.userName}</Text>
-              </View>
-              <View>
-                <Text className="text-gray">@{postDetail.user.fullName}</Text>
-              </View>
-              <Text>{postDetail.content}</Text>
-              <ImgList list={postDetail.imgList} />
-              <View className="mt-10 text-gray">
-                {timeStr} ·{' '}
-                <Text className="text-black-primary font-bold mr-4">
-                  {postDetail.viewNum}
-                </Text>
-                查看
+      <PostPopupContext.Provider value={{ openPopup, moreBtnVisible }}>
+        <View className="h-[100vh] flex flex-col">
+          <View className="flex-1 flex flex-col overflow-auto">
+            <View className="flex text-[15px] pt-20 pb-8 px-16 border-b-[1rpx] border-[#eee] border-solid">
+              <Image
+                src={postDetail.user.avatar}
+                className="size-40 rounded-full mr-12 bg-placeholder"
+                preview="true"
+                lazyLoad
+              />
+              <View className="flex-1 flex flex-col">
+                <View className="flex items-center">
+                  <Text className="font-bold">{postDetail.user.userName}</Text>
+                  {moreBtnVisible(postDetail.user.id) && (
+                    <More
+                      className="ml-auto"
+                      onClick={() =>
+                        openPopup({ id: postDetail.id, type: POPUP_TYPE_POST })
+                      }
+                    />
+                  )}
+                </View>
+                <View>
+                  <Text className="text-gray">@{postDetail.user.fullName}</Text>
+                </View>
+                <Text>{postDetail.content}</Text>
+                <ImgList list={postDetail.imgList} />
+                <View className="mt-10 text-gray">
+                  {timeStr} ·{' '}
+                  <Text className="text-black-primary font-bold mr-4">
+                    {postDetail.viewNum}
+                  </Text>
+                  查看
+                </View>
               </View>
             </View>
+            <CommentList list={postDetail.postComments} reply={setReplyTo} />
           </View>
-          <CommentList list={postDetail.postComments} reply={setReplyTo} />
+          <SubmitBar
+            replyTo={replyTo}
+            post={postDetail}
+            updateDetail={run}
+            cleareReply={() => setReplyTo(undefined)}
+          />
         </View>
-        <SubmitBar
-          replyTo={replyTo}
-          post={postDetail}
-          updateDetail={run}
-          cleareReply={() => setReplyTo(undefined)}
-        />
-      </View>
+      </PostPopupContext.Provider>
+      {popupContext}
     </PageRoot>
   )
 }

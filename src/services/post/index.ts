@@ -68,3 +68,8 @@ export const addPostComment = (data: {
 }) => {
   return yApi.post<PostDetail>('/postComment', data)
 }
+
+/** 删除帖子评论 */
+export const deletePostComment = (commentId: number) => {
+  return yApi.delete<PostDetail>(`/postComment/${commentId}`)
+}
