@@ -53,7 +53,7 @@ export default function Index() {
   const appStore = useAppStore()
 
   const handleLogin = async () => {
-    umami.trackEvent('login', {
+    umami.track('login', {
       userName
     })
     if (!userName) {
