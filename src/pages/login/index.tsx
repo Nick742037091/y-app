@@ -53,9 +53,9 @@ export default function Index() {
   const appStore = useAppStore()
 
   const handleLogin = async () => {
-    umami.track('login', {
-      userName
-    })
+    // umami.track('login', {
+    //   userName
+    // })
     if (!userName) {
       showError('请输入账号')
       return
